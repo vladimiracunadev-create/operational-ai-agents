@@ -894,9 +894,33 @@ make check
 
 ## 📄 Licencia
 
-[MIT](LICENSE) © 2026 [Vladimir Acuña](https://github.com/vladimiracunadev-create)
+Código, contratos y documentación original bajo [MIT](LICENSE). Los runtimes, los
+modelos, los skills opcionales y cualquier servicio externo que un agente utilice
+conservan sus propias licencias, términos y costos — este repositorio no los
+redistribuye ni los presupone gratuitos.
+
+---
 
 <div align="center">
+
+**Hecho para quien quiere delegar un trabajo completo, no autocompletar una línea.**
+
+[⬆️ Empezar por el catálogo](#-catálogo) ·
+[🌐 Sitio del proyecto](https://vladimiracunadev-create.github.io/operational-ai-agents/) ·
+[🛠 Referencia de CLI](docs/CLI.md) ·
+[📜 Contrato de agente](docs/AGENT_CONTRACT.md) ·
+[🔐 Modelo de seguridad](docs/SECURITY_MODEL.md) ·
+[🗺️ Roadmap](ROADMAP.md)
+
+<br>
+
+**¿Te resulta útil? ⭐ Dale una estrella al repo.**
+
+[![GitHub stars](https://img.shields.io/github/stars/vladimiracunadev-create/operational-ai-agents?style=social)](https://github.com/vladimiracunadev-create/operational-ai-agents/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/vladimiracunadev-create/operational-ai-agents?style=social)](https://github.com/vladimiracunadev-create/operational-ai-agents/network/members)
+[![Follow](https://img.shields.io/github/followers/vladimiracunadev-create?style=social&label=Follow)](https://github.com/vladimiracunadev-create)
+
+<br>
 
 ### 🌟 Otros proyectos del autor
 
@@ -910,6 +934,6 @@ make check
 
 ---
 
-<sub>Hecho con ☕ y la manía de comprobar dos veces antes de decir que algo está hecho</sub>
+Hecho con 🧠 y ☕ por [Vladimir Acuña](https://github.com/vladimiracunadev-create)
 
 </div>
