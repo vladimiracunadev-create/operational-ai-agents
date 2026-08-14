@@ -44,6 +44,17 @@
     "accessibility",
     "release"
   ],
+  "phase_details": {
+    "audience": "Define a quién va dirigido el programa, qué sabe al entrar y con qué tiempo y herramientas cuenta.",
+    "outcomes": "Declara resultados de aprendizaje observables y evaluables. «Conocer X» no es un resultado; «construir X y explicar por qué falla» sí.",
+    "prerequisites": "Explicita el conocimiento y el entorno previos, y qué debe hacer quien no los tenga.",
+    "curriculum-map": "Ordena los resultados en una progresión donde cada unidad depende únicamente de las anteriores.",
+    "content-production": "Escribe el material real de cada unidad. Una carpeta con título y sin contenido no cuenta como producida.",
+    "assessment-design": "Define cómo se demuestra cada resultado: ejercicio, proyecto o criterio observable con su rúbrica.",
+    "technical-validation": "Ejecuta el código, los comandos y los enlaces del material. Lo que no corre, no se publica.",
+    "accessibility": "Revisa lenguaje, estructura de encabezados, contraste, alternativas textuales y navegación por teclado.",
+    "release": "Publica la versión y registra qué cambió respecto de la anterior y para quién es relevante."
+  },
   "required_inputs": [
     "domain",
     "target_audience",

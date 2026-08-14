@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `scope` | Delimita qué sistema se moderniza, qué debe seguir funcionando sin interrupción y hasta dónde llega tu autorización. |
+| 2 | `system-map` | Levanta componentes, integraciones, flujos de datos y dependencias reales del sistema actual, incluidas las que nadie documentó. |
+| 3 | `contract-baseline` | Fija el comportamiento observable de hoy como contrato mediante pruebas de caracterización, incluidos los defectos que alguien ya puede estar usando. |
+| 4 | `risk-analysis` | Determina qué puede romperse, a quién afecta, con qué probabilidad y qué señal lo detectaría a tiempo. |
+| 5 | `migration-slices` | Divide la migración en rebanadas independientes, cada una desplegable y reversible por sí sola. Una migración que solo funciona completa no es incremental. |
+| 6 | `approval` | Presenta las rebanadas y su orden, y espera una decisión humana antes de mover la primera. |
+| 7 | `implementation` | Ejecuta una rebanada a la vez, manteniendo el camino antiguo operativo hasta que el nuevo demuestre paridad. |
+| 8 | `compatibility-verification` | Comprueba paridad contra la línea base: mismos contratos, mismos datos y mismo comportamiento observable. |
+| 9 | `rollback-handoff` | Entrega el procedimiento de reversión probado, no descrito: qué comando, en cuánto tiempo y con qué pérdida de datos. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

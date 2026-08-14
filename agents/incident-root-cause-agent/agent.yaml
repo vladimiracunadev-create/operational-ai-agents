@@ -42,6 +42,17 @@
     "corrective-actions",
     "postmortem"
   ],
+  "phase_details": {
+    "safety": "Comprueba primero si el incidente sigue activo y si corresponde contener antes de investigar. La investigación nunca precede a la contención.",
+    "timeline": "Reconstruye la secuencia de hechos con marcas de tiempo y la fuente de cada una.",
+    "symptom-baseline": "Define qué se observó exactamente y en qué se diferencia del comportamiento normal medido, no recordado.",
+    "evidence-collection": "Reúne logs, métricas, trazas y cambios recientes, sanitizando secretos y datos personales al recogerlos.",
+    "hypotheses": "Formula hipótesis falsables que expliquen los síntomas. Una hipótesis que nada podría refutar no sirve.",
+    "discrimination-tests": "Diseña comprobaciones capaces de descartar hipótesis, no solo de confirmar la preferida.",
+    "root-causes": "Nombra las causas contribuyentes demostradas y separa con claridad lo demostrado de lo plausible.",
+    "corrective-actions": "Propone acciones que impidan la recurrencia, cada una con dueño y con forma de verificar que quedó aplicada.",
+    "postmortem": "Redacta el informe centrado en el sistema y sus defensas, nunca en culpar personas."
+  },
   "required_inputs": [
     "incident_summary",
     "time_window",

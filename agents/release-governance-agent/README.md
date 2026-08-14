@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `scope` | Delimita qué entra en el release, qué queda fuera y hasta dónde llega tu autorización para publicar. |
+| 2 | `change-inventory` | Enumera qué cambió desde el release anterior, con su origen, su tipo y su impacto para quien actualiza. |
+| 3 | `version-decision` | Decide la versión según el tipo de cambio y comprueba que todos los marcadores de versión actuales coincidan, conservando intactas las referencias históricas. |
+| 4 | `quality-gates` | Ejecuta pruebas, lint, validaciones y revisión de seguridad. Un gate que no se ejecuta se declara omitido, no se salta en silencio. |
+| 5 | `artifact-build` | Construye los artefactos de forma reproducible y registra sus checksums. |
+| 6 | `release-candidate` | Abre el artefacto y comprueba su contenido: instala, extrae y cuenta. Un build verde no prueba un artefacto correcto. |
+| 7 | `approval` | Presenta el go/no-go con su evidencia y espera la decisión humana. Publicar nunca es una consecuencia automática de que todo esté verde. |
+| 8 | `publish-handoff` | Publica solo tras la aprobación y deja registrado qué se publicó, dónde y con qué checksum. |
+| 9 | `post-release-checks` | Comprueba en vivo que lo publicado se descarga, instala y responde como se prometió. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

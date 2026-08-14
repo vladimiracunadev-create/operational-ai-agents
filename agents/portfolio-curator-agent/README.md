@@ -61,6 +61,17 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `scope` | Delimita qué repositorios entran en el análisis y con qué propósito se va a usar la narrativa resultante. |
+| 2 | `repository-discovery` | Enumera los repositorios del alcance con su actividad real, visibilidad, releases y última señal de vida. |
+| 3 | `classification` | Clasifica cada repositorio por su unidad principal: aprendizaje, skill, agente, caso de referencia o producto. |
+| 4 | `evidence-sampling` | Abre y comprueba una muestra real de cada repositorio. La descripción corta suele estar más desactualizada que el código. |
+| 5 | `overlap-analysis` | Detecta solapamientos y decide cuál es el hogar natural de cada capacidad duplicada. |
+| 6 | `maturity-map` | Sitúa cada repositorio en su estado honesto de madurez, con la evidencia que lo respalda. |
+| 7 | `narrative` | Redacta la narrativa profesional que conecta los repositorios sin exagerar adopción ni inventar impacto. |
+| 8 | `recommendations` | Propone acciones concretas —fusionar, archivar, renombrar, documentar— cada una con su justificación. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

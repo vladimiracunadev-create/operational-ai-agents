@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `safety` | Comprueba primero si el incidente sigue activo y si corresponde contener antes de investigar. La investigación nunca precede a la contención. |
+| 2 | `timeline` | Reconstruye la secuencia de hechos con marcas de tiempo y la fuente de cada una. |
+| 3 | `symptom-baseline` | Define qué se observó exactamente y en qué se diferencia del comportamiento normal medido, no recordado. |
+| 4 | `evidence-collection` | Reúne logs, métricas, trazas y cambios recientes, sanitizando secretos y datos personales al recogerlos. |
+| 5 | `hypotheses` | Formula hipótesis falsables que expliquen los síntomas. Una hipótesis que nada podría refutar no sirve. |
+| 6 | `discrimination-tests` | Diseña comprobaciones capaces de descartar hipótesis, no solo de confirmar la preferida. |
+| 7 | `root-causes` | Nombra las causas contribuyentes demostradas y separa con claridad lo demostrado de lo plausible. |
+| 8 | `corrective-actions` | Propone acciones que impidan la recurrencia, cada una con dueño y con forma de verificar que quedó aplicada. |
+| 9 | `postmortem` | Redacta el informe centrado en el sistema y sus defensas, nunca en culpar personas. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

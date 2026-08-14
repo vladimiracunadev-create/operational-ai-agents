@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `scope` | Delimita qué documentación se audita y contra qué fuentes de verdad se va a contrastar. |
+| 2 | `claim-extraction` | Extrae cada afirmación comprobable: cifras, versiones, comandos, rutas, enlaces y capacidades declaradas. |
+| 3 | `source-resolution` | Localiza para cada afirmación su fuente de verdad en el código, la configuración o el historial. |
+| 4 | `drift-classification` | Clasifica cada divergencia y distingue siempre el marcador de estado actual —que se sincroniza— de la referencia histórica —que se conserva—. |
+| 5 | `repair-plan` | Propone la corrección de cada divergencia indicando explícitamente qué se reescribe y qué se preserva. |
+| 6 | `approval` | Presenta el plan de reparación y espera una decisión humana antes de reescribir documentación ajena. |
+| 7 | `documentation-update` | Aplica las correcciones aprobadas sin reescribir el historial ni rellenar huecos con contexto inventado. |
+| 8 | `link-and-example-verification` | Resuelve cada enlace y ejecuta cada ejemplo. Un enlace roto es documentación falsa, no un detalle estético. |
+| 9 | `report` | Entrega qué se corrigió, qué se conservó a propósito y qué afirmaciones quedaron sin fuente verificable. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

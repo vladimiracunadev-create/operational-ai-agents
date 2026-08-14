@@ -42,6 +42,16 @@
     "narrative",
     "recommendations"
   ],
+  "phase_details": {
+    "scope": "Delimita qué repositorios entran en el análisis y con qué propósito se va a usar la narrativa resultante.",
+    "repository-discovery": "Enumera los repositorios del alcance con su actividad real, visibilidad, releases y última señal de vida.",
+    "classification": "Clasifica cada repositorio por su unidad principal: aprendizaje, skill, agente, caso de referencia o producto.",
+    "evidence-sampling": "Abre y comprueba una muestra real de cada repositorio. La descripción corta suele estar más desactualizada que el código.",
+    "overlap-analysis": "Detecta solapamientos y decide cuál es el hogar natural de cada capacidad duplicada.",
+    "maturity-map": "Sitúa cada repositorio en su estado honesto de madurez, con la evidencia que lo respalda.",
+    "narrative": "Redacta la narrativa profesional que conecta los repositorios sin exagerar adopción ni inventar impacto.",
+    "recommendations": "Propone acciones concretas —fusionar, archivar, renombrar, documentar— cada una con su justificación."
+  },
   "required_inputs": [
     "owner_or_repository_list",
     "audience",

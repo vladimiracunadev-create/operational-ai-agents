@@ -65,6 +65,19 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `scope` | Delimita qué se audita, con qué fuentes de vulnerabilidades y hasta dónde llega tu autorización para modificar dependencias. |
+| 2 | `asset-and-trust-map` | Identifica qué se protege, qué frontera de confianza cruza cada componente y quién puede alcanzarlo. |
+| 3 | `finding-validation` | Comprueba cada hallazgo contra el código real. Ausencia de hallazgos no es ausencia de vulnerabilidades: declara qué quedó fuera del escaneo. |
+| 4 | `exploitability` | Determina si el hallazgo es alcanzable en este contexto concreto, no solo si la versión coincide con el aviso. |
+| 5 | `prioritization` | Ordena por riesgo real —alcance, explotabilidad e impacto—, no por la severidad nominal del boletín. |
+| 6 | `remediation-plan` | Propone para cada hallazgo la corrección mínima compatible y cómo se verificará que quedó cerrado. |
+| 7 | `approval` | Presenta el plan y espera decisión humana antes de tocar dependencias, credenciales o configuración de producción. |
+| 8 | `fix` | Aplica las correcciones aprobadas evitando actualizaciones ciegas que rompan compatibilidad. |
+| 9 | `verification` | Comprueba que el hallazgo ya no reproduce y que ninguna otra cosa se rompió al corregirlo. |
+| 10 | `residual-risk` | Declara explícitamente qué queda sin remediar, por qué, y qué control compensatorio lo cubre mientras tanto. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

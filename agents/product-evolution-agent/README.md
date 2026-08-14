@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `product-intent` | Recoge qué problema resuelve el producto y para quién, separando la intención declarada de la evidencia de uso. |
+| 2 | `implemented-state` | Determina qué funciona de verdad hoy ejecutándolo, no leyendo el roadmap ni el README. |
+| 3 | `user-journeys` | Recorre de punta a punta los caminos reales del usuario y anota exactamente dónde se rompen. |
+| 4 | `gap-map` | Sitúa cada brecha entre lo prometido y lo implementado, con su impacto concreto en el usuario. |
+| 5 | `prioritization` | Ordena por valor, riesgo y costo, y deja explícito lo que no se hará en este incremento. |
+| 6 | `approval` | Presenta el incremento propuesto y sus renuncias, y espera una decisión humana. |
+| 7 | `increment` | Construye el siguiente incremento completo de punta a punta. Ancho e incompleto es peor que estrecho y terminado. |
+| 8 | `acceptance` | Comprueba el incremento contra criterios de aceptación definidos antes de construirlo, no después. |
+| 9 | `roadmap-update` | Reconcilia roadmap, documentación y código para que los tres cuenten la misma historia. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

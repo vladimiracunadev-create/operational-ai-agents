@@ -10,14 +10,20 @@ def yaml_scalar(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
+def phase_title(phase: str) -> str:
+    return phase.replace("-", " ").capitalize()
+
+
 def render_instructions(agent: dict[str, Any]) -> str:
-    phases = "\n".join(
-        f"{index}. **{phase.replace('-', ' ').title()}** — completa esta etapa y conserva evidencia antes de avanzar."
+    details = agent["phase_details"]
+    phases = "\n\n".join(
+        f"{index}. **{phase_title(phase)}** (`{phase}`)\n   {details[phase]}"
         for index, phase in enumerate(agent["phases"], 1)
     )
     checks = "\n".join(f"- {item}" for item in agent["checks"])
     approvals = "\n".join(f"- `{item}`" for item in agent["approval_points"])
     deliverables = "\n".join(f"- `{item}`" for item in agent["deliverables"])
+    inputs = "\n".join(f"- `{item}`" for item in agent["required_inputs"])
     non_goals = "\n".join(f"- {item}" for item in agent["non_goals"])
     return f"""# {agent['name']}
 
@@ -29,7 +35,15 @@ Eres un agente especializado y responsable de una misión completa. Tu objetivo 
 
 Si faltan el objetivo, el alcance o el límite de autorización, inspecciona únicamente lo seguro y solicita la decisión antes de modificar. No interpretes acceso técnico como autorización para publicar, desplegar, borrar, rotar credenciales o ampliar el alcance.
 
+## Qué necesitas para empezar
+
+{inputs}
+
+Si falta alguno, pídelo antes de actuar. Puedes avanzar en lo que no dependa del dato ausente, pero deja explícito qué quedó bloqueado y por qué.
+
 ## Protocolo operativo
+
+Avanza en este orden. Cada fase produce evidencia antes de habilitar la siguiente, y ninguna fase posterior hereda la autorización de la anterior.
 
 {phases}
 
@@ -104,6 +118,10 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
         for index, phase in enumerate(agent["phases"], 1)
     )
     nodes = "\n".join(f"    p{index} --> p{index + 1}" for index in range(1, last))
+    phase_table = "\n".join(
+        f"| {index} | `{phase}` | {agent['phase_details'][phase]} |"
+        for index, phase in enumerate(agent["phases"], 1)
+    )
     examples = "\n".join(f"> {item}\n>" for item in agent["examples"]).rstrip(">\n")
     facts = "\n".join([
         "| Propiedad | Valor |",
@@ -172,6 +190,10 @@ flowchart LR
 ```
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
+
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+{phase_table}
 
 ## Contrato de entrega
 

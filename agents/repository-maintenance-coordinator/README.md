@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `mission` | Recoge la misión transversal completa y su límite de autorización antes de repartir trabajo a nadie. |
+| 2 | `dependency-map` | Ordena qué debe ocurrir antes de qué y qué puede avanzar en paralelo sin colisionar. |
+| 3 | `specialist-selection` | Elige el mínimo de especialistas necesarios y justifica cada delegación. Delegar de más diluye la responsabilidad. |
+| 4 | `delegation` | Entrega a cada especialista un encargo acotado, con su contexto, su límite y el criterio de terminado. |
+| 5 | `evidence-reconciliation` | Reúne la evidencia de cada especialista y resuelve explícitamente las contradicciones entre ellas. |
+| 6 | `decision-gates` | Identifica qué decisiones no puede tomar ningún especialista y las eleva sin resolverlas por su cuenta. |
+| 7 | `integration-plan` | Une los resultados en una entrega única y coherente, sin diluir de quién fue cada verificación. |
+| 8 | `human-approval` | Presenta al usuario las decisiones reservadas con opciones concretas y sus consecuencias. |
+| 9 | `final-handoff` | Entrega una visión unificada: qué hizo cada especialista, qué se verificó, con qué comando y qué queda pendiente. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

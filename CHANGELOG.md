@@ -2,14 +2,55 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [versionado semántico](https://semver.org/lang/es/).
 
+## [0.2.0] - 2026-08-13
+
+Dos agentes nuevos, fases que por fin explican qué hacen, y una revisión completa
+de la documentación. Los doce agentes siguen declarando `IMPLEMENTED`.
+
+### Añadido
+
+- **`curriculum-evolution-agent`** — mantiene un programa formativo al día con su
+  campo: investiga novedades, verifica cada fuente con una petición real, distingue
+  brecha de contenido de simple cambio de terminología, y acepta «sin cambios
+  sustantivos» como resultado legítimo.
+- **`portfolio-publication-agent`** — reconcilia una superficie publicada —sitio,
+  API, documentos generados y perfiles— con el estado real de los repositorios que
+  la alimentan, integrando en vez de sobrescribir y publicando solo tras aprobación.
+- **`phase_details`**: cada fase de cada agente declara qué ocurre exactamente en
+  ella. El validador rechaza una fase sin explicar y una explicación sin fase.
+- `docs/README.md` como índice de la documentación.
+- Cuatro pruebas nuevas: anclas de Markdown, coherencia de los conteos de agentes
+  escritos en la documentación, explicación de todas las fases y ausencia de datos
+  personales en el catálogo público.
+
+### Corregido
+
+- **Dos anclas rotas en el README** (`#-cli` y `#-arquitectura`). Los emoji 🛠️ y 🏛️
+  incluyen un variation selector U+FE0F que GitHub **conserva** al generar el ancla,
+  de modo que el enlace apuntaba a un destino inexistente. Ahora una prueba valida
+  todas las anclas de todos los Markdown con el mismo algoritmo de slug de GitHub.
+- Instrucciones de agente que no decían nada: las 111 fases repetían la misma frase
+  de relleno. Cada una tiene ahora su descripción propia, en `instructions.md` y en
+  una tabla de la ficha.
+- Conteos obsoletos de agentes en la documentación tras crecer el catálogo.
+
+### Cambiado
+
+- README rediseñado con el lenguaje visual del toolkit de skills, pero con las
+  columnas propias de un agente: cuándo delegarle y dónde se detiene, en vez de
+  triggers y dependencias.
+- Reescritura completa de la documentación: cada documento abre con su propósito,
+  lleva navegación y explicita sus límites conocidos.
+- `schema_version` del catálogo a `1.1` por el campo `phase_details`.
+
 ## [0.1.0] - 2026-08-13
 
-Primera publicación. Los diez agentes se declaran `IMPLEMENTED`: el contrato y el
+Primera publicación. Los doce agentes se declaran `IMPLEMENTED`: el contrato y el
 paquete están validados localmente, sin afirmar adopción productiva.
 
 ### Catálogo y contratos
 
-- Catálogo inicial de diez agentes operativos transversales.
+- Catálogo inicial de doce agentes operativos transversales.
 - `catalog/agents.yaml` como fuente única de verdad, con contrato canónico,
   políticas, schemas de entrada/salida y evaluaciones por agente.
 - Cuatro vistas generadas por agente —`agent.yaml`, `instructions.md`,

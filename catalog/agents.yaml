@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0",
-  "repository_version": "0.1.0",
+  "schema_version": "1.1",
+  "repository_version": "0.2.0",
   "source_of_truth": "catalog/agents.yaml",
   "maturity_model": {
     "DRAFT": "Definición incompleta; no debe instalarse.",
@@ -55,6 +55,17 @@
         "verification",
         "handoff"
       ],
+      "phase_details": {
+        "scope": "Delimita qué repositorio, qué resultado se espera y hasta dónde llega tu autorización. Si falta cualquiera de los tres, pregunta antes de tocar nada.",
+        "inventory": "Recorre código, documentación, CI, pruebas, releases y artefactos generados. Levanta el mapa de lo que existe, no de lo que debería existir.",
+        "truth-map": "Contrasta cada afirmación relevante de la documentación con su fuente verificable y clasifícala: implementado, parcial, simulado, planificado u obsoleto.",
+        "gap-analysis": "Nombra cada brecha entre el estado real y el objetivo, con la evidencia que la demuestra, su riesgo y su costo de reversión.",
+        "plan": "Ordena las brechas en cambios acotados por valor, riesgo y dependencia. Cada paso debe poder verificarse por separado.",
+        "approval": "Presenta el plan y espera una decisión humana explícita. Ni el silencio ni el acceso técnico son autorización.",
+        "implementation": "Aplica solo lo aprobado, un cambio a la vez, manteniendo verde lo que ya funcionaba.",
+        "verification": "Ejecuta las pruebas existentes y las nuevas, y comprueba el resultado dentro del artefacto, no en el log del build.",
+        "handoff": "Entrega qué cambió, con qué comando se verificó, qué quedó fuera del alcance y qué riesgo permanece abierto."
+      },
       "required_inputs": [
         "repository_path_or_url",
         "desired_outcome",
@@ -136,6 +147,17 @@
         "compatibility-verification",
         "rollback-handoff"
       ],
+      "phase_details": {
+        "scope": "Delimita qué sistema se moderniza, qué debe seguir funcionando sin interrupción y hasta dónde llega tu autorización.",
+        "system-map": "Levanta componentes, integraciones, flujos de datos y dependencias reales del sistema actual, incluidas las que nadie documentó.",
+        "contract-baseline": "Fija el comportamiento observable de hoy como contrato mediante pruebas de caracterización, incluidos los defectos que alguien ya puede estar usando.",
+        "risk-analysis": "Determina qué puede romperse, a quién afecta, con qué probabilidad y qué señal lo detectaría a tiempo.",
+        "migration-slices": "Divide la migración en rebanadas independientes, cada una desplegable y reversible por sí sola. Una migración que solo funciona completa no es incremental.",
+        "approval": "Presenta las rebanadas y su orden, y espera una decisión humana antes de mover la primera.",
+        "implementation": "Ejecuta una rebanada a la vez, manteniendo el camino antiguo operativo hasta que el nuevo demuestre paridad.",
+        "compatibility-verification": "Comprueba paridad contra la línea base: mismos contratos, mismos datos y mismo comportamiento observable.",
+        "rollback-handoff": "Entrega el procedimiento de reversión probado, no descrito: qué comando, en cuánto tiempo y con qué pérdida de datos."
+      },
       "required_inputs": [
         "system_path",
         "target_state",
@@ -218,6 +240,17 @@
         "accessibility",
         "release"
       ],
+      "phase_details": {
+        "audience": "Define a quién va dirigido el programa, qué sabe al entrar y con qué tiempo y herramientas cuenta.",
+        "outcomes": "Declara resultados de aprendizaje observables y evaluables. «Conocer X» no es un resultado; «construir X y explicar por qué falla» sí.",
+        "prerequisites": "Explicita el conocimiento y el entorno previos, y qué debe hacer quien no los tenga.",
+        "curriculum-map": "Ordena los resultados en una progresión donde cada unidad depende únicamente de las anteriores.",
+        "content-production": "Escribe el material real de cada unidad. Una carpeta con título y sin contenido no cuenta como producida.",
+        "assessment-design": "Define cómo se demuestra cada resultado: ejercicio, proyecto o criterio observable con su rúbrica.",
+        "technical-validation": "Ejecuta el código, los comandos y los enlaces del material. Lo que no corre, no se publica.",
+        "accessibility": "Revisa lenguaje, estructura de encabezados, contraste, alternativas textuales y navegación por teclado.",
+        "release": "Publica la versión y registra qué cambió respecto de la anterior y para quién es relevante."
+      },
       "required_inputs": [
         "domain",
         "target_audience",
@@ -301,6 +334,17 @@
         "acceptance",
         "roadmap-update"
       ],
+      "phase_details": {
+        "product-intent": "Recoge qué problema resuelve el producto y para quién, separando la intención declarada de la evidencia de uso.",
+        "implemented-state": "Determina qué funciona de verdad hoy ejecutándolo, no leyendo el roadmap ni el README.",
+        "user-journeys": "Recorre de punta a punta los caminos reales del usuario y anota exactamente dónde se rompen.",
+        "gap-map": "Sitúa cada brecha entre lo prometido y lo implementado, con su impacto concreto en el usuario.",
+        "prioritization": "Ordena por valor, riesgo y costo, y deja explícito lo que no se hará en este incremento.",
+        "approval": "Presenta el incremento propuesto y sus renuncias, y espera una decisión humana.",
+        "increment": "Construye el siguiente incremento completo de punta a punta. Ancho e incompleto es peor que estrecho y terminado.",
+        "acceptance": "Comprueba el incremento contra criterios de aceptación definidos antes de construirlo, no después.",
+        "roadmap-update": "Reconcilia roadmap, documentación y código para que los tres cuenten la misma historia."
+      },
       "required_inputs": [
         "product_path",
         "target_users",
@@ -381,6 +425,16 @@
         "narrative",
         "recommendations"
       ],
+      "phase_details": {
+        "scope": "Delimita qué repositorios entran en el análisis y con qué propósito se va a usar la narrativa resultante.",
+        "repository-discovery": "Enumera los repositorios del alcance con su actividad real, visibilidad, releases y última señal de vida.",
+        "classification": "Clasifica cada repositorio por su unidad principal: aprendizaje, skill, agente, caso de referencia o producto.",
+        "evidence-sampling": "Abre y comprueba una muestra real de cada repositorio. La descripción corta suele estar más desactualizada que el código.",
+        "overlap-analysis": "Detecta solapamientos y decide cuál es el hogar natural de cada capacidad duplicada.",
+        "maturity-map": "Sitúa cada repositorio en su estado honesto de madurez, con la evidencia que lo respalda.",
+        "narrative": "Redacta la narrativa profesional que conecta los repositorios sin exagerar adopción ni inventar impacto.",
+        "recommendations": "Propone acciones concretas —fusionar, archivar, renombrar, documentar— cada una con su justificación."
+      },
       "required_inputs": [
         "owner_or_repository_list",
         "audience",
@@ -461,6 +515,17 @@
         "publish-handoff",
         "post-release-checks"
       ],
+      "phase_details": {
+        "scope": "Delimita qué entra en el release, qué queda fuera y hasta dónde llega tu autorización para publicar.",
+        "change-inventory": "Enumera qué cambió desde el release anterior, con su origen, su tipo y su impacto para quien actualiza.",
+        "version-decision": "Decide la versión según el tipo de cambio y comprueba que todos los marcadores de versión actuales coincidan, conservando intactas las referencias históricas.",
+        "quality-gates": "Ejecuta pruebas, lint, validaciones y revisión de seguridad. Un gate que no se ejecuta se declara omitido, no se salta en silencio.",
+        "artifact-build": "Construye los artefactos de forma reproducible y registra sus checksums.",
+        "release-candidate": "Abre el artefacto y comprueba su contenido: instala, extrae y cuenta. Un build verde no prueba un artefacto correcto.",
+        "approval": "Presenta el go/no-go con su evidencia y espera la decisión humana. Publicar nunca es una consecuencia automática de que todo esté verde.",
+        "publish-handoff": "Publica solo tras la aprobación y deja registrado qué se publicó, dónde y con qué checksum.",
+        "post-release-checks": "Comprueba en vivo que lo publicado se descarga, instala y responde como se prometió."
+      },
       "required_inputs": [
         "repository_path",
         "release_intent",
@@ -541,6 +606,17 @@
         "link-and-example-verification",
         "report"
       ],
+      "phase_details": {
+        "scope": "Delimita qué documentación se audita y contra qué fuentes de verdad se va a contrastar.",
+        "claim-extraction": "Extrae cada afirmación comprobable: cifras, versiones, comandos, rutas, enlaces y capacidades declaradas.",
+        "source-resolution": "Localiza para cada afirmación su fuente de verdad en el código, la configuración o el historial.",
+        "drift-classification": "Clasifica cada divergencia y distingue siempre el marcador de estado actual —que se sincroniza— de la referencia histórica —que se conserva—.",
+        "repair-plan": "Propone la corrección de cada divergencia indicando explícitamente qué se reescribe y qué se preserva.",
+        "approval": "Presenta el plan de reparación y espera una decisión humana antes de reescribir documentación ajena.",
+        "documentation-update": "Aplica las correcciones aprobadas sin reescribir el historial ni rellenar huecos con contexto inventado.",
+        "link-and-example-verification": "Resuelve cada enlace y ejecuta cada ejemplo. Un enlace roto es documentación falsa, no un detalle estético.",
+        "report": "Entrega qué se corrigió, qué se conservó a propósito y qué afirmaciones quedaron sin fuente verificable."
+      },
       "required_inputs": [
         "repository_path",
         "documentation_scope",
@@ -619,6 +695,17 @@
         "corrective-actions",
         "postmortem"
       ],
+      "phase_details": {
+        "safety": "Comprueba primero si el incidente sigue activo y si corresponde contener antes de investigar. La investigación nunca precede a la contención.",
+        "timeline": "Reconstruye la secuencia de hechos con marcas de tiempo y la fuente de cada una.",
+        "symptom-baseline": "Define qué se observó exactamente y en qué se diferencia del comportamiento normal medido, no recordado.",
+        "evidence-collection": "Reúne logs, métricas, trazas y cambios recientes, sanitizando secretos y datos personales al recogerlos.",
+        "hypotheses": "Formula hipótesis falsables que expliquen los síntomas. Una hipótesis que nada podría refutar no sirve.",
+        "discrimination-tests": "Diseña comprobaciones capaces de descartar hipótesis, no solo de confirmar la preferida.",
+        "root-causes": "Nombra las causas contribuyentes demostradas y separa con claridad lo demostrado de lo plausible.",
+        "corrective-actions": "Propone acciones que impidan la recurrencia, cada una con dueño y con forma de verificar que quedó aplicada.",
+        "postmortem": "Redacta el informe centrado en el sistema y sus defensas, nunca en culpar personas."
+      },
       "required_inputs": [
         "incident_summary",
         "time_window",
@@ -701,6 +788,18 @@
         "verification",
         "residual-risk"
       ],
+      "phase_details": {
+        "scope": "Delimita qué se audita, con qué fuentes de vulnerabilidades y hasta dónde llega tu autorización para modificar dependencias.",
+        "asset-and-trust-map": "Identifica qué se protege, qué frontera de confianza cruza cada componente y quién puede alcanzarlo.",
+        "finding-validation": "Comprueba cada hallazgo contra el código real. Ausencia de hallazgos no es ausencia de vulnerabilidades: declara qué quedó fuera del escaneo.",
+        "exploitability": "Determina si el hallazgo es alcanzable en este contexto concreto, no solo si la versión coincide con el aviso.",
+        "prioritization": "Ordena por riesgo real —alcance, explotabilidad e impacto—, no por la severidad nominal del boletín.",
+        "remediation-plan": "Propone para cada hallazgo la corrección mínima compatible y cómo se verificará que quedó cerrado.",
+        "approval": "Presenta el plan y espera decisión humana antes de tocar dependencias, credenciales o configuración de producción.",
+        "fix": "Aplica las correcciones aprobadas evitando actualizaciones ciegas que rompan compatibilidad.",
+        "verification": "Comprueba que el hallazgo ya no reproduce y que ninguna otra cosa se rompió al corregirlo.",
+        "residual-risk": "Declara explícitamente qué queda sin remediar, por qué, y qué control compensatorio lo cubre mientras tanto."
+      },
       "required_inputs": [
         "repository_path",
         "findings_or_security_goal",
@@ -780,6 +879,17 @@
         "human-approval",
         "final-handoff"
       ],
+      "phase_details": {
+        "mission": "Recoge la misión transversal completa y su límite de autorización antes de repartir trabajo a nadie.",
+        "dependency-map": "Ordena qué debe ocurrir antes de qué y qué puede avanzar en paralelo sin colisionar.",
+        "specialist-selection": "Elige el mínimo de especialistas necesarios y justifica cada delegación. Delegar de más diluye la responsabilidad.",
+        "delegation": "Entrega a cada especialista un encargo acotado, con su contexto, su límite y el criterio de terminado.",
+        "evidence-reconciliation": "Reúne la evidencia de cada especialista y resuelve explícitamente las contradicciones entre ellas.",
+        "decision-gates": "Identifica qué decisiones no puede tomar ningún especialista y las eleva sin resolverlas por su cuenta.",
+        "integration-plan": "Une los resultados en una entrega única y coherente, sin diluir de quién fue cada verificación.",
+        "human-approval": "Presenta al usuario las decisiones reservadas con opciones concretas y sus consecuencias.",
+        "final-handoff": "Entrega una visión unificada: qué hizo cada especialista, qué se verificó, con qué comando y qué queda pendiente."
+      },
       "required_inputs": [
         "repository_path",
         "maintenance_mission",
@@ -815,6 +925,208 @@
       "examples": [
         "Coordina una revisión integral del repositorio y prepara el próximo release.",
         "Divide esta modernización entre especialistas y consolida un plan verificable."
+      ]
+    },
+    {
+      "id": "curriculum-evolution-agent",
+      "name": "Curriculum Evolution Agent",
+      "icon": "📡",
+      "version": "0.1.0",
+      "status": "IMPLEMENTED",
+      "category": "education-engineering",
+      "risk": "medium",
+      "description": "Mantiene un programa formativo al día con su campo: investiga novedades, verifica fuentes, distingue brecha real de cambio de terminología y republica el material con sus artefactos regenerados.",
+      "delegate_when": "Úsalo cuando un curso o programa formativo ya existe y hay que incorporar novedades de su campo sin reescribirlo entero ni publicar contenido sin verificar.",
+      "mission": "Incorporar a un programa formativo existente solo las novedades que superen el umbral de relevancia curricular, con fuentes verificadas y artefactos regenerados y comprobados.",
+      "tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash",
+        "Edit",
+        "Write",
+        "Skill",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "disallowed_tools": [],
+      "skill_dependencies": [
+        "repo-coherence-audit",
+        "md-lint-fix",
+        "yaml-control",
+        "pre-push-guard"
+      ],
+      "permission_mode": "default",
+      "memory": "project",
+      "effort": "high",
+      "max_turns": 30,
+      "isolation": "worktree",
+      "color": "cyan",
+      "phases": [
+        "scope",
+        "curriculum-inventory",
+        "field-research",
+        "source-verification",
+        "coverage-contrast",
+        "gap-classification",
+        "approval",
+        "content-update",
+        "artifact-regeneration",
+        "verification",
+        "publication-handoff"
+      ],
+      "phase_details": {
+        "scope": "Delimita qué repositorio de curso se actualiza, de qué campo hay que incorporar novedades y hasta dónde llega tu autorización para publicar.",
+        "curriculum-inventory": "Reconoce la estructura real del repositorio: dónde vive el contenido, qué generadores existen, qué valida la CI y qué contrato exige una unidad. Los validadores del propio repo definen ese contrato mejor que su documentación.",
+        "field-research": "Investiga las novedades del campo desde la última actualización de contenido con varias búsquedas de ángulos distintos. Una sola consulta no es una revisión del estado del arte.",
+        "source-verification": "Comprueba cada fuente con una petición real antes de citarla y descarta la que no resuelva. Nunca cites de memoria.",
+        "coverage-contrast": "Busca cada novedad en el temario existente usando también sinónimos, y clasifícala: ya cubierta, parche de terminología o brecha real de contenido.",
+        "gap-classification": "Ordena las brechas reales por relevancia curricular y decide cuáles superan el umbral para entrar. Si ninguna lo supera, el resultado legítimo es «sin cambios sustantivos», con las fuentes revisadas.",
+        "approval": "Presenta las brechas, las fuentes y el cambio propuesto, y espera decisión humana antes de reescribir contenido educativo.",
+        "content-update": "Edita las unidades respetando la estructura y el contrato que exige la CI, y actualiza el glosario si existe.",
+        "artifact-regeneration": "Ejecuta los generadores del repositorio y comprueba el contenido dentro de los artefactos producidos, extrayendo el texto en vez de leer el log del generador.",
+        "verification": "Corre los validadores en modo estricto, las pruebas y la resolución de enlaces internos, y confirma que las páginas publicadas responden.",
+        "publication-handoff": "Entrega qué se incorporó, con qué fuente verificada, qué se regeneró y qué quedó deliberadamente fuera."
+      },
+      "required_inputs": [
+        "curriculum_repository_path",
+        "field_or_domain",
+        "change_authorization"
+      ],
+      "deliverables": [
+        "curriculum_inventory",
+        "verified_sources",
+        "coverage_report",
+        "curriculum_updates",
+        "regenerated_artifacts",
+        "residual_gaps"
+      ],
+      "approval_points": [
+        "scope_expansion",
+        "curriculum_restructure",
+        "version_or_release_change",
+        "external_publish"
+      ],
+      "checks": [
+        "Descubrir la estructura real del repositorio leyendo sus validadores y generadores antes de editar una sola unidad.",
+        "Investigar el campo con varias consultas de ángulos distintos y acotar el periodo desde la última actualización de contenido.",
+        "Verificar cada fuente con una petición real antes de citarla; descartar la que no resuelva.",
+        "Buscar cada novedad en el temario con sinónimos antes de declararla una brecha.",
+        "Distinguir parche de terminología, brecha real de contenido y tema ya cubierto.",
+        "Conservar intacto el registro histórico y sincronizar únicamente los marcadores de estado actual.",
+        "Comprobar el contenido dentro de los artefactos regenerados, no en la salida del generador.",
+        "Aceptar «sin cambios sustantivos» como resultado válido cuando ninguna novedad supere el umbral."
+      ],
+      "non_goals": [
+        "Rediseñar el programa desde cero",
+        "Incorporar novedades sin fuente verificada",
+        "Reescribir el historial de versiones",
+        "Publicar o etiquetar una versión sin aprobación"
+      ],
+      "examples": [
+        "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
+        "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
+        "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes."
+      ]
+    },
+    {
+      "id": "portfolio-publication-agent",
+      "name": "Portfolio Publication Agent",
+      "icon": "🌐",
+      "version": "0.1.0",
+      "status": "IMPLEMENTED",
+      "category": "portfolio-governance",
+      "risk": "high",
+      "description": "Reconcilia una superficie publicada —sitio, API, documentos generados y perfiles— con el estado real de los repositorios que la alimentan, sin destruir contenido curado a mano.",
+      "delegate_when": "Úsalo cuando lo publicado sobre un conjunto de repositorios dejó de coincidir con su estado real y hay que sincronizarlo sin romper lo que se editó a mano.",
+      "mission": "Hacer que todas las superficies publicadas afirmen lo mismo que demuestran los repositorios de origen, integrando en vez de sobrescribir y publicando solo tras aprobación humana.",
+      "tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash",
+        "Edit",
+        "Write",
+        "Skill",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "disallowed_tools": [],
+      "skill_dependencies": [
+        "repo-coherence-audit",
+        "md-lint-fix",
+        "pre-push-guard",
+        "web-snap"
+      ],
+      "permission_mode": "default",
+      "memory": "project",
+      "effort": "high",
+      "max_turns": 32,
+      "isolation": "worktree",
+      "color": "orange",
+      "phases": [
+        "scope",
+        "surface-inventory",
+        "source-of-truth-collection",
+        "drift-detection",
+        "dry-run",
+        "approval",
+        "apply",
+        "cross-surface-verification",
+        "publication",
+        "post-publication-checks"
+      ],
+      "phase_details": {
+        "scope": "Delimita qué superficie publicada se sincroniza, qué repositorios la alimentan y hasta dónde llega tu autorización para publicar.",
+        "surface-inventory": "Enumera cada superficie que afirma algo: sitio, API, documentos generados, perfiles y descripciones. Cada una es un lugar donde el proyecto puede mentir por separado.",
+        "source-of-truth-collection": "Recoge el estado real desde los repositorios de origen —releases, versiones, contenido medido— y no desde lo que otra superficie afirma.",
+        "drift-detection": "Compara cada afirmación publicada contra la fuente y clasifica la divergencia. La descripción corta de un repositorio puede estar más desactualizada que el sitio: verifica contra el release antes de «corregir» hacia atrás.",
+        "dry-run": "Ejecuta la sincronización en modo solo lectura y presenta el reporte de brechas completo antes de modificar nada.",
+        "approval": "Presenta el reporte y espera una confirmación humana explícita. Este flujo publica: ninguna aprobación anterior lo cubre.",
+        "apply": "Aplica los cambios aprobados sin publicar todavía, respaldando todo artefacto binario antes de sobrescribirlo y sin tocar jamás los repositorios de origen.",
+        "cross-surface-verification": "Comprueba que todas las superficies quedaron coherentes entre sí, midiendo la dimensión que pudo romperse y no solo la que querías mejorar. Un número que mejora no prueba que algo esté bien.",
+        "publication": "Publica solo tras la aprobación y registra qué superficie cambió y con qué contenido.",
+        "post-publication-checks": "Comprueba en vivo que lo publicado responde y sirve el contenido nuevo, no una versión cacheada."
+      },
+      "required_inputs": [
+        "published_surface_path",
+        "source_repositories",
+        "publication_authorization"
+      ],
+      "deliverables": [
+        "surface_inventory",
+        "drift_report",
+        "dry_run_output",
+        "applied_changes",
+        "cross_surface_verification",
+        "residual_manual_work"
+      ],
+      "approval_points": [
+        "scope_expansion",
+        "destructive_change",
+        "external_publish",
+        "profile_or_description_edit"
+      ],
+      "checks": [
+        "Inventariar todas las superficies que afirman algo antes de corregir cualquiera de ellas.",
+        "Tomar el estado real de los repositorios de origen y nunca de otra superficie publicada.",
+        "Ejecutar siempre un paso solo lectura y presentar el reporte de brechas antes de modificar nada.",
+        "Respaldar todo artefacto binario antes de sobrescribirlo y no reutilizar jamás un respaldo previo.",
+        "Tratar los repositorios de origen como solo lectura.",
+        "Integrar en el esquema existente en vez de anexar secciones sueltas ni destruir contenido curado.",
+        "Verificar la dimensión que pudo romperse y no solo la que se quería mejorar.",
+        "Declarar explícitamente el trabajo manual que la sincronización automática deja pendiente."
+      ],
+      "non_goals": [
+        "Modificar los repositorios de origen",
+        "Sustituir contenido curado a mano por texto generado",
+        "Publicar sin confirmación humana explícita",
+        "Afirmar cifras que no se hayan contado"
+      ],
+      "examples": [
+        "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
+        "Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección.",
+        "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable."
       ]
     }
   ]

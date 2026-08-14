@@ -63,6 +63,18 @@ flowchart LR
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
+| # | Fase | Qué ocurre en ella |
+|:-:|---|---|
+| 1 | `audience` | Define a quién va dirigido el programa, qué sabe al entrar y con qué tiempo y herramientas cuenta. |
+| 2 | `outcomes` | Declara resultados de aprendizaje observables y evaluables. «Conocer X» no es un resultado; «construir X y explicar por qué falla» sí. |
+| 3 | `prerequisites` | Explicita el conocimiento y el entorno previos, y qué debe hacer quien no los tenga. |
+| 4 | `curriculum-map` | Ordena los resultados en una progresión donde cada unidad depende únicamente de las anteriores. |
+| 5 | `content-production` | Escribe el material real de cada unidad. Una carpeta con título y sin contenido no cuenta como producida. |
+| 6 | `assessment-design` | Define cómo se demuestra cada resultado: ejercicio, proyecto o criterio observable con su rúbrica. |
+| 7 | `technical-validation` | Ejecuta el código, los comandos y los enlaces del material. Lo que no corre, no se publica. |
+| 8 | `accessibility` | Revisa lenguaje, estructura de encabezados, contraste, alternativas textuales y navegación por teclado. |
+| 9 | `release` | Publica la versión y registra qué cambió respecto de la anterior y para quién es relevante. |
+
 ## Contrato de entrega
 
 **Entradas requeridas**

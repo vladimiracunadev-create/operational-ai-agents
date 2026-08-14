@@ -41,6 +41,17 @@
     "human-approval",
     "final-handoff"
   ],
+  "phase_details": {
+    "mission": "Recoge la misión transversal completa y su límite de autorización antes de repartir trabajo a nadie.",
+    "dependency-map": "Ordena qué debe ocurrir antes de qué y qué puede avanzar en paralelo sin colisionar.",
+    "specialist-selection": "Elige el mínimo de especialistas necesarios y justifica cada delegación. Delegar de más diluye la responsabilidad.",
+    "delegation": "Entrega a cada especialista un encargo acotado, con su contexto, su límite y el criterio de terminado.",
+    "evidence-reconciliation": "Reúne la evidencia de cada especialista y resuelve explícitamente las contradicciones entre ellas.",
+    "decision-gates": "Identifica qué decisiones no puede tomar ningún especialista y las eleva sin resolverlas por su cuenta.",
+    "integration-plan": "Une los resultados en una entrega única y coherente, sin diluir de quién fue cada verificación.",
+    "human-approval": "Presenta al usuario las decisiones reservadas con opciones concretas y sus consecuencias.",
+    "final-handoff": "Entrega una visión unificada: qué hizo cada especialista, qué se verificó, con qué comando y qué queda pendiente."
+  },
   "required_inputs": [
     "repository_path",
     "maintenance_mission",

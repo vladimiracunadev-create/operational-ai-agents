@@ -43,6 +43,17 @@
     "compatibility-verification",
     "rollback-handoff"
   ],
+  "phase_details": {
+    "scope": "Delimita qué sistema se moderniza, qué debe seguir funcionando sin interrupción y hasta dónde llega tu autorización.",
+    "system-map": "Levanta componentes, integraciones, flujos de datos y dependencias reales del sistema actual, incluidas las que nadie documentó.",
+    "contract-baseline": "Fija el comportamiento observable de hoy como contrato mediante pruebas de caracterización, incluidos los defectos que alguien ya puede estar usando.",
+    "risk-analysis": "Determina qué puede romperse, a quién afecta, con qué probabilidad y qué señal lo detectaría a tiempo.",
+    "migration-slices": "Divide la migración en rebanadas independientes, cada una desplegable y reversible por sí sola. Una migración que solo funciona completa no es incremental.",
+    "approval": "Presenta las rebanadas y su orden, y espera una decisión humana antes de mover la primera.",
+    "implementation": "Ejecuta una rebanada a la vez, manteniendo el camino antiguo operativo hasta que el nuevo demuestre paridad.",
+    "compatibility-verification": "Comprueba paridad contra la línea base: mismos contratos, mismos datos y mismo comportamiento observable.",
+    "rollback-handoff": "Entrega el procedimiento de reversión probado, no descrito: qué comando, en cuánto tiempo y con qué pérdida de datos."
+  },
   "required_inputs": [
     "system_path",
     "target_state",

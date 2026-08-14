@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "portfolio-publication-agent",
+  "risk": "high",
+  "permission_mode": "default",
+  "read_first": true,
+  "write_allowed": true,
+  "publish_allowed_without_human": false,
+  "destructive_allowed_without_human": false,
+  "approval_points": [
+    "scope_expansion",
+    "destructive_change",
+    "external_publish",
+    "profile_or_description_edit"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

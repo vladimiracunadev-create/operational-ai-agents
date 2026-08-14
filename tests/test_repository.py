@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import unicodedata
 import unittest
 from pathlib import Path
 
@@ -47,14 +48,58 @@ def outside_code_fences(text: str):
             yield number, line
 
 
+def heading_text(line: str) -> str:
+    """Texto renderizado de un encabezado, sin la sintaxis Markdown."""
+    text = re.sub(r"^#{1,6}\s+", "", line).strip()
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    text = text.replace("&nbsp;", "\xa0")
+    text = re.sub(r"`([^`]*)`", r"\1", text)
+    text = re.sub(r"\*\*([^*]*)\*\*", r"\1", text)
+    return re.sub(r"\*([^*]*)\*", r"\1", text)
+
+
+def github_slug(text: str) -> str:
+    """Ancla que GitHub genera para un encabezado.
+
+    Minúsculas, los espacios pasan a guiones y se descartan puntuación,
+    símbolos y separadores. Los emoji desaparecen, pero el variation
+    selector U+FE0F NO: es categoría Mn y sobrevive dentro del ancla.
+    Ignorarlo es exactamente lo que rompió `#-cli` y `#-arquitectura`.
+    """
+    out = []
+    for char in text.strip().lower():
+        if char == " ":
+            out.append("-")
+        elif char in "-_":
+            out.append(char)
+        elif unicodedata.category(char)[0] in ("P", "S", "Z", "C"):
+            continue
+        else:
+            out.append(char)
+    return "".join(out)
+
+
+def anchors_of(path: Path) -> set[str]:
+    """Anclas destino de un Markdown: encabezados más ids HTML explícitos."""
+    text = path.read_text(encoding="utf-8")
+    found = {
+        github_slug(heading_text(line))
+        for _, line in outside_code_fences(text)
+        if re.match(r"^#{1,6} ", line)
+    }
+    found.update(re.findall(r'<a[^>]+(?:id|name)="([^"]+)"', text))
+    return found
+
+
 class RepositoryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.catalog = load_catalog(ROOT)
         cls.agents = agents_by_id(cls.catalog)
 
-    def test_catalog_has_ten_agents(self):
-        self.assertEqual(10, len(self.catalog["agents"]))
+    def test_catalog_size_is_declared(self):
+        self.assertEqual(12, len(self.catalog["agents"]))
 
     def test_ids_unique_and_valid(self):
         ids = list(self.agents)
@@ -119,13 +164,13 @@ class RepositoryTests(unittest.TestCase):
 
     def test_all_deterministic_evals_pass(self):
         results = [case for agent in self.catalog["agents"] for case in evaluate_agent(ROOT, agent)]
-        self.assertEqual(30, len(results))
+        self.assertEqual(36, len(results))
         self.assertTrue(all(item["passed"] for item in results))
 
-    def test_export_writes_ten_agents(self):
+    def test_export_writes_every_agent(self):
         with tempfile.TemporaryDirectory() as temp:
             paths = export_claude(self.catalog["agents"], Path(temp), preload_skills=True)
-            self.assertEqual(10, len(paths))
+            self.assertEqual(12, len(paths))
             self.assertTrue(all(path.is_file() for path in paths))
             self.assertIn("skills:", paths[0].read_text(encoding="utf-8"))
 
@@ -186,6 +231,59 @@ class RepositoryTests(unittest.TestCase):
                     broken.append(f"{path.relative_to(ROOT)} -> {target}")
         self.assertEqual([], broken)
 
+    def test_anchor_links_resolve(self):
+        """Un ancla rota no rompe la build, solo lleva al lector a ninguna parte."""
+        from urllib.parse import unquote
+
+        broken = []
+        cache: dict[Path, set[str]] = {}
+        for path in markdown_files():
+            for target in MARKDOWN_LINK.findall(path.read_text(encoding="utf-8")):
+                if target.startswith(("http://", "https://", "mailto:")) or "#" not in target:
+                    continue
+                relative, _, anchor = target.partition("#")
+                if not anchor:
+                    continue
+                destination = (path.parent / relative).resolve() if relative else path
+                if destination.suffix != ".md" or not destination.is_file():
+                    continue
+                if destination not in cache:
+                    cache[destination] = anchors_of(destination)
+                if unquote(anchor) not in cache[destination]:
+                    broken.append(f"{path.relative_to(ROOT)} -> {target}")
+        self.assertEqual([], broken)
+
+    def test_every_phase_is_explained(self):
+        """Una fase sin descripción produce instrucciones que no dicen nada."""
+        for agent in self.catalog["agents"]:
+            self.assertEqual(list(agent["phases"]), list(agent["phase_details"]), agent["id"])
+            for phase, detail in agent["phase_details"].items():
+                self.assertGreater(len(detail.strip()), 40, f"{agent['id']}/{phase} apenas se explica")
+            rendered = (ROOT / "agents" / agent["id"] / "instructions.md").read_text(encoding="utf-8")
+            for detail in agent["phase_details"].values():
+                self.assertIn(detail, rendered, agent["id"])
+
+    def test_documented_agent_counts_are_current(self):
+        """Cualquier «N agentes» escrito en la documentación debe ser cierto."""
+        palabras = {"diez": 10, "once": 11, "doce": 12, "trece": 13}
+        total = len(self.catalog["agents"])
+        patron = re.compile(r"\b(\d{1,3}|" + "|".join(palabras) + r")\s+agentes\b", re.IGNORECASE)
+        wrong = []
+        for path in markdown_files():
+            for number, line in outside_code_fences(path.read_text(encoding="utf-8")):
+                for match in patron.findall(line):
+                    value = palabras.get(match.lower())
+                    value = int(match) if value is None and match.isdigit() else value
+                    if value is not None and value != total:
+                        wrong.append(f"{path.relative_to(ROOT)}:{number} dice '{match} agentes'")
+        self.assertEqual([], wrong)
+
+    def test_agents_carry_no_personal_data(self):
+        """El catálogo es público: nada de rutas del autor ni identidades concretas."""
+        blob = json.dumps(self.catalog, ensure_ascii=False)
+        for forbidden in ("C:\\\\", "/home/", "vladimiracunadev", "Vladimir", "portfolio-pages"):
+            self.assertNotIn(forbidden, blob, f"dato personal en el catálogo: {forbidden}")
+
     def test_root_readme_covers_every_catalog_agent(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         for aid in self.agents:
@@ -202,7 +300,7 @@ class RepositoryTests(unittest.TestCase):
             self.assertIn(agent["name"], actual, f"{agent['id']} ausente de la landing")
             self.assertIn(f"agents/{agent['id']}/README.md", actual)
         self.assertEqual(len(self.catalog["agents"]), stats["agentes"])
-        self.assertEqual(30, stats["evaluaciones"])
+        self.assertEqual(36, stats["evaluaciones"])
 
     def test_readme_badges_match_reality(self):
         """Los badges numéricos del README son afirmaciones: deben ser ciertas."""

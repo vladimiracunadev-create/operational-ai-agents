@@ -17,8 +17,8 @@ from .render import (
 REQUIRED = {
     "id", "name", "version", "status", "category", "risk", "description",
     "delegate_when", "mission", "tools", "disallowed_tools", "skill_dependencies",
-    "permission_mode", "memory", "effort", "max_turns", "phases", "required_inputs",
-    "deliverables", "approval_points", "checks", "non_goals", "examples",
+    "permission_mode", "memory", "effort", "max_turns", "phases", "phase_details",
+    "required_inputs", "deliverables", "approval_points", "checks", "non_goals", "examples",
 }
 
 
@@ -44,6 +44,13 @@ def validate(root: Path) -> list[dict[str, str]]:
             issues.append(_issue("error", aid, "Tool allowlist vacía"))
         if len(agent["phases"]) < 4:
             issues.append(_issue("error", aid, "El agente necesita al menos cuatro fases"))
+        # Una fase sin explicación produce instrucciones que no dicen nada.
+        sin_detalle = [p for p in agent["phases"] if not agent["phase_details"].get(p, "").strip()]
+        if sin_detalle:
+            issues.append(_issue("error", aid, f"Fases sin descripción: {', '.join(sin_detalle)}"))
+        huerfanos = [p for p in agent["phase_details"] if p not in agent["phases"]]
+        if huerfanos:
+            issues.append(_issue("error", aid, f"Descripciones sin fase: {', '.join(huerfanos)}"))
         if not agent["approval_points"]:
             issues.append(_issue("error", aid, "Sin gates de aprobación"))
         write_capable = "Edit" in agent["tools"] or "Write" in agent["tools"]
