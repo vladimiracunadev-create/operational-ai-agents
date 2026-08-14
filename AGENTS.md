@@ -1,6 +1,6 @@
 # Instrucciones para agentes que mantienen este repositorio
 
-`catalog/agents.yaml` es la fuente de verdad. Cuatro archivos por agente son **vistas generadas** y no deben editarse a mano:
+`catalog/agents.yaml` es la fuente de verdad. Estos archivos son **vistas generadas** y no deben editarse a mano:
 
 | Archivo generado | Renderer |
 |---|---|
@@ -8,6 +8,7 @@
 | `agents/<id>/instructions.md` | `render_instructions` |
 | `agents/<id>/AGENT.md` | `render_claude` |
 | `agents/<id>/README.md` | `render_agent_readme` |
+| `site/index.html` | `render_landing` (landing page publicada en Pages) |
 
 Para cambiarlos, modifica el catálogo o el renderer en `src/operational_agents/render.py` y ejecuta `operational-agents sync`. `sync --check` corre en CI y falla ante cualquier drift.
 

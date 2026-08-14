@@ -48,6 +48,15 @@ paquete están validados localmente, sin afirmar adopción productiva.
 - Análisis estático de seguridad con CodeQL en cada push y semanalmente.
 - Todas las acciones de GitHub fijadas por SHA.
 
+### Landing page
+
+- Sitio del proyecto publicado en GitHub Pages, generado desde el catálogo por
+  `render_landing` y desplegado por el workflow `pages.yml`. La página es un
+  único HTML autocontenido, sin dependencias externas ni recursos remotos:
+  tema claro/oscuro, filtro de catálogo, diagrama SVG del flujo de decisión y
+  las cifras leídas del propio repositorio. `sync --check` corre antes de
+  desplegar, así que la página no puede afirmar algo distinto del catálogo.
+
 ### Documentación
 
 - README con catálogo, arquitectura, referencia de CLI, garantías de seguridad
@@ -55,7 +64,8 @@ paquete están validados localmente, sin afirmar adopción productiva.
 - `docs/CLI.md` con la referencia completa de comandos, flags y códigos de retorno.
 - Documentos de arquitectura, contrato de agente, modelo de seguridad,
   evaluación, madurez, evidencia, integración con Claude Code y con skills.
-- 27 pruebas deterministas, incluidas la validación de enlaces relativos en los
+- 29 pruebas deterministas, incluidas la validación de enlaces relativos en los
   archivos Markdown, la coherencia de versión entre `pyproject.toml`, el
-  catálogo y el README, y un guardián contra Markdown sangrado que GitHub
+  catálogo y el README, la correspondencia entre los badges numéricos del README
+  y la realidad medida, y un guardián contra Markdown sangrado que GitHub
   renderizaría como bloque de código.

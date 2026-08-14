@@ -191,6 +191,29 @@ class RepositoryTests(unittest.TestCase):
         for aid in self.agents:
             self.assertIn(f"agents/{aid}/README.md", readme, f"{aid} ausente del catálogo del README")
 
+    def test_landing_page_is_generated_from_catalog(self):
+        from operational_agents.site import render_landing, site_stats
+
+        stats = site_stats(ROOT, self.catalog)
+        expected = render_landing(self.catalog, stats)
+        actual = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(expected, actual, "site/index.html tiene drift; ejecute sync")
+        for agent in self.catalog["agents"]:
+            self.assertIn(agent["name"], actual, f"{agent['id']} ausente de la landing")
+            self.assertIn(f"agents/{agent['id']}/README.md", actual)
+        self.assertEqual(len(self.catalog["agents"]), stats["agentes"])
+        self.assertEqual(30, stats["evaluaciones"])
+
+    def test_readme_badges_match_reality(self):
+        """Los badges numéricos del README son afirmaciones: deben ser ciertas."""
+        from operational_agents.site import site_stats
+
+        stats = site_stats(ROOT, self.catalog)
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(f"badge/agentes-{stats['agentes']}-", readme)
+        self.assertIn(f"badge/tests-{stats['pruebas']}-", readme)
+        self.assertIn(f"badge/evals_deterministas-{stats['evaluaciones']}-", readme)
+
     def test_version_is_coherent_across_sources(self):
         """pyproject, catálogo y badge del README deben declarar la misma versión."""
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")

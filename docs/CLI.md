@@ -67,7 +67,7 @@ Devuelve `1` si existe al menos un problema de nivel `error`. Los `warning` se i
 
 ### `sync [--check]`
 
-Regenera las vistas derivadas del catálogo. Cuatro archivos por agente se consideran generados y **no deben editarse a mano**:
+Regenera las vistas derivadas del catálogo. Estos archivos se consideran generados y **no deben editarse a mano**:
 
 | Archivo generado | Origen |
 |---|---|
@@ -75,6 +75,7 @@ Regenera las vistas derivadas del catálogo. Cuatro archivos por agente se consi
 | `agents/<id>/instructions.md` | instrucciones vendor-neutral |
 | `agents/<id>/AGENT.md` | definición instalable en Claude Code |
 | `agents/<id>/README.md` | ficha humana del contrato |
+| `site/index.html` | landing page publicada en GitHub Pages |
 
 ```bash
 operational-agents sync           # escribe los archivos derivados
