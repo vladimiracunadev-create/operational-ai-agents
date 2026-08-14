@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "execution_id",
+    "agent_id",
+    "event",
+    "status"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "execution_id": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "event": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

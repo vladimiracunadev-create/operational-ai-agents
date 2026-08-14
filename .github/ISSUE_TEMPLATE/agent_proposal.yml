@@ -1,0 +1,57 @@
+name: Propuesta de agente
+description: Propone un agente operativo nuevo para el catálogo
+title: "[Agente]: "
+labels: ["agente", "propuesta"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Un elemento nuevo debe ser un **agente**, no un prompt largo, un skill,
+        un script ni un caso sectorial. Lee `CONTRIBUTING.md` antes de continuar.
+  - type: input
+    id: agent-id
+    attributes:
+      label: Identificador propuesto
+      description: En kebab-case, por ejemplo `data-migration-agent`.
+      placeholder: mi-agente
+    validations:
+      required: true
+  - type: textarea
+    id: mission
+    attributes:
+      label: Misión
+      description: El resultado integral del que el agente responde.
+    validations:
+      required: true
+  - type: textarea
+    id: delegate-when
+    attributes:
+      label: Cuándo delegarle trabajo
+      description: Criterio para elegir este agente y no otro del catálogo.
+    validations:
+      required: true
+  - type: textarea
+    id: overlap
+    attributes:
+      label: Solapamiento con el catálogo actual
+      description: Explica por qué ninguno de los diez agentes existentes cubre esta misión.
+    validations:
+      required: true
+  - type: textarea
+    id: approvals
+    attributes:
+      label: Gates de aprobación humana
+      description: Qué decisiones quedan reservadas al usuario (publicar, desplegar, borrar, credenciales).
+    validations:
+      required: true
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      options:
+        - label: La tool allowlist es la mínima necesaria.
+          required: true
+        - label: Si muta archivos, usa `permission_mode: default` e `isolation: worktree`.
+          required: true
+        - label: Declararé el estado honesto `IMPLEMENTED`, sin afirmar uso productivo.
+          required: true

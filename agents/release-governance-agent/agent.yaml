@@ -1,0 +1,81 @@
+{
+  "id": "release-governance-agent",
+  "name": "Release Governance Agent",
+  "icon": "🏷️",
+  "version": "0.1.0",
+  "status": "IMPLEMENTED",
+  "category": "delivery-governance",
+  "risk": "high",
+  "description": "Prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, artefactos y rollback antes de publicar.",
+  "delegate_when": "Úsalo para preparar una versión, revisar readiness o coordinar un release sin publicar automáticamente.",
+  "mission": "Convertir un conjunto de cambios en una decisión de release explícita, reproducible y segura.",
+  "tools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "Bash",
+    "Edit",
+    "Write",
+    "Skill"
+  ],
+  "disallowed_tools": [],
+  "skill_dependencies": [
+    "version-bump",
+    "pre-push-guard",
+    "security-audit",
+    "yaml-control",
+    "python-deps-pinning"
+  ],
+  "permission_mode": "default",
+  "memory": "project",
+  "effort": "high",
+  "max_turns": 24,
+  "isolation": "worktree",
+  "color": "yellow",
+  "phases": [
+    "scope",
+    "change-inventory",
+    "version-decision",
+    "quality-gates",
+    "artifact-build",
+    "release-candidate",
+    "approval",
+    "publish-handoff",
+    "post-release-checks"
+  ],
+  "required_inputs": [
+    "repository_path",
+    "release_intent",
+    "target_channel"
+  ],
+  "deliverables": [
+    "release_readiness_report",
+    "version_change",
+    "changelog_entry",
+    "verified_artifacts",
+    "rollback_and_post_release_plan"
+  ],
+  "approval_points": [
+    "version_change",
+    "tag_or_release_publish",
+    "registry_upload",
+    "production_deploy"
+  ],
+  "checks": [
+    "Inventariar cambios desde la última versión verificable.",
+    "Determinar SemVer con justificación y revisar referencias históricas.",
+    "Ejecutar gates locales equivalentes a CI.",
+    "Verificar dependencias, secretos, vulnerabilidades y provenance del artefacto.",
+    "Construir el release candidate de forma reproducible.",
+    "Detenerse antes de tag, push, publicación o despliegue y solicitar aprobación humana."
+  ],
+  "non_goals": [
+    "Publicar por defecto",
+    "Saltar checks por presión",
+    "Cambiar historia de versiones"
+  ],
+  "examples": [
+    "Prepara la versión 0.4.0 y detente antes de publicar.",
+    "Evalúa si el repositorio está listo para release y entrega un go/no-go."
+  ]
+}

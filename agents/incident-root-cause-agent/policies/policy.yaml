@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "incident-root-cause-agent",
+  "risk": "medium",
+  "permission_mode": "plan",
+  "read_first": true,
+  "write_allowed": false,
+  "publish_allowed_without_human": false,
+  "destructive_allowed_without_human": false,
+  "approval_points": [
+    "production_command",
+    "data_export",
+    "service_restart",
+    "configuration_change"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

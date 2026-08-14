@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "operational-ai-agents"
+version = "0.1.0"
+description = "Operational, evidence-driven AI agent collection"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Vladimir Acuña" }]
+dependencies = []
+keywords = ["ai-agents", "claude-code", "subagents", "agent-contracts", "llm-tooling"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Quality Assurance",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/vladimiracunadev-create/operational-ai-agents"
+Documentation = "https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/docs/CLI.md"
+Changelog = "https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/CHANGELOG.md"
+Issues = "https://github.com/vladimiracunadev-create/operational-ai-agents/issues"
+
+[project.optional-dependencies]
+dev = ["ruff>=0.13"]
+
+[project.scripts]
+operational-agents = "operational_agents.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 140
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "C4", "SIM", "RUF", "N", "PTH", "ARG"]
+ignore = [
+  "E501",  # la longitud de línea la fija el formateador, no el linter
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Ambos archivos ajustan sys.path antes de importar el paquete local:
+# el import no puede preceder al bootstrap.
+"tests/*" = ["E402"]
+"scripts/*" = ["E402"]
+# log_message respeta la firma de BaseHTTPRequestHandler; silenciar el log
+# es intencional y no puede omitir los parámetros del contrato heredado.
+"src/operational_agents/server.py" = ["ARG002"]

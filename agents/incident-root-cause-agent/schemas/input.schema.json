@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/operational-ai-agents/incident-root-cause-agent/input.schema.json",
+  "title": "Incident Root Cause Agent input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task",
+    "authorization"
+  ],
+  "properties": {
+    "task": {
+      "type": "string",
+      "minLength": 8
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "context": {
+      "type": "object"
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read",
+        "write",
+        "publish"
+      ],
+      "properties": {
+        "read": {
+          "type": "boolean"
+        },
+        "write": {
+          "type": "boolean"
+        },
+        "publish": {
+          "type": "boolean"
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

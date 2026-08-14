@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "portfolio-curator-agent",
+  "risk": "low",
+  "permission_mode": "plan",
+  "read_first": true,
+  "write_allowed": false,
+  "publish_allowed_without_human": false,
+  "destructive_allowed_without_human": false,
+  "approval_points": [
+    "profile_edit",
+    "repository_archive",
+    "external_publication"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

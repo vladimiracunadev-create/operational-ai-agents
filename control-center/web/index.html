@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Operational AI Agents</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><p class="eyebrow">VLADIMIR AGENT SUITE</p><h1>Operational AI Agents</h1><p>Explora misiones, permisos y gates. Genera planes sin consumir una API.</p></header>
+  <main>
+    <section class="toolbar"><label>Filtrar <input id="filter" placeholder="agente, categoría o misión"></label><span id="count"></span></section>
+    <section id="agents" class="grid" aria-live="polite"></section>
+    <section class="planner">
+      <h2>Planificador determinista</h2>
+      <form id="plan-form">
+        <label>Agente <select id="agent-id" required></select></label>
+        <label>Objetivo <textarea id="task" minlength="8" required>Examina este repositorio y entrega evidencia verificable.</textarea></label>
+        <label>Destino <input id="target" placeholder="/ruta o URL opcional"></label>
+        <button>Generar plan</button>
+      </form>
+      <pre id="plan-output">Selecciona un agente y genera un plan.</pre>
+    </section>
+  </main>
+  <footer>Catálogo contractual · aprobación humana · evidencia sobre apariencia</footer>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "repository-maintenance-coordinator",
+  "risk": "medium",
+  "permission_mode": "plan",
+  "read_first": true,
+  "write_allowed": false,
+  "publish_allowed_without_human": false,
+  "destructive_allowed_without_human": false,
+  "approval_points": [
+    "specialist_scope_expansion",
+    "mutation_start",
+    "external_publish",
+    "release_or_deploy"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

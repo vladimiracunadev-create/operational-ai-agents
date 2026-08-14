@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Pregunta de uso o instalación
+    url: https://github.com/vladimiracunadev-create/operational-ai-agents/discussions
+    about: Dudas sobre instalación, exportación a Claude Code o uso de la CLI.
+  - name: Vulnerabilidad de seguridad
+    url: https://github.com/vladimiracunadev-create/operational-ai-agents/security/advisories/new
+    about: No abras un issue público. Reporta la vulnerabilidad de forma privada.

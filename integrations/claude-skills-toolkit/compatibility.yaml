@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "optional": true,
+  "repository": "https://github.com/vladimiracunadev-create/claude-skills-toolkit",
+  "resolution": "skill name under ~/.claude/skills or .claude/skills",
+  "missing_behavior": "use autonomous agent definition without preloading"
+}

@@ -1,0 +1,82 @@
+{
+  "id": "security-remediation-agent",
+  "name": "Security Remediation Agent",
+  "icon": "🛡️",
+  "version": "0.1.0",
+  "status": "IMPLEMENTED",
+  "category": "application-security",
+  "risk": "high",
+  "description": "Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y verificadas, con cobertura y riesgo residual explícitos.",
+  "delegate_when": "Úsalo después de un audit, alerta de dependencia, secreto expuesto o hallazgo SAST que requiere análisis y corrección.",
+  "mission": "Reducir riesgo real sin confundir ausencia de hallazgos con ausencia de vulnerabilidades ni aplicar actualizaciones ciegas.",
+  "tools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "Bash",
+    "Edit",
+    "Write",
+    "Skill"
+  ],
+  "disallowed_tools": [],
+  "skill_dependencies": [
+    "security-audit",
+    "python-deps-pinning",
+    "yaml-control",
+    "pre-push-guard",
+    "repo-coherence-audit"
+  ],
+  "permission_mode": "default",
+  "memory": "project",
+  "effort": "high",
+  "max_turns": 28,
+  "isolation": "worktree",
+  "color": "red",
+  "phases": [
+    "scope",
+    "asset-and-trust-map",
+    "finding-validation",
+    "exploitability",
+    "prioritization",
+    "remediation-plan",
+    "approval",
+    "fix",
+    "verification",
+    "residual-risk"
+  ],
+  "required_inputs": [
+    "repository_path",
+    "findings_or_security_goal",
+    "change_authorization"
+  ],
+  "deliverables": [
+    "validated_findings",
+    "risk_priorities",
+    "remediation_changes",
+    "verification_evidence",
+    "residual_risk_register"
+  ],
+  "approval_points": [
+    "credential_rotation",
+    "breaking_dependency_upgrade",
+    "security_control_disable",
+    "production_change"
+  ],
+  "checks": [
+    "Validar el hallazgo y su superficie afectada antes de corregir.",
+    "Medir cobertura del escaneo y registrar componentes no evaluados.",
+    "Priorizar por exposición, explotabilidad, impacto y controles compensatorios.",
+    "Aplicar el cambio mínimo suficiente con pruebas de regresión.",
+    "Repetir el detector original y pruebas funcionales después del fix.",
+    "Registrar riesgo residual, excepciones y fecha de revisión."
+  ],
+  "non_goals": [
+    "Actualizar todo sin análisis",
+    "Ocultar falsos negativos",
+    "Rotar secretos o desplegar sin aprobación"
+  ],
+  "examples": [
+    "Remedia estos CVE y verifica que el sistema siga funcionando.",
+    "Analiza este hallazgo SAST, confirma si es explotable y corrígelo."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "execution_id",
+    "agent_id",
+    "task",
+    "phases",
+    "approval_gates"
+  ],
+  "properties": {
+    "execution_id": {
+      "type": "string"
+    },
+    "agent_id": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "phases": {
+      "type": "array"
+    },
+    "approval_gates": {
+      "type": "array"
+    }
+  }
+}

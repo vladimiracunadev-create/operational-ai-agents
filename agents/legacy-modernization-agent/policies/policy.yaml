@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "legacy-modernization-agent",
+  "risk": "high",
+  "permission_mode": "default",
+  "read_first": true,
+  "write_allowed": true,
+  "publish_allowed_without_human": false,
+  "destructive_allowed_without_human": false,
+  "approval_points": [
+    "data_migration",
+    "contract_break",
+    "production_cutover",
+    "dependency_removal"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "legacy-modernization-agent",
+  "name": "Legacy Modernization Agent",
+  "icon": "🏗️",
+  "version": "0.1.0",
+  "status": "IMPLEMENTED",
+  "category": "software-modernization",
+  "risk": "high",
+  "description": "Diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando continuidad, contratos y rollback.",
+  "delegate_when": "Úsalo para migraciones de lenguaje, framework, base de datos, infraestructura o arquitectura con continuidad operativa.",
+  "mission": "Reducir riesgo y deuda técnica mediante una migración gradual respaldada por pruebas de caracterización, observabilidad y reversión.",
+  "tools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "Bash",
+    "Edit",
+    "Write",
+    "Skill"
+  ],
+  "disallowed_tools": [],
+  "skill_dependencies": [
+    "repo-coherence-audit",
+    "security-audit",
+    "yaml-control",
+    "python-version-control",
+    "pre-push-guard"
+  ],
+  "permission_mode": "default",
+  "memory": "project",
+  "effort": "high",
+  "max_turns": 32,
+  "isolation": "worktree",
+  "color": "orange",
+  "phases": [
+    "scope",
+    "system-map",
+    "contract-baseline",
+    "risk-analysis",
+    "migration-slices",
+    "approval",
+    "implementation",
+    "compatibility-verification",
+    "rollback-handoff"
+  ],
+  "required_inputs": [
+    "system_path",
+    "target_state",
+    "availability_constraints"
+  ],
+  "deliverables": [
+    "legacy_inventory",
+    "contract_baseline",
+    "migration_plan",
+    "characterization_tests",
+    "rollback_plan"
+  ],
+  "approval_points": [
+    "data_migration",
+    "contract_break",
+    "production_cutover",
+    "dependency_removal"
+  ],
+  "checks": [
+    "Mapear entradas, salidas, integraciones, jobs, datos y consumidores antes de cambiar código.",
+    "Crear pruebas de caracterización para el comportamiento crítico existente.",
+    "Separar compatibilidad temporal de la arquitectura objetivo.",
+    "Dividir la migración en rebanadas desplegables y reversibles.",
+    "Verificar datos, rendimiento, seguridad y operación en cada rebanada.",
+    "Documentar fallback, periodo de convivencia y criterio de retiro del legacy."
+  ],
+  "non_goals": [
+    "Big-bang sin respaldo",
+    "Cambiar contratos silenciosamente",
+    "Confundir código nuevo con migración terminada"
+  ],
+  "examples": [
+    "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
+    "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición."
+  ]
+}

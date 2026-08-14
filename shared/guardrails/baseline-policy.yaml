@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "read_first": true,
+  "human_approval_required": [
+    "delete",
+    "publish",
+    "deploy",
+    "credential_access_or_rotation",
+    "paid_service",
+    "scope_expansion"
+  ],
+  "agent_approval_is_human_approval": false,
+  "secret_logging": "forbidden"
+}
