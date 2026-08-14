@@ -264,13 +264,25 @@ class RepositoryTests(unittest.TestCase):
                 self.assertIn(detail, rendered, agent["id"])
 
     def test_documented_agent_counts_are_current(self):
-        """Cualquier «N agentes» escrito en la documentación debe ser cierto."""
-        palabras = {"diez": 10, "once": 11, "doce": 12, "trece": 13}
+        """Todo «N agentes» que describa el estado ACTUAL debe ser cierto.
+
+        Una referencia histórica —«v0.1.0 publicó diez agentes»— se conserva:
+        era verdad cuando se escribió. Solo se sincroniza el marcador de estado
+        actual. Confundir ambos reescribe el pasado para cuadrar el presente.
+        """
+        palabras = {"diez": 10, "once": 11, "doce": 12, "trece": 13, "catorce": 14}
         total = len(self.catalog["agents"])
+        actual = self.catalog["repository_version"]
         patron = re.compile(r"\b(\d{1,3}|" + "|".join(palabras) + r")\s+agentes\b", re.IGNORECASE)
+        otra_version = re.compile(r"\bv?\d+\.\d+\.\d+\b")
         wrong = []
         for path in markdown_files():
+            if path.name == "CHANGELOG.md":
+                continue  # un changelog es histórico por definición
             for number, line in outside_code_fences(path.read_text(encoding="utf-8")):
+                versiones = {v.lstrip("v") for v in otra_version.findall(line)}
+                if versiones and actual not in versiones:
+                    continue  # la línea habla de una versión anterior
                 for match in patron.findall(line):
                     value = palabras.get(match.lower())
                     value = int(match) if value is None and match.isdigit() else value

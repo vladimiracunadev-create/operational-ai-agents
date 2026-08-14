@@ -45,12 +45,12 @@ de la documentación. Los doce agentes siguen declarando `IMPLEMENTED`.
 
 ## [0.1.0] - 2026-08-13
 
-Primera publicación. Los doce agentes se declaran `IMPLEMENTED`: el contrato y el
+Primera publicación. Los diez agentes se declaran `IMPLEMENTED`: el contrato y el
 paquete están validados localmente, sin afirmar adopción productiva.
 
 ### Catálogo y contratos
 
-- Catálogo inicial de doce agentes operativos transversales.
+- Catálogo inicial de diez agentes operativos transversales.
 - `catalog/agents.yaml` como fuente única de verdad, con contrato canónico,
   políticas, schemas de entrada/salida y evaluaciones por agente.
 - Cuatro vistas generadas por agente —`agent.yaml`, `instructions.md`,

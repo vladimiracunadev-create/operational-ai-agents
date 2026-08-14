@@ -766,21 +766,29 @@ Criterios de aceptación completos en **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ## 📖 Documentación
 
-| Documento | Contenido |
+| Documento | Para qué |
 |---|---|
-| [docs/README.md](docs/README.md) | índice de la documentación |
-| [INSTALL.md](INSTALL.md) | instalación, actualización y problemas frecuentes |
-| [docs/CLI.md](docs/CLI.md) | referencia completa de los trece comandos |
-| [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md) | qué declara un agente y qué invariantes cumple |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | límites, componentes y flujos |
-| [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) | amenazas, controles y gates humanos |
-| [docs/EVALUATION.md](docs/EVALUATION.md) | las cinco capas y qué demuestra cada una |
-| [docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md) | criterios de promoción de estados |
-| [docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md) | qué evidencia se registra y cómo se sanitiza |
-| [docs/CLAUDE_CODE.md](docs/CLAUDE_CODE.md) | adaptación e invocación en Claude Code |
-| [docs/SKILLS_INTEGRATION.md](docs/SKILLS_INTEGRATION.md) | integración opcional con el toolkit |
-| [AGENTS.md](AGENTS.md) | instrucciones para agentes que mantienen este repo |
-| [RECRUITER.md](RECRUITER.md) | lectura profesional del proyecto |
+| 📘 [README.md](README.md) | Entry point · catálogo + quick start *(estás aquí)* |
+| 🗂️ [docs/README.md](docs/README.md) | Índice de la documentación · por dónde empezar según lo que busques |
+| 📦 [INSTALL.md](INSTALL.md) | Instalación por usuario y por proyecto · actualización · problemas frecuentes |
+| 🛠 [docs/CLI.md](docs/CLI.md) | Los trece comandos · flags, endpoints y códigos de retorno |
+| 📜 [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md) | Qué declara un agente campo a campo · las ocho invariantes |
+| 🏛 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Límites del sistema · fuente de verdad · flujo de mutación |
+| 🔐 [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) | Amenazas, controles y gates · qué garantía cubre cada prueba |
+| ✅ [docs/EVALUATION.md](docs/EVALUATION.md) | Las cinco capas · qué demuestra y qué **no** demuestra cada una |
+| 📈 [docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md) | Los cinco estados · qué evidencia exige cada promoción |
+| 🔍 [docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md) | Qué se registra, cómo se sanitiza y qué no se guarda nunca |
+| 🤖 [docs/CLAUDE_CODE.md](docs/CLAUDE_CODE.md) | Frontmatter generado · instalación sin pisar tus propios agentes |
+| 🧩 [docs/SKILLS_INTEGRATION.md](docs/SKILLS_INTEGRATION.md) | Integración opcional con el toolkit · skill vs agente |
+| 📋 [CHANGELOG.md](CHANGELOG.md) | Historial de versiones (Keep a Changelog + SemVer) |
+| 🗺 [ROADMAP.md](ROADMAP.md) | Próximos hitos y no-objetivos explícitos |
+| 🤝 [CONTRIBUTING.md](CONTRIBUTING.md) | Cómo proponer un agente nuevo · criterios de aceptación |
+| 🔧 [AGENTS.md](AGENTS.md) | Instrucciones para agentes que mantienen este repo · trampas conocidas |
+| 🏛️ [GOVERNANCE.md](GOVERNANCE.md) | Quién decide qué · cambios que exigen revisión explícita |
+| 🆘 [SUPPORT.md](SUPPORT.md) | Canales por tipo de problema · cómo pedir ayuda |
+| 🔒 [SECURITY.md](SECURITY.md) | Política de seguridad y reporte privado de vulnerabilidades |
+| 🤗 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Código de conducta de la comunidad |
+| 💼 [RECRUITER.md](RECRUITER.md) | Para reclutadores · qué demuestra y qué **no** afirma este proyecto |
 
 ### 📎 Referencias oficiales
 
@@ -792,35 +800,91 @@ Criterios de aceptación completos en **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ## 🗺 Roadmap
 
-| Hito | Estado |
-|---|---|
-| **v0.1** — doce agentes con contrato, CI, panel y landing | ✅ completado |
-| **v0.2** — uso real, casos sanitizados y promoción a `OPERATIONAL_LOCAL` | 🚧 siguiente |
-| **v0.3** — adaptadores OpenAI SDK y Ollama, MCP declarativo | 📋 planificado |
-| **v1.0** — operación observada con métricas y auditoría | 📋 planificado |
+Resumen — versión completa con no-objetivos en [ROADMAP.md](ROADMAP.md).
 
-Detalle y no-objetivos en **[ROADMAP.md](ROADMAP.md)**.
+**v0.1.0 · ✅ publicada 2026-08-13** — 🤖 diez agentes con contrato, CI multiplataforma, panel local y landing page.
+
+**v0.2.0 · ✅ publicada 2026-08-13** — 📡 `curriculum-evolution-agent` + 🌐 `portfolio-publication-agent`, fases explicadas y revisión completa de la documentación.
+
+**v0.3.0 · uso real y evidencia — en curso:**
+
+- [x] 📡 `curriculum-evolution-agent` — mantiene un programa formativo al día con su campo, verificando cada fuente
+- [x] 🌐 `portfolio-publication-agent` — reconcilia una superficie publicada con el estado real de sus repositorios
+- [x] 📖 `phase_details` — cada fase declara qué ocurre en ella; el validador rechaza una fase sin explicar
+- [x] 🔗 Validación de anclas Markdown con el algoritmo de slug de GitHub
+- [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/12)*
+- [ ] 📂 Incorporar casos sanitizados y promover solo los que cumplan `OPERATIONAL_LOCAL`
+- [ ] 📊 Métricas de éxito, duración, costo, intervención humana y retrabajo
+- [ ] 🎯 Evaluaciones model-graded versionadas por runtime y modelo
+
+**v0.4.0 · integraciones:**
+
+- [ ] 🔌 Adaptador para OpenAI Agents SDK
+- [ ] 🦙 Adaptador local con Ollama, declarando capacidades y degradación
+- [ ] 🔗 Integraciones MCP declarativas con allowlist por agente
+- [ ] 📦 Exportador de plugin de Claude Code
+- [ ] 📡 Sink de evidencia opcional vía OpenTelemetry
+
+**v1.0.0 · operación observada:**
+
+- [ ] 📜 Contratos estables con migraciones documentadas
+- [ ] 🏅 Tres o más agentes con uso recurrente y evidencia
+- [ ] 🧭 Matriz de compatibilidad entre runtimes
+- [ ] 🔐 Auditoría de seguridad y prueba de recuperación end-to-end
+
+¿Sugerencias? 💬 Abre un [issue](https://github.com/vladimiracunadev-create/operational-ai-agents/issues) o una [propuesta de agente](https://github.com/vladimiracunadev-create/operational-ai-agents/issues/new?template=agent_proposal.yml).
+
+---
+
+## 🤝 Contribuir
+
+PRs bienvenidos. Antes de abrir uno, revisa [CONTRIBUTING.md](CONTRIBUTING.md). Reglas mínimas:
+
+1. 🎯 Debe ser un **agente**, no un skill: misión completa, decisiones acotadas y responsabilidad por el resultado.
+2. 📓 Se registra en `catalog/agents.yaml` — **nunca** editando las vistas generadas.
+3. 📖 Cada fase con su `phase_details`. Una fase sin explicar produce instrucciones que no dicen nada.
+4. 🚦 Gates humanos para publicar, desplegar, borrar, credenciales y ampliación de alcance.
+5. 🧪 Mínimo tres evaluaciones que prueben **propiedades distintas**, no tres copias del mismo caso.
+6. 🧼 Sin secretos, sin datos personales y sin rutas del autor — una prueba lo verifica.
+7. 🏷️ Estado inicial `IMPLEMENTED`: nunca declares una madurez que no puedas respaldar.
+
+```bash
+operational-agents scaffold mi-agente --name "Mi Agente"
+make check
+```
 
 ---
 
 ## 🎯 Qué es y qué no es este repo
 
+<table>
+<tr>
+<td valign="top" width="50%">
+
 ### ✅ Lo que este repo sí es
 
-- Una **colección de agentes** con contrato declarado, permisos mínimos y gates humanos.
-- Un **núcleo contractual vendor-neutral** con un adaptador real para Claude Code.
-- Un sistema donde la documentación **no puede contradecir** al contrato, porque se genera de él.
-- Un proyecto **honesto sobre su madurez**: `IMPLEMENTED`, no producción.
+- 🤖 una colección de **agentes operativos** que reciben una misión completa y responden por el resultado;
+- 📜 un **núcleo contractual vendor-neutral**: catálogo, políticas, schemas y evaluaciones no dependen de un proveedor;
+- 🔁 un sistema donde la documentación **no puede contradecir** al contrato, porque se genera de él y CI rechaza el drift;
+- 🚦 un diseño donde **acceso ≠ autorización**: publicar, desplegar, borrar y rotar credenciales pasan siempre por un humano;
+- 🪶 **cero dependencias de runtime**: la CLI corre con la biblioteca estándar de Python;
+- 🎓 un proyecto **honesto sobre su madurez**: `IMPLEMENTED` significa contrato validado, no producción.
+
+</td>
+<td valign="top" width="50%">
 
 ### ❌ Lo que este repo no es
 
-- **No es un framework de agentes** de propósito general ni un motor de inferencia: el razonamiento vive en el runtime.
-- **No es una colección de skills** — esos están en [`claude-skills-toolkit`](https://github.com/vladimiracunadev-create/claude-skills-toolkit).
-- **No es un curso** — la formación vive en [`artificial-intelligence-evolution-program`](https://github.com/vladimiracunadev-create/artificial-intelligence-evolution-program).
-- **No es un catálogo de casos sectoriales** — esos viven en [`langgraph-realworld`](https://github.com/vladimiracunadev-create/langgraph-realworld).
-- **No afirma adopción empresarial** ni métricas de uso que no existen todavía.
+- 🚫 una colección de **skills** — un agente no es una capacidad dentro de tu contexto (ver [Skill ≠ agente](#-qué-es-un-agente) arriba); esos viven en [`claude-skills-toolkit`](https://github.com/vladimiracunadev-create/claude-skills-toolkit);
+- 🚫 un **framework de agentes** ni un motor de inferencia: no implementa un bucle de LLM, el razonamiento vive en el runtime;
+- 🚫 un catálogo de **casos sectoriales** atados a un cliente o a un dominio: esos viven en [`langgraph-realworld`](https://github.com/vladimiracunadev-create/langgraph-realworld);
+- 🚫 **material formativo** — la enseñanza vive en [`artificial-intelligence-evolution-program`](https://github.com/vladimiracunadev-create/artificial-intelligence-evolution-program);
+- 🚫 un repo de **agentes personales** atados a las rutas, los repositorios o el nombre de una persona: aquí todo se parametriza por patrón;
+- 🚫 una demo que afirme **adopción empresarial** ni métricas de uso que todavía no existen.
 
----
+</td>
+</tr>
+</table>
 
 ## 💡 Idea fuerza
 
@@ -837,11 +901,15 @@ Detalle y no-objetivos en **[ROADMAP.md](ROADMAP.md)**.
 ### 🌟 Otros proyectos del autor
 
 [🧰 claude-skills-toolkit](https://github.com/vladimiracunadev-create/claude-skills-toolkit) ·
+[🔗 langgraph-realworld](https://github.com/vladimiracunadev-create/langgraph-realworld) ·
 [🎓 artificial-intelligence-evolution-program](https://github.com/vladimiracunadev-create/artificial-intelligence-evolution-program) ·
-[🔗 langgraph-realworld](https://github.com/vladimiracunadev-create/langgraph-realworld)
+[🗄️ gabysql](https://github.com/vladimiracunadev-create/gabysql) ·
+[🧪 problem-driven-systems-lab](https://github.com/vladimiracunadev-create/problem-driven-systems-lab) ·
+[🔍 universal-code-scanner](https://github.com/vladimiracunadev-create/universal-code-scanner) ·
+[🐳 docker-labs](https://github.com/vladimiracunadev-create/docker-labs)
 
 ---
 
-<sub>Evidencia sobre apariencia · aprobación humana · cero dependencias runtime</sub>
+<sub>Hecho con ☕ y la manía de comprobar dos veces antes de decir que algo está hecho</sub>
 
 </div>
