@@ -17,13 +17,18 @@ Este repositorio es una **colección operativa con núcleo contractual**. No es 
 ```mermaid
 flowchart TD
     Catalog["📓 Catálogo canónico<br/>catalog/agents.yaml"] --> Package["📦 Paquete del agente"]
-    Package --> Claude["🤖 Adaptador Claude Code"]
+    Package --> Runtime{{"🔌 Capa de runtime"}}
     Package --> Planner["🧮 Planner local"]
     Package --> Eval["✅ Evaluaciones"]
     Package --> Site["🌐 Landing page"]
+    Runtime --> Claude["🤖 claude"]
+    Runtime --> Manual["🙋 manual"]
+    Claude & Manual --> Caps["🧮 Capa de capacidades"]
     Planner --> Evidence["🔍 Evidencia opt-in"]
-    Claude --> Evidence
+    Caps --> Evidence
 ```
+
+Entre el paquete y el runtime hay dos capas nuevas desde v0.3.0, y ninguna cambia el contrato: la **capa de runtime** decide *quién* ejecuta, la **capa de capacidades** decide *qué está autorizado a hacer*. Detalle en [RUNTIME_CONTRACT.md](RUNTIME_CONTRACT.md) y [CAPABILITY_MODEL.md](CAPABILITY_MODEL.md).
 
 ## Límites de cada pieza
 
@@ -35,6 +40,9 @@ flowchart TD
 | `agents/<id>/README.md` | ficha humana del contrato (generada) | documentación, no ejecución |
 | `agents/<id>/policies/` | límites, gates y política de datos | escrito a mano |
 | `src/operational_agents/` | tooling de catálogo: validar, planificar, exportar, servir | **no** implementa un bucle de LLM |
+| `src/operational_agents/runtimes/` | adaptadores: quién ejecuta el contrato | un adaptador no amplía permisos |
+| `src/operational_agents/capabilities.py` | capacidades, efectos y resolución | vendor-neutral; no conoce runtimes |
+| `docs/COMPATIBILITY_MATRIX.md` | qué agente opera bajo qué runtime (generado) | resolución, no ejecución observada |
 | `shared/` | contratos y formatos comunes | reutilizable entre agentes |
 | `control-center/` | API y panel local de solo lectura | loopback |
 | `site/` | landing page (generada) | solo publicación |
@@ -47,7 +55,7 @@ flowchart TD
 
 El catálogo es JSON compatible con YAML 1.2, para poder analizarlo con la biblioteca estándar de Python y sin dependencias.
 
-De él se generan **cuatro archivos por agente** más la landing page:
+De él se generan **cuatro archivos por agente**, la landing page y la matriz de compatibilidad:
 
 ```mermaid
 flowchart LR
@@ -56,10 +64,13 @@ flowchart LR
     C --> A["AGENT.md"]
     C --> R["README.md"]
     C --> S["site/index.html"]
-    M & I & A & R & S --> Check{{"sync --check<br/>en CI"}}
+    C --> X["docs/COMPATIBILITY_MATRIX.md"]
+    M & I & A & R & S & X --> Check{{"sync --check<br/>en CI"}}
     Check -->|drift| Fail["❌ build falla"]
     Check -->|coherente| Pass["✅"]
 ```
+
+La matriz añade una segunda fuente a la ecuación: se calcula con el catálogo **y** con los adaptadores del repositorio. Deliberadamente no consulta el entorno, para que dé el mismo resultado en cualquier máquina y en CI.
 
 Editar una vista generada en lugar del catálogo hace fallar la build. Es intencional: impide que la documentación y el contrato cuenten historias distintas.
 
@@ -89,7 +100,10 @@ stateDiagram-v2
 |---|---|---|
 | Núcleo con solo la biblioteca estándar | instalación simple y superficie de supply chain mínima | sin comodidades de librerías externas |
 | Sin API obligatoria | contratos y evaluaciones deben funcionar offline y sin costo | las capas de modelo quedan fuera de CI |
-| Claude Code como primer adaptador | es el runtime que soporta contexto separado, permisos, gates y aislamiento | portabilidad demostrada en un solo runtime |
+| Claude Code como primer adaptador | es el runtime que soporta contexto separado, permisos, gates y aislamiento | portabilidad demostrada en un solo runtime autónomo |
+| Capacidades derivadas de las tools | añadir la capa no obliga a reescribir trece contratos | la declaración explícita queda como opción, no como norma |
+| Resolución ciega al entorno | la matriz de compatibilidad da lo mismo en cualquier máquina | no refleja lo que hay instalado; para eso está `doctor` |
+| Sin fallback automático entre runtimes | cambiar en silencio de local a nube enviaría datos fuera sin autorización | quien ejecuta debe elegir el runtime a mano |
 | Skills opcionales | el agente no puede depender de un toolkit externo | menos capacidad si no está instalado |
 | Catálogo como fuente única | elimina el drift entre documentación y contrato | añadir un agente exige tocar el catálogo, no un archivo suelto |
 | Vistas generadas, no editables | la ficha nunca miente sobre el contrato | menos libertad de redacción por agente |

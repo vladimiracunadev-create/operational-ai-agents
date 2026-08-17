@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3",
-  "repository_version": "0.2.0",
+  "repository_version": "0.3.0",
   "source_of_truth": "catalog/agents.yaml",
   "maturity_model": {
     "DRAFT": "Definición incompleta; no debe instalarse.",

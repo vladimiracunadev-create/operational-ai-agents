@@ -11,9 +11,10 @@
 | Competencia | Dónde se ve |
 |---|---|
 | Distinguir agente, skill, workflow y caso de negocio | [`docs/AGENT_CONTRACT.md`](docs/AGENT_CONTRACT.md) y la tabla comparativa del README |
-| Diseño por contrato con una sola fuente de verdad | `catalog/agents.yaml` y las cinco vistas que se generan de él |
+| Diseño por contrato con una sola fuente de verdad | `catalog/agents.yaml` y las seis vistas que se generan de él |
 | Modelado de permisos y autorización | tool allowlists, `permission_mode`, `isolation` y gates humanos |
 | Human-in-the-loop real | `approval_points` en los trece agentes, con pruebas que verifican que existen |
+| Portabilidad sin acoplar el contrato | capa de runtime y de capacidades: el mismo agente con Claude Code o con ejecución humana, sin tocar su contrato |
 | Evaluación automatizada de contratos | 39 evaluaciones deterministas que fallan si alguien retira un gate |
 | Honestidad de estado | un modelo de madurez de cinco niveles que hoy sitúa todo en `IMPLEMENTED` |
 | Ingeniería de entrega | CI multiplataforma, CodeQL, build de wheel, imagen Docker verificada en vivo y Pages |
@@ -21,7 +22,7 @@
 
 ## La decisión de diseño que lo resume
 
-Cuatro archivos por agente y la landing page **se generan** desde el catálogo. Editarlos a mano hace fallar la build.
+Cuatro archivos por agente, la landing page y la matriz de compatibilidad **se generan** desde el catálogo y del código. Editarlos a mano hace fallar la build.
 
 Eso convierte una promesa habitual —«la documentación está actualizada»— en una propiedad que el sistema garantiza. La documentación no puede contradecir al contrato porque no es una copia: es una proyección.
 
@@ -31,7 +32,7 @@ Esto es parte del trabajo, no una carencia que ocultar:
 
 - **No afirma uso productivo.** Los trece agentes declaran `IMPLEMENTED`: contrato completo y validado. Ninguno ha registrado todavía una misión real con evidencia.
 - **No afirma métricas de adopción**, costo ni retrabajo, porque no existen aún.
-- **No afirma equivalencia entre runtimes.** Está adaptado a uno, y la portabilidad del núcleo es un diseño, no una demostración.
+- **No afirma equivalencia entre runtimes.** La [matriz de compatibilidad](docs/COMPATIBILITY_MATRIX.md) demuestra que el contrato encaja con los dos adaptadores implementados; no demuestra que la ejecución cumpla la misión. Eso exige evidencia por runtime, y no la hay todavía.
 
 El mecanismo para incorporar evidencia real sin exagerar está construido: [`docs/EVIDENCE_GUIDE.md`](docs/EVIDENCE_GUIDE.md) y [`docs/MATURITY_MODEL.md`](docs/MATURITY_MODEL.md).
 
@@ -40,7 +41,7 @@ El mecanismo para incorporar evidencia real sin exagerar está construido: [`doc
 1. **[`catalog/agents.yaml`](catalog/agents.yaml)** — el contrato canónico de los trece agentes.
 2. **La ficha de un agente**, por ejemplo [`security-remediation-agent`](agents/security-remediation-agent/README.md) — misión, fase por fase, permisos y gates.
 3. **[`docs/SECURITY_MODEL.md`](docs/SECURITY_MODEL.md)** — la tabla de garantías, cada una con el nombre de la prueba que la respalda.
-4. **[`tests/test_repository.py`](tests/test_repository.py)** — las pruebas que convierten esas garantías en propiedades verificadas.
+4. **[`tests/test_repository.py`](tests/test_repository.py)** y **[`tests/test_runtime_layer.py`](tests/test_runtime_layer.py)** — las pruebas que convierten esas garantías en propiedades verificadas, incluida la que impide que una capacidad ofrecida por el runtime se ejecute sin autorización del contrato.
 
 ```bash
 git clone https://github.com/vladimiracunadev-create/operational-ai-agents.git

@@ -15,6 +15,10 @@ Este repositorio **no** incluye tokens ni servidores MCP activados. Si añades u
 
 Un servidor MCP amplía lo que el agente **puede alcanzar**; no amplía lo que está **autorizado** a hacer.
 
+Desde v0.3.0 esa frase tiene respaldo estructural: el [modelo de capacidades](../../docs/CAPABILITY_MODEL.md) razona sobre **efectos** —leer, escribir, ejecutar, publicar—, no sobre nombres de herramientas. Una escritura que llega por MCP queda sujeta a la misma política que una escritura por tool nativa, y una capacidad que el contrato no autoriza se marca `BLOCKED` aunque el servidor la ofrezca.
+
+MCP sigue siendo opt-in: ningún agente del catálogo lo requiere, y todos funcionan sin ningún servidor configurado.
+
 ---
 
 <div align="center"><sub><a href="../../README.md">Repositorio</a> · <a href="../../docs/SECURITY_MODEL.md">Seguridad</a></sub></div>

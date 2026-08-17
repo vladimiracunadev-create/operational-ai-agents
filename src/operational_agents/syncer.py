@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .catalog import load_catalog
+from .compatibility import render_compatibility_matrix
 from .render import render_agent_readme, render_claude, render_instructions
 from .site import render_landing, site_stats
 
@@ -31,12 +32,23 @@ def generated_site_files(root: Path, catalog: dict[str, Any]) -> dict[Path, str]
     }
 
 
+def generated_doc_files(root: Path, catalog: dict[str, Any]) -> dict[Path, str]:
+    """Documentación cuya verdad vive en el código, no en la redacción.
+
+    La matriz de compatibilidad se calcula con los adaptadores del repositorio
+    y sin consultar el entorno: así el documento no puede afirmar una
+    compatibilidad que el código no sostenga, ni cambiar según la máquina.
+    """
+    return {root / "docs" / "COMPATIBILITY_MATRIX.md": render_compatibility_matrix(catalog)}
+
+
 def sync(root: Path, check: bool = False) -> list[str]:
     catalog = load_catalog(root)
     targets: dict[Path, str] = {}
     for agent in catalog["agents"]:
         targets.update(generated_files(root, agent))
     targets.update(generated_site_files(root, catalog))
+    targets.update(generated_doc_files(root, catalog))
     changed: list[str] = []
     for path, expected in targets.items():
         actual = path.read_text(encoding="utf-8") if path.exists() else None

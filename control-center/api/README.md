@@ -13,6 +13,7 @@
 | `GET` | `/healthz` | estado del servicio |
 | `GET` | `/api/agents` | catálogo con id, nombre, descripción, estado, categoría y riesgo |
 | `GET` | `/api/agents/<id>` | contrato completo de un agente; `404` si no existe |
+| `GET` | `/api/runtimes` | runtimes registrados, madurez del adaptador y disponibilidad en esta máquina |
 | `POST` | `/api/plan` | plan determinista para `{agent_id, task, target?}` |
 
 Todas las respuestas son JSON UTF-8 con `Cache-Control: no-store`.
@@ -23,6 +24,7 @@ Todas las respuestas son JSON UTF-8 con `Cache-Control: no-store`.
 - Un plan **no concede autorización**: enumera los gates que seguirán exigiendo decisión humana.
 - El cuerpo de `POST` se limita a 128 KiB.
 - Los accesos no se registran.
+- `/api/runtimes` **informa**: el panel no ejecuta ningún agente en ningún runtime.
 
 > [!CAUTION]
 > El servidor **no implementa autenticación**. Escucha en loopback por defecto y salir de ahí exige declarar `OPERATIONAL_AGENTS_ALLOW_REMOTE_BIND=1`. No lo expongas a Internet.

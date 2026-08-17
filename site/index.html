@@ -194,7 +194,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
 </nav>
 
 <header class="hero wrap" id="top">
-  <p class="eyebrow">Catálogo contractual · v0.2.0</p>
+  <p class="eyebrow">Catálogo contractual · v0.3.0</p>
   <h1>Agentes que responden por un resultado, no por un prompt.</h1>
   <p class="hero__lead">
     13 agentes operativos reutilizables. Cada uno recibe una <strong>misión completa</strong>,
@@ -209,8 +209,9 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <div class="stats">
     <div class="stat"><b>13</b><span>agentes con contrato</span></div>
     <div class="stat"><b>39</b><span>evaluaciones deterministas</span></div>
-    <div class="stat"><b>34</b><span>pruebas automatizadas</span></div>
-    <div class="stat"><b>0</b><span>dependencias runtime</span></div>
+    <div class="stat"><b>78</b><span>pruebas automatizadas</span></div>
+    <div class="stat"><b>2</b><span>runtimes con adaptador</span></div>
+    <div class="stat"><b>0</b><span>dependencias externas</span></div>
   </div>
 </header>
 
@@ -239,7 +240,10 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   </div>
   <p class="note">
     <b>Vendor-neutral en el núcleo.</b> El catálogo, las políticas, los schemas y las evaluaciones
-    no dependen de ningún proveedor. Claude Code es el primer adaptador, no un requisito del contrato.
+    no dependen de ningún proveedor. Claude Code es el primer adaptador, no un requisito del contrato:
+    el mismo agente puede prepararse para ejecución humana asistida, sin clave API ni conexión.
+    La <a href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/docs/COMPATIBILITY_MATRIX.md">matriz de compatibilidad</a> se genera
+    resolviendo cada contrato contra las capacidades declaradas por cada runtime.
   </p>
 </section>
 

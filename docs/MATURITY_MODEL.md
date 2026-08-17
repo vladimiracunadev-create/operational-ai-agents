@@ -37,6 +37,20 @@ Todos los agentes declaran **`IMPLEMENTED`**. Esto significa exactamente esto y 
 - ❌ **no** ha resuelto todavía una misión real registrada con evidencia;
 - ❌ **no** hay métricas de adopción, costo ni retrabajo.
 
+## Madurez por runtime
+
+La escala se aplica también a cada **adaptador de runtime**, y por separado del agente. Que un contrato esté `IMPLEMENTED` no dice nada sobre cuánto se ha demostrado de la integración que lo ejecuta.
+
+| Runtime | Madurez del adaptador | Qué la respalda |
+|---|---|---|
+| `claude` | `IMPLEMENTED` | el adaptador construye la invocación, resuelve capacidades y está cubierto por pruebas |
+| `manual` | `IMPLEMENTED` | prepara el paquete portable y cierra en `NOT_EXECUTED`, sin proveedor ni red |
+
+Ninguno declara más, porque `INTEGRATED` exigiría una prueba de extremo a extremo documentada y `evidence/case-studies/` está vacío. Una prueba verifica que ningún adaptador se promueva sin esos casos.
+
+> [!NOTE]
+> «Funciona en Claude» no implica «funciona en todos». La [matriz de compatibilidad](COMPATIBILITY_MATRIX.md) muestra la resolución de cada agente contra cada runtime; demostrar que la ejecución cumple la misión sigue exigiendo evidencia por runtime.
+
 ## Reglas de promoción
 
 1. **La promoción la decide una persona**, nunca el propio agente ni otro agente.

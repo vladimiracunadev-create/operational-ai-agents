@@ -1,6 +1,6 @@
 # Evaluación
 
-> Cinco capas, y qué demuestra —y qué no demuestra— cada una. Pasar las tres primeras acredita `IMPLEMENTED`; ninguna acredita por sí sola que el agente resolvió una misión real.
+> Seis capas, y qué demuestra —y qué no demuestra— cada una. Pasar las cuatro primeras acredita `IMPLEMENTED`; ninguna acredita por sí sola que el agente resolvió una misión real.
 
 [← Documentación](README.md) · [Repositorio](../README.md)
 
@@ -13,16 +13,18 @@
 | 1 | **Contrato** | campos, IDs, rutas, tools, permisos, gates y schemas | que el agente sepa usar esos permisos | ✅ |
 | 2 | **Plan determinista** | que las fases, gates y entregables esperados aparezcan en el plan de cada caso | que el plan sea buen consejo | ✅ |
 | 3 | **Exportador** | que cada definición Claude tenga frontmatter válido y prompt no vacío | que el runtime la ejecute bien | ✅ |
-| 4 | **Modelo** | ejecución real sobre fixtures o repositorios controlados | — | ❌ costo y variabilidad |
-| 5 | **Operación real** | resultado, intervención humana, retrabajo, costo y efecto | — | ❌ requiere trabajo real |
+| 4 | **Compatibilidad** | que cada agente resuelva sus capacidades contra cada runtime registrado | que la ejecución en ese runtime cumpla la misión | ✅ |
+| 5 | **Modelo** | ejecución real sobre fixtures o repositorios controlados | — | ❌ costo y variabilidad |
+| 6 | **Operación real** | resultado, intervención humana, retrabajo, costo y efecto | — | ❌ requiere trabajo real |
 
 > [!NOTE]
-> Las capas 4 y 5 no están en CI a propósito. Meter ejecuciones de modelo en cada push introduciría costo y no determinismo sin aumentar la garantía: lo que CI protege es que **el contrato no pierda controles al evolucionar**.
+> Las capas 5 y 6 no están en CI a propósito. Meter ejecuciones de modelo en cada push introduciría costo y no determinismo sin aumentar la garantía: lo que CI protege es que **el contrato no pierda controles al evolucionar**.
 
 ## Ejecutar
 
 ```bash
-operational-agents eval --all          # todas las capas deterministas
+operational-agents eval --all          # capas 1-3, deterministas
+operational-agents capabilities        # capa 4: resolución contra cada runtime
 operational-agents eval <agent-id>     # un solo agente
 operational-agents eval --all --json   # salida procesable
 python -m unittest discover -s tests -v

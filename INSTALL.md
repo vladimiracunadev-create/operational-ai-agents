@@ -68,9 +68,12 @@ Los agentes **no** necesitan esos skills: son una mejora opcional. Detalle en [d
 ## 3 · Comprobar que funciona
 
 ```bash
-operational-agents doctor
+operational-agents doctor        # Python, runtimes, integraciones y skills
+operational-agents runtimes      # qué puede ejecutar los agentes en esta máquina
 claude --agent repository-evolution-agent
 ```
+
+`doctor` informa `MISSING` u `OPTIONAL` sin fallar: validar, planificar, evaluar y preparar trabajo para ejecución humana no necesitan ningún runtime instalado.
 
 O menciónalo dentro de una sesión ya abierta:
 

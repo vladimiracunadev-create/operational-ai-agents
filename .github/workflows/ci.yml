@@ -68,6 +68,12 @@ jobs:
             echo '```'
             operational-agents list
             echo '```'
+            echo ""
+            echo "### Compatibilidad por runtime"
+            echo ""
+            echo '```'
+            operational-agents capabilities
+            echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
   # ─────────────────────────────────────────────────────────────

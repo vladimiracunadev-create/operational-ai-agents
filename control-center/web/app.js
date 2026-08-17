@@ -14,6 +14,11 @@ fetch('/api/agents').then(r => r.json()).then(data => {
   select.innerHTML = agents.map(a => `<option value="${a.id}">${a.name}</option>`).join('');
   render();
 }).catch(error => { cards.textContent = `No fue posible cargar el catálogo: ${error}`; });
+// Qué puede ejecutar estos contratos aquí. El panel solo informa: no ejecuta.
+fetch('/api/runtimes').then(r => r.json()).then(data => {
+  document.querySelector('#runtimes').innerHTML = data.runtimes.map(rt =>
+    `<span class="tag">${rt.id} · ${rt.available ? 'disponible' : 'no instalado'} · ${rt.maturity}</span>`).join(' ');
+}).catch(error => { document.querySelector('#runtimes').textContent = `Runtimes no disponibles: ${error}`; });
 filter.addEventListener('input', render);
 document.querySelector('#plan-form').addEventListener('submit', async event => {
   event.preventDefault();

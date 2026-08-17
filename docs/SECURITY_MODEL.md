@@ -34,6 +34,12 @@ Cada fila está cubierta por una prueba automatizada que corre en cada push. No 
 | Garantía | Prueba |
 |---|---|
 | La CLI no usa `shell=True` ni añade flags para omitir permisos | `test_cli_adds_no_permission_bypass` |
+| Ningún adaptador de runtime amplía permisos por su cuenta | `test_no_runtime_adds_permission_bypass` |
+| Una capacidad ofrecida por el runtime y no autorizada queda `BLOCKED` | `test_offered_but_unauthorized_capability_is_blocked` |
+| Falta una capacidad requerida: se declara y **no** se ejecuta nada | `test_run_refuses_when_a_required_capability_is_missing` |
+| Un runtime desconocido falla en vez de caer en otro proveedor | `test_unknown_runtime_fails_instead_of_falling_back` |
+| El sobre de evidencia nunca marca una aprobación como concedida | `test_envelope_never_marks_an_approval_as_granted` |
+| La evidencia no arrastra rutas locales del ejecutable | `test_envelope_keeps_local_paths_out_of_the_command` |
 | Un agente que escribe no puede omitir la aprobación de permisos | `test_mutating_agents_do_not_bypass_permissions` |
 | Un agente de solo lectura deniega `Write` y `Edit` explícitamente | `test_read_only_agents_deny_writes` |
 | Todo agente declara al menos un gate humano | `test_every_agent_has_human_gates` |
@@ -66,6 +72,8 @@ Declarados explícitamente, porque un modelo de seguridad que solo enumera sus f
 - **Las garantías cubren esta CLI y estos contratos**, no el comportamiento del modelo dentro del runtime, que depende de los permisos que el propio runtime aplique.
 - **`isolation: worktree` aísla archivos, no efectos externos.** Un comando que llama a un servicio remoto sale del aislamiento.
 - **Las evaluaciones son deterministas.** Comprueban que el contrato no pierda controles al evolucionar; no miden la calidad del razonamiento del modelo.
+- **La matriz de compatibilidad resuelve contratos, no observa ejecuciones.** Un `SUPPORTED` dice que el runtime declara las capacidades necesarias, no que el agente cumpla la misión al ejecutarse.
+- **Un plugin de terceros que registre un runtime corre con los permisos de tu intérprete.** El registro lo aísla de romper la CLI, no de lo que haga el propio paquete: instala plugins con el mismo criterio que cualquier dependencia.
 
 ## Reportar una vulnerabilidad
 

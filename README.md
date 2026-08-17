@@ -8,13 +8,14 @@ Trabajadores digitales que reciben una **misión completa** — 🧭 evolución 
 **Cero dependencias de runtime** — la CLI usa solo Python stdlib.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.2.0-8957e5?logo=github)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.0-8957e5?logo=github)](CHANGELOG.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Agents](https://img.shields.io/badge/agentes-13-1f6feb)](#-catálogo)
+[![Runtimes](https://img.shields.io/badge/runtimes-claude%20%7C%20manual-8957e5)](docs/COMPATIBILITY_MATRIX.md)
 [![Platforms](https://img.shields.io/badge/platforms-linux%20%7C%20macOS%20%7C%20windows-555?logo=linux&logoColor=white)](#-instalación)
 [![CI](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml)
-[![Tests](https://img.shields.io/badge/tests-34-brightgreen?logo=pytest&logoColor=white)](tests/test_repository.py)
+[![Tests](https://img.shields.io/badge/tests-78-brightgreen?logo=pytest&logoColor=white)](tests/)
 [![Evals](https://img.shields.io/badge/evals_deterministas-39-2da44e)](docs/EVALUATION.md)
 [![Maturity](https://img.shields.io/badge/madurez-IMPLEMENTED-1f6feb)](docs/MATURITY_MODEL.md)
 [![Supply chain](https://img.shields.io/badge/supply%20chain-0%20deps%20%C2%B7%20SHA%20pinned-2da44e?logo=shieldsdotio&logoColor=white)](SECURITY.md)
@@ -677,13 +678,39 @@ operational-agents run repository-evolution-agent \
 > [!WARNING]
 > La CLI **nunca** habilita bypass de permisos: invoca con lista de argumentos, sin `shell=True`, y no añade banderas que omitan confirmaciones. Publicar, desplegar, borrar y rotar credenciales siguen exigiendo aprobación humana.
 
-### 4 · Panel local
+### 4 · Ejecutar sin proveedor: el runtime `manual`
+
+Cuando el entorno es producción, infraestructura crítica o datos regulados, la pregunta no es si una herramienta *puede* actuar sola, sino si *debe*. El runtime `manual` prepara el trabajo y lo ejecuta una persona:
+
+```bash
+operational-agents run incident-root-cause-agent   --runtime manual   --task "Investiga la caída del checkout de anoche"   --evidence evidence/executions/checkout.json
+```
+
+Devuelve el paquete portable completo y cierra en `NOT_EXECUTED` — la descripción honesta de lo que pasó. Sin clave API, sin red y sin tokens, recorriendo el mismo contrato, la misma resolución de capacidades y la misma evidencia que Claude Code.
+
+### 5 · Saber qué encaja con qué
+
+```bash
+operational-agents runtimes                                     # qué hay instalado aquí
+operational-agents capabilities                                 # matriz agente × runtime
+operational-agents capabilities incident-root-cause-agent --runtime claude
+```
+
+```text
+filesystem.read            SUPPORTED    El runtime la ofrece de forma nativa
+shell.execute              SUPPORTED    El runtime la ofrece de forma nativa
+filesystem.write           BLOCKED      El runtime la ofrece, pero el contrato del agente no la autoriza
+```
+
+Esa última línea es el modelo entero en una frase: **acceso no es autorización**. Ver [docs/CAPABILITY_MODEL.md](docs/CAPABILITY_MODEL.md).
+
+### 6 · Panel local
 
 ```bash
 operational-agents serve --host 127.0.0.1 --port 8765
 ```
 
-### 🛠 Los trece comandos
+### 🛠 Los dieciséis comandos
 
 | Comando | Qué hace |
 |---|---|
@@ -696,8 +723,11 @@ operational-agents serve --host 127.0.0.1 --port 8765
 | `eval [<id>\|--all]` | ejecuta las evaluaciones deterministas |
 | `export claude --target` | exporta las definiciones a `.claude/agents/` |
 | `uninstall claude --target` | elimina solo los agentes administrados |
-| `doctor [--skills-dir]` | diagnostica entorno, Claude CLI y skills |
-| `run <id> --runtime claude` | ejecuta mediante un runtime externo |
+| `doctor [--skills-dir]` | diagnostica entorno, runtimes, integraciones y skills |
+| `runtimes` | lista los runtimes registrados y su disponibilidad |
+| `runtime inspect <id>` | capacidades declaradas y límites de un runtime |
+| `capabilities [<id>]` | resuelve agente × runtime; sin agente, la matriz completa |
+| `run <id> --runtime <rt>` | ejecuta mediante un runtime (`--dry-run`, `--evidence`) |
 | `serve` | levanta el panel local en loopback |
 | `scaffold <id> --name` | crea un borrador no catalogado |
 
@@ -710,6 +740,9 @@ Referencia completa con flags, endpoints y códigos de retorno en **[docs/CLI.md
 ### 🎯 Principios
 
 - **Vendor-neutral en el núcleo** — catálogo, políticas, schemas y evaluaciones no dependen de un proveedor.
+- **Agente ≠ runtime** — el contrato describe una misión; quién la ejecuta es problema de un adaptador intercambiable.
+- **Capacidad disponible ≠ autorización** — la allowlist es exhaustiva: lo que el contrato no autoriza queda `BLOCKED` aunque el runtime lo ofrezca.
+- **Degradación declarada, nunca simulada** — si falta una capacidad requerida, se dice cuál y no se ejecuta.
 - **Claude Code como primer adaptador** — exportación oficial a `.claude/agents/`, sin imponer modelo (`model: inherit`).
 - **Skills opcionales** — los agentes funcionan solos y mejoran si el toolkit está instalado.
 - **Read-only primero** — las fases iniciales inspeccionan; las mutaciones llegan tras alcance y plan.
@@ -720,7 +753,7 @@ Referencia completa con flags, endpoints y códigos de retorno en **[docs/CLI.md
 
 ### 🧬 Una sola fuente de verdad
 
-`catalog/agents.yaml` manda. De él se generan cuatro vistas por agente **y la landing page**; editarlas a mano hace fallar la build:
+`catalog/agents.yaml` manda. De él se generan cuatro vistas por agente, **la landing page y la matriz de compatibilidad**; editarlas a mano hace fallar la build:
 
 ```mermaid
 flowchart LR
@@ -729,7 +762,8 @@ flowchart LR
     C --> A["AGENT.md"]
     C --> R["README.md"]
     C --> S["site/index.html"]
-    M & I & A & R & S --> V{{"sync --check<br/>en CI"}}
+    C --> X["docs/COMPATIBILITY_MATRIX.md"]
+    M & I & A & R & S & X --> V{{"sync --check<br/>en CI"}}
     V -->|drift| F["❌ build falla"]
     V -->|coherente| P["✅"]
     style C fill:#1f6feb,color:#fff
@@ -747,6 +781,8 @@ operational-ai-agents/
 ├── catalog/                 # fuente única de verdad
 ├── agents/                  # un paquete autocontenido por agente
 ├── src/operational_agents/  # CLI, validación, planner, exporter, renderers y servidor
+│   ├── runtimes/            # adaptadores: claude, manual y registro extensible
+│   └── capabilities.py      # capacidades, efectos y resolución vendor-neutral
 ├── shared/                  # contratos, guardrails, memoria y telemetría
 ├── integrations/            # Claude Code, skills, MCP, GitHub y modelos locales
 ├── control-center/          # API y panel local
@@ -774,6 +810,10 @@ Cada garantía está cubierta por una prueba que corre en cada push. No son prom
 | Evidencia | redacción de secretos antes de persistir | `test_redaction` |
 | Instalación | nunca sobrescribe agentes ajenos | `test_export_preserves_unmanaged_agent` |
 | Catálogo público | sin datos personales ni rutas locales | `test_agents_carry_no_personal_data` |
+| Adaptadores de runtime | ninguno amplía permisos por su cuenta | `test_no_runtime_adds_permission_bypass` |
+| Capacidad no autorizada | `BLOCKED` aunque el runtime la ofrezca | `test_offered_but_unauthorized_capability_is_blocked` |
+| Capacidad ausente | se declara y no se ejecuta nada | `test_run_refuses_when_a_required_capability_is_missing` |
+| Runtime desconocido | falla; nunca cae en otro proveedor | `test_unknown_runtime_fails_instead_of_falling_back` |
 
 Modelo de amenazas, límites conocidos y política de reporte en **[docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md)** y **[SECURITY.md](SECURITY.md)**.
 
@@ -786,7 +826,7 @@ Ningún agente se presenta como productivo solo porque su Markdown sea válido:
 | Estado | Requisito mínimo | Hoy |
 |---|---|:-:|
 | `DRAFT` | diseño incompleto; no instalable | — |
-| `IMPLEMENTED` | contrato, instrucciones, schemas y evals disponibles | **12** |
+| `IMPLEMENTED` | contrato, instrucciones, schemas y evals disponibles | **13** |
 | `OPERATIONAL_LOCAL` | usado en una tarea real con evidencia sanitizada | 0 |
 | `INTEGRATED` | conectado a servicios reales y probado end-to-end | 0 |
 | `PRODUCTION_OBSERVED` | uso recurrente con trazas, métricas y revisión humana | 0 |
@@ -811,6 +851,7 @@ ruff check .
 operational-agents sync --check     # sin drift respecto del catálogo
 operational-agents validate         # integridad de los paquetes
 operational-agents eval --all       # 39 evaluaciones deterministas
+operational-agents capabilities     # resolución de capacidades por runtime
 python -m unittest discover -s tests -v
 ```
 
@@ -840,13 +881,16 @@ Criterios de aceptación completos en **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 | 📘 [README.md](README.md) | Entry point · catálogo + quick start *(estás aquí)* |
 | 🗂️ [docs/README.md](docs/README.md) | Índice de la documentación · por dónde empezar según lo que busques |
 | 📦 [INSTALL.md](INSTALL.md) | Instalación por usuario y por proyecto · actualización · problemas frecuentes |
-| 🛠 [docs/CLI.md](docs/CLI.md) | Los trece comandos · flags, endpoints y códigos de retorno |
-| 📜 [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md) | Qué declara un agente campo a campo · las ocho invariantes |
+| 🛠 [docs/CLI.md](docs/CLI.md) | Los dieciséis comandos · flags, endpoints y códigos de retorno |
+| 📜 [docs/AGENT_CONTRACT.md](docs/AGENT_CONTRACT.md) | Qué declara un agente campo a campo · las diez invariantes |
 | 🏛 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Límites del sistema · fuente de verdad · flujo de mutación |
 | 🔐 [docs/SECURITY_MODEL.md](docs/SECURITY_MODEL.md) | Amenazas, controles y gates · qué garantía cubre cada prueba |
-| ✅ [docs/EVALUATION.md](docs/EVALUATION.md) | Las cinco capas · qué demuestra y qué **no** demuestra cada una |
+| ✅ [docs/EVALUATION.md](docs/EVALUATION.md) | Las seis capas · qué demuestra y qué **no** demuestra cada una |
 | 📈 [docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md) | Los cinco estados · qué evidencia exige cada promoción |
 | 🔍 [docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md) | Qué se registra, cómo se sanitiza y qué no se guarda nunca |
+| 🔌 [docs/RUNTIME_CONTRACT.md](docs/RUNTIME_CONTRACT.md) | Qué debe cumplir un runtime · cómo se añade uno · por qué no hay fallback |
+| 🧮 [docs/CAPABILITY_MODEL.md](docs/CAPABILITY_MODEL.md) | Capacidades, efectos y autorización · los cuatro estados de resolución |
+| 🧭 [docs/COMPATIBILITY_MATRIX.md](docs/COMPATIBILITY_MATRIX.md) | Qué agente opera bajo qué runtime **(generado)** |
 | 🤖 [docs/CLAUDE_CODE.md](docs/CLAUDE_CODE.md) | Frontmatter generado · instalación sin pisar tus propios agentes |
 | 🧩 [docs/SKILLS_INTEGRATION.md](docs/SKILLS_INTEGRATION.md) | Integración opcional con el toolkit · skill vs agente |
 | 📋 [CHANGELOG.md](CHANGELOG.md) | Historial de versiones (Keep a Changelog + SemVer) |
@@ -875,23 +919,29 @@ Resumen — versión completa con no-objetivos en [ROADMAP.md](ROADMAP.md).
 
 **v0.2.0 · ✅ publicada 2026-08-13** — 📡 `curriculum-evolution-agent` + 🌐 `portfolio-publication-agent`, fases explicadas y revisión completa de la documentación.
 
-**v0.3.0 · uso real y evidencia — en curso:**
+**v0.3.0 · ✅ publicada 2026-08-17** — 🔌 capa de runtime y de capacidades: el contrato deja de estar atado a un único ejecutor.
 
-- [x] 📡 `curriculum-evolution-agent` — mantiene un programa formativo al día con su campo, verificando cada fuente
-- [x] 🌐 `portfolio-publication-agent` — reconcilia una superficie publicada con el estado real de sus repositorios
 - [x] 👤 `professional-profile-agent` — audita un perfil profesional público contra la evidencia y publica solo lo aprobado
 - [x] 📖 `phase_details` — cada fase declara qué ocurre en ella; el validador rechaza una fase sin explicar
 - [x] 🔗 Validación de anclas Markdown con el algoritmo de slug de GitHub
+- [x] 🧩 `AgentRuntime` + registro extensible, con entry point para plugins de terceros
+- [x] 🙋 Runtime `manual` de ejecución humana asistida — sin proveedor, sin clave, sin red
+- [x] 🧮 Modelo de capacidades y efectos, con `SUPPORTED` · `DEGRADED` · `UNSUPPORTED` · `BLOCKED`
+- [x] 🧭 [Matriz de compatibilidad](docs/COMPATIBILITY_MATRIX.md) generada desde el código, sin drift posible
+- [x] 📦 Sobre de evidencia portable, comparable entre runtimes
+
+**v0.4.0 · uso real y evidencia:**
+
 - [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/13)*
 - [ ] 📂 Incorporar casos sanitizados y promover solo los que cumplan `OPERATIONAL_LOCAL`
 - [ ] 📊 Métricas de éxito, duración, costo, intervención humana y retrabajo
 - [ ] 🎯 Evaluaciones model-graded versionadas por runtime y modelo
 
-**v0.4.0 · integraciones:**
+**v0.5.0 · integraciones:**
 
-- [ ] 🔌 Adaptador para OpenAI Agents SDK
+- [ ] 🖥️ Segundo runtime autónomo real (Codex CLI o Gemini CLI), con sus evaluaciones
 - [ ] 🦙 Adaptador local con Ollama, declarando capacidades y degradación
-- [ ] 🔗 Integraciones MCP declarativas con allowlist por agente
+- [ ] 🔗 Integraciones MCP declarativas como proveedores de capacidad
 - [ ] 📦 Exportador de plugin de Claude Code
 - [ ] 📡 Sink de evidencia opcional vía OpenTelemetry
 
@@ -899,7 +949,7 @@ Resumen — versión completa con no-objetivos en [ROADMAP.md](ROADMAP.md).
 
 - [ ] 📜 Contratos estables con migraciones documentadas
 - [ ] 🏅 Tres o más agentes con uso recurrente y evidencia
-- [ ] 🧭 Matriz de compatibilidad entre runtimes
+- [ ] 🧭 Compatibilidad demostrada con ejecuciones reales por runtime, no solo resuelta
 - [ ] 🔐 Auditoría de seguridad y prueba de recuperación end-to-end
 
 ¿Sugerencias? 💬 Abre un [issue](https://github.com/vladimiracunadev-create/operational-ai-agents/issues) o una [propuesta de agente](https://github.com/vladimiracunadev-create/operational-ai-agents/issues/new?template=agent_proposal.yml).

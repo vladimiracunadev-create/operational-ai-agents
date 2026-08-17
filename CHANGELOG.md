@@ -2,9 +2,65 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [versionado semántico](https://semver.org/lang/es/).
 
-## [No publicado]
+## [0.3.0] - 2026-08-17
+
+El contrato deja de estar atado a un único ejecutor. Un agente ya podía describir su
+misión sin nombrar proveedor; ahora también puede ejecutarse sin nombrarlo, porque
+quién lo ejecuta pasó a ser un adaptador intercambiable y qué está autorizado a hacer
+pasó a ser una capacidad resuelta, no un nombre de herramienta. Ninguna modalidad
+anterior cambió: los trece agentes, los trece comandos previos, la exportación a
+Claude Code y el funcionamiento offline siguen exactamente igual.
 
 ### Añadido
+
+- **Capa de runtime** (`src/operational_agents/runtimes/`). `AgentRuntime` define el
+  contrato común —declarar capacidades, detectar disponibilidad, preparar y ejecutar—
+  y `run()` es un método plantilla cerrado: detecta, prepara, resuelve capacidades y
+  solo entonces ejecuta. Un adaptador no decide el orden, así que no puede saltarse la
+  resolución. El registro es extensible y admite adaptadores de terceros por entry
+  point; un plugin roto se anota y se ignora en vez de tumbar la CLI.
+- **Runtime `manual` de ejecución humana asistida.** El agente analiza, propone y
+  entrega el paquete portable; la persona ejecuta. Cierra en `NOT_EXECUTED`, que no es
+  un fallo sino la descripción honesta de lo que pasó. Es la modalidad correcta para
+  producción, infraestructura crítica, datos regulados o rotación de credenciales — y
+  además la prueba de que la abstracción sirve: recorre el mismo contrato, la misma
+  resolución y la misma evidencia que Claude Code sin proveedor, sin clave y sin red.
+- **Modelo de capacidades y efectos** (`capabilities.py`). Un agente pide
+  `filesystem.search`, no `Grep`. Las capacidades se derivan de las `tools` de cada
+  contrato, así que **ningún agente del catálogo tuvo que cambiar**; declararlas de
+  forma explícita queda como opción. La política razona sobre efectos —leer, escribir,
+  ejecutar, red— y por eso vale igual para una tool nativa, un servidor MCP o una API.
+- **Resolución con cuatro estados.** `SUPPORTED`, `DEGRADED`, `UNSUPPORTED` y
+  `BLOCKED`. Este último es el que importa: la allowlist del contrato es exhaustiva, de
+  modo que una capacidad que el runtime ofrece y el agente no tiene autorizada se marca
+  y **nunca** entra en el conjunto ejecutable. Acceso no es autorización, ahora también
+  en el código.
+- **`docs/COMPATIBILITY_MATRIX.md`, generada.** Se calcula resolviendo cada contrato
+  contra las capacidades *declaradas* por cada adaptador, sin consultar el entorno: da
+  el mismo resultado en cualquier máquina y `sync --check` la vigila. Dice que el
+  contrato encaja; no dice que la ejecución cumpla la misión.
+- **Sobre de evidencia portable** (`--evidence`). Misma forma venga del runtime que
+  venga: agente, runtime, ejecución, capacidades resueltas, aprobaciones, resultado,
+  verificación y riesgo residual. Sin credenciales, sin rutas absolutas del ejecutable
+  y sin el prompt completo. Ninguna aprobación se marca como concedida por la CLI.
+- **Tres comandos nuevos**: `runtimes`, `runtime inspect <id>` y `capabilities`, este
+  último con la matriz completa si no se le pasa agente.
+- `run` acepta `--target`, `--dry-run` y `--evidence`, y su `--runtime` sale del
+  registro en lugar de una lista fija. `--runtime claude` sigue siendo válido y produce
+  exactamente la misma invocación de antes.
+- `doctor` diagnostica ahora cada runtime registrado, las integraciones opcionales
+  (`git`, `gh`, `docker`, `ollama`) y los plugins que no cargaron, con estados
+  `AVAILABLE` · `MISSING` · `OPTIONAL` · `UNSUPPORTED` y salida `--json`.
+- **44 pruebas nuevas** (78 en total) para la capa de portabilidad: compatibilidad
+  hacia atrás de la invocación de Claude, ausencia de bypass de permisos en cualquier
+  adaptador, negativa a ejecutar cuando falta una capacidad requerida, error —nunca
+  fallback silencioso— ante un runtime desconocido, resolución independiente del
+  entorno, opcionalidad real de los skills, una que verifica por AST que el núcleo no
+  importa nada fuera de la biblioteca estándar, y tres que levantan el control center
+  en loopback para comprobar sus endpoints de verdad.
+- `GET /api/runtimes` en el control center, y una tira en el panel que muestra qué
+  runtimes hay registrados y cuáles están disponibles. El panel sigue sin ejecutar nada.
+- `docs/RUNTIME_CONTRACT.md` y `docs/CAPABILITY_MODEL.md`.
 
 - **`scenarios`: tres casos trabajados por agente**, en el catálogo y por tanto
   en todas las vistas generadas. Cada uno lleva el contexto concreto con nombres
@@ -42,6 +98,15 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ### Cambiado
 
+- La invocación de procesos se movió de `cli.py` al adaptador `claude`. La garantía de
+  que nadie añade banderas que omitan permisos ahora cubre toda la superficie que
+  invoca procesos, no solo la CLI.
+- El badge de pruebas cuenta todos los módulos de `tests/`, no solo el primero: contar
+  uno cuando hay varios convertía la cifra en falsa por defecto.
+- La documentación de evaluación pasa a seis capas, con la resolución de capacidades
+  como cuarta capa determinista en CI.
+- Hitos renumerados: «uso real y evidencia» a `v0.4` e «integraciones» a `v0.5`, ya que
+  `v0.3` la ocupa la portabilidad.
 - Conteos de agentes y evaluaciones sincronizados en README, `RECRUITER.md` y
   `evidence/README.md` tras crecer el catálogo a trece.
 - `schema_version` del catálogo a `1.3` por el cambio de `examples` a
@@ -61,9 +126,9 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
   hoy y no lo que aquel release publicó. Ahora dice diez y nombra su versión, que
   es lo que la prueba de conteos distingue: un marcador de estado actual se
   sincroniza, una referencia histórica se conserva.
-
-> La versión del repositorio sigue en `0.2.0`: publicar un release es una decisión
-> humana, no una consecuencia de que la build esté verde.
+- **La tabla de madurez del README contaba doce agentes `IMPLEMENTED`** cuando el
+  catálogo ya tenía trece. La prueba de conteos no lo veía porque la celda es un número
+  suelto, sin la palabra «agentes» al lado.
 
 ## [0.2.0] - 2026-08-13
 

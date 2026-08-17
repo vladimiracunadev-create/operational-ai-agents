@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 
 from .catalog import agents_by_id, load_catalog
 from .planner import create_plan
+from .runtimes.registry import default_registry
 
 
 class ControlHandler(SimpleHTTPRequestHandler):
@@ -31,6 +32,15 @@ class ControlHandler(SimpleHTTPRequestHandler):
             catalog = load_catalog(self.root)
             agents = [{k: a[k] for k in ("id", "name", "description", "status", "category", "risk")} for a in catalog["agents"]]
             self._json(200, {"agents": agents})
+            return
+        if parsed.path == "/api/runtimes":
+            # Solo lectura, como el resto del panel: informa qué runtimes hay
+            # registrados y si están disponibles aquí. No ejecuta ninguno.
+            registry = default_registry()
+            self._json(200, {"runtimes": [
+                {**runtime.descriptor.as_dict(), "available": runtime.detect().available}
+                for runtime in registry
+            ]})
             return
         if parsed.path.startswith("/api/agents/"):
             aid = parsed.path.rsplit("/", 1)[-1]
@@ -64,12 +74,21 @@ class ControlHandler(SimpleHTTPRequestHandler):
         return
 
 
-def serve(root: Path, host: str, port: int) -> None:
+def build_server(root: Path, host: str, port: int) -> ThreadingHTTPServer:
+    """Servidor configurado y enlazado, sin atender todavía.
+
+    Existe separado de `serve` para poder probar los endpoints sin bloquear:
+    la comprobación de loopback ocurre aquí, antes de abrir el socket.
+    """
     loopback = host in {"127.0.0.1", "localhost", "::1"}
     if not loopback and os.environ.get("OPERATIONAL_AGENTS_ALLOW_REMOTE_BIND") != "1":
         raise ValueError("Por seguridad use loopback o declare OPERATIONAL_AGENTS_ALLOW_REMOTE_BIND=1")
     handler = type("ConfiguredControlHandler", (ControlHandler,), {"root": root, "web_dir": root / "control-center" / "web"})
-    server = ThreadingHTTPServer((host, port), handler)
+    return ThreadingHTTPServer((host, port), handler)
+
+
+def serve(root: Path, host: str, port: int) -> None:
+    server = build_server(root, host, port)
     print(f"Control center: http://{host}:{server.server_port}", flush=True)
     try:
         server.serve_forever()

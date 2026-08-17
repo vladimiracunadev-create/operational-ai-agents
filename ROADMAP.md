@@ -15,7 +15,21 @@
 - [x] Políticas de seguridad verificadas por pruebas y modelo de madurez honesto.
 - [x] CI multiplataforma, CodeQL y landing page publicada.
 
-## v0.3 — uso real y evidencia
+## v0.3 — portabilidad ✅
+
+El contrato deja de estar atado a un único ejecutor, sin que ninguna modalidad anterior deje de funcionar.
+
+- [x] Interfaz `AgentRuntime` y registro extensible, con entry point para plugins de terceros.
+- [x] Adaptador `claude` con la misma invocación de siempre, ahora detrás del contrato común.
+- [x] Runtime `manual` de ejecución humana asistida: sin proveedor, sin clave API y sin red.
+- [x] Modelo de capacidades y efectos, con resolución `SUPPORTED` · `DEGRADED` · `UNSUPPORTED` · `BLOCKED`.
+- [x] Matriz de compatibilidad generada desde el código y verificada por `sync --check`.
+- [x] Sobre de evidencia portable, comparable entre runtimes.
+
+> [!NOTE]
+> La matriz demuestra que **el contrato encaja**, no que la ejecución cumpla la misión. Eso pertenece al hito siguiente y exige evidencia.
+
+## v0.4 — uso real y evidencia
 
 El salto que de verdad importa: hoy ningún agente ha demostrado resolver una misión real.
 
@@ -27,11 +41,12 @@ El salto que de verdad importa: hoy ningún agente ha demostrado resolver una mi
 > [!NOTE]
 > Este hito no se cierra escribiendo documentación. Se cierra con casos revisados en `evidence/case-studies/`, uno por agente promovido.
 
-## v0.4 — integraciones
+## v0.5 — integraciones
 
-- [ ] Adaptador para OpenAI Agents SDK.
+- [ ] Segundo runtime autónomo real (Codex CLI o Gemini CLI) con sus evaluaciones por runtime.
 - [ ] Adaptador local con Ollama, declarando capacidades y degradación.
-- [ ] Integraciones MCP declarativas con allowlist por agente.
+- [ ] Adaptador para OpenAI Agents SDK.
+- [ ] Integraciones MCP declarativas como proveedores de capacidad, con allowlist por agente.
 - [ ] Exportador de plugin de Claude Code.
 - [ ] Sink de evidencia opcional vía OpenTelemetry.
 
@@ -39,7 +54,7 @@ El salto que de verdad importa: hoy ningún agente ha demostrado resolver una mi
 
 - [ ] Contratos estables con migraciones documentadas.
 - [ ] Tres o más agentes con uso recurrente y evidencia.
-- [ ] Matriz de compatibilidad entre runtimes.
+- [ ] Compatibilidad demostrada con ejecuciones reales por runtime, no solo resuelta.
 - [ ] Auditoría de seguridad y prueba de recuperación de extremo a extremo.
 
 ## No objetivos

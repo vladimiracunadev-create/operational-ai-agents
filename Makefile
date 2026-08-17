@@ -2,7 +2,7 @@ PY ?= python
 RUN := PYTHONPATH=src $(PY) -m operational_agents
 
 .DEFAULT_GOAL := help
-.PHONY: help install check lint test validate eval sync sync-check serve docker clean
+.PHONY: help install check lint test validate eval matrix sync sync-check serve docker clean
 
 help:  ## Muestra esta ayuda
 	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -23,6 +23,9 @@ validate:  ## Valida la integridad de los paquetes de agente
 
 eval:  ## Ejecuta las evaluaciones deterministas
 	$(RUN) eval --all
+
+matrix:  ## Muestra la resolución de capacidades de cada agente por runtime
+	$(RUN) capabilities
 
 sync:  ## Regenera las vistas derivadas del catálogo
 	$(RUN) sync

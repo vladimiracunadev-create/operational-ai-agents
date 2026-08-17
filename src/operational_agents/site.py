@@ -11,6 +11,8 @@ import html
 from pathlib import Path
 from typing import Any
 
+from .runtimes.registry import default_registry
+
 REPO = "https://github.com/vladimiracunadev-create/operational-ai-agents"
 
 RISK_LABEL = {"low": "riesgo bajo", "medium": "riesgo medio", "high": "riesgo alto"}
@@ -37,8 +39,13 @@ def site_stats(root: Path, catalog: dict[str, Any]) -> dict[str, int]:
     for agent in catalog["agents"]:
         path = root / "agents" / agent["id"] / "evals" / "cases.jsonl"
         evals += sum(1 for line in path.read_text(encoding="utf-8").splitlines() if line.strip())
-    tests = (root / "tests" / "test_repository.py").read_text(encoding="utf-8").count("    def test_")
-    return {"agentes": len(catalog["agents"]), "evaluaciones": evals, "pruebas": tests}
+    # Todos los módulos de prueba, no solo el primero: contar uno cuando hay
+    # varios convierte el badge en una afirmación falsa por defecto.
+    tests = sum(path.read_text(encoding="utf-8").count("    def test_") for path in sorted((root / "tests").glob("test_*.py")))
+    # Sin plugins: la landing es una vista generada y no puede cambiar según
+    # lo que tenga instalado quien ejecuta `sync`.
+    runtimes = len(default_registry(with_plugins=False))
+    return {"agentes": len(catalog["agents"]), "evaluaciones": evals, "pruebas": tests, "runtimes": runtimes}
 
 
 def _agent_card(agent: dict[str, Any]) -> str:
@@ -313,7 +320,8 @@ footer{{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mut
     <div class="stat"><b>{stats['agentes']}</b><span>agentes con contrato</span></div>
     <div class="stat"><b>{stats['evaluaciones']}</b><span>evaluaciones deterministas</span></div>
     <div class="stat"><b>{stats['pruebas']}</b><span>pruebas automatizadas</span></div>
-    <div class="stat"><b>0</b><span>dependencias runtime</span></div>
+    <div class="stat"><b>{stats['runtimes']}</b><span>runtimes con adaptador</span></div>
+    <div class="stat"><b>0</b><span>dependencias externas</span></div>
   </div>
 </header>
 
@@ -342,7 +350,10 @@ footer{{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mut
   </div>
   <p class="note">
     <b>Vendor-neutral en el núcleo.</b> El catálogo, las políticas, los schemas y las evaluaciones
-    no dependen de ningún proveedor. Claude Code es el primer adaptador, no un requisito del contrato.
+    no dependen de ningún proveedor. Claude Code es el primer adaptador, no un requisito del contrato:
+    el mismo agente puede prepararse para ejecución humana asistida, sin clave API ni conexión.
+    La <a href="{REPO}/blob/main/docs/COMPATIBILITY_MATRIX.md">matriz de compatibilidad</a> se genera
+    resolviendo cada contrato contra las capacidades declaradas por cada runtime.
   </p>
 </section>
 

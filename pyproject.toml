@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "operational-ai-agents"
-version = "0.2.0"
+version = "0.3.0"
 description = "Operational, evidence-driven AI agent collection"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -56,8 +56,9 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 # Ambos archivos ajustan sys.path antes de importar el paquete local:
-# el import no puede preceder al bootstrap.
-"tests/*" = ["E402"]
+# el import no puede preceder al bootstrap. Los dobles de prueba, además,
+# respetan la firma de AgentRuntime aunque no usen todos sus parámetros.
+"tests/*" = ["E402", "ARG002"]
 "scripts/*" = ["E402"]
 # log_message respeta la firma de BaseHTTPRequestHandler; silenciar el log
 # es intencional y no puede omitir los parámetros del contrato heredado.

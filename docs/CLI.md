@@ -76,6 +76,7 @@ Regenera las vistas derivadas del catálogo. Estos archivos se consideran genera
 | `agents/<id>/AGENT.md` | definición instalable en Claude Code |
 | `agents/<id>/README.md` | ficha humana del contrato |
 | `site/index.html` | landing page publicada en GitHub Pages |
+| `docs/COMPATIBILITY_MATRIX.md` | resolución de cada agente contra cada runtime registrado |
 
 ```bash
 operational-agents sync           # escribe los archivos derivados
@@ -165,35 +166,103 @@ operational-agents uninstall claude --target ~/.claude/agents
 
 ---
 
+## Portabilidad
+
+### `runtimes`
+
+Lista los runtimes registrados, su tipo, si ejecutan de forma autónoma, la madurez del adaptador y si están disponibles en esta máquina.
+
+```bash
+operational-agents runtimes
+operational-agents runtimes --json
+```
+
+```text
+claude     MISSING    cli     autónomo  IMPLEMENTED  Claude Code
+manual     AVAILABLE  human   asistido  IMPLEMENTED  Ejecución humana asistida
+```
+
+`MISSING` no es un error: significa que ese runtime no está instalado aquí. Todo lo demás de la CLI sigue funcionando sin él.
+
+### `runtime inspect <runtime_id>`
+
+Capacidades declaradas, modalidades de entrada, disponibilidad y límites de un runtime concreto.
+
+```bash
+operational-agents runtime inspect claude
+operational-agents runtime inspect manual --json
+```
+
+Las capacidades declaradas **no** dependen del entorno: son las mismas en cualquier máquina. Lo que cambia es la disponibilidad, y se informa por separado.
+
+### `capabilities [<agent_id>] [--runtime <runtime_id>]`
+
+Resuelve lo que el agente necesita contra lo que el runtime ofrece y lo que el contrato autoriza.
+
+```bash
+operational-agents capabilities                                     # matriz agente × runtime
+operational-agents capabilities incident-root-cause-agent           # todos los runtimes
+operational-agents capabilities incident-root-cause-agent --runtime claude --json
+```
+
+| Estado | Significado |
+|---|---|
+| `SUPPORTED` | el runtime ofrece de forma nativa todo lo requerido |
+| `DEGRADED` | está todo, pero alguna capacidad es condicional |
+| `UNSUPPORTED` | falta al menos una capacidad requerida; `run` se negará a ejecutar |
+| `BLOCKED` | el runtime la ofrece y el contrato del agente **no** la autoriza |
+
+El modelo completo está en [CAPABILITY_MODEL.md](CAPABILITY_MODEL.md), y la matriz generada en [COMPATIBILITY_MATRIX.md](COMPATIBILITY_MATRIX.md).
+
+---
+
 ## Operación
 
-### `doctor [--skills-dir RUTA]`
+### `doctor [--skills-dir RUTA] [--json]`
 
-Diagnostica el entorno: versión de Python, presencia del CLI de Claude Code y, opcionalmente, qué skills opcionales faltan.
+Diagnostica el entorno: versión de Python, disponibilidad de cada runtime registrado, integraciones opcionales (`git`, `gh`, `docker`, `ollama`), skills faltantes y plugins que no cargaron.
 
 ```bash
 operational-agents doctor
 operational-agents doctor --skills-dir ~/.claude/skills
+operational-agents doctor --json
 ```
 
-Devuelve `1` si la versión de Python es inferior a 3.11. La ausencia de Claude Code se informa como opcional, porque validar, planificar y evaluar no lo necesitan.
+| Estado | Significado |
+|---|---|
+| `AVAILABLE` | está instalado y se encontró |
+| `MISSING` | el runtime está registrado pero no se encuentra aquí |
+| `OPTIONAL` | herramienta complementaria ausente; nada del núcleo la necesita |
+| `UNSUPPORTED` | requisito incumplido (hoy solo Python < 3.11) |
 
-### `run <agent_id> --runtime claude --task ...`
+Devuelve `1` si la versión de Python es inferior a 3.11. Nada más hace fallar el diagnóstico: validar, planificar y evaluar no necesitan ningún runtime.
 
-Ejecuta el agente mediante un runtime externo ya instalado.
+### `run <agent_id> --runtime <runtime_id> --task ...`
+
+Ejecuta el agente mediante un runtime ya disponible.
 
 ```bash
 operational-agents run repository-evolution-agent \
   --runtime claude \
   --cwd /ruta/al/repositorio \
   --task "Detecta brechas y prepara un plan; no publiques cambios"
+
+operational-agents run incident-root-cause-agent \
+  --runtime manual \
+  --task "Investiga la caída del checkout de anoche" \
+  --evidence evidence/executions/checkout.json
 ```
 
 | Flag | Efecto |
 |---|---|
-| `--runtime claude` | **obligatorio**; único runtime soportado hoy |
+| `--runtime ID` | **obligatorio**; `claude` o `manual` (más los que aporte un plugin) |
 | `--task TEXTO` | **obligatorio**; la misión |
+| `--target TEXTO` | destino declarado de la tarea, si aplica |
 | `--cwd RUTA` | directorio de trabajo (por defecto, el actual) |
+| `--dry-run` | prepara, resuelve capacidades y muestra el plan **sin ejecutar** |
+| `--evidence RUTA` | escribe el sobre de evidencia portable |
+
+Antes de ejecutar nada, `run` resuelve capacidades. Si falta una requerida devuelve `1` y nombra cuál: no se inventa la capacidad ni se declara un éxito que no ocurrió. Con `--runtime manual` el resultado es siempre `NOT_EXECUTED` y la salida es el paquete que ejecuta una persona.
 
 > [!WARNING]
 > `run` construye la invocación como una lista de argumentos, sin `shell=True`, y **no añade ninguna bandera que omita permisos**. Las acciones destructivas, la publicación, el despliegue y las credenciales siguen sujetas a la aprobación que el propio runtime solicita.
@@ -212,6 +281,7 @@ operational-agents serve --host 127.0.0.1 --port 8765
 | `GET /healthz` | estado del servicio |
 | `GET /api/agents` | catálogo completo |
 | `GET /api/agents/<id>` | contrato de un agente |
+| `GET /api/runtimes` | runtimes registrados y su disponibilidad |
 | `POST /api/plan` | plan determinista para una tarea |
 
 > [!CAUTION]
@@ -244,4 +314,4 @@ operational-agents eval --all       # evaluaciones deterministas
 python -m unittest discover -s tests -v
 ```
 
-Los cuatro comandos son deterministas, offline y sin coste.
+Los cuatro comandos son deterministas, offline y sin coste. `sync --check` cubre también la matriz de compatibilidad, así que un adaptador que cambie sus capacidades sin regenerarla hace fallar la build.

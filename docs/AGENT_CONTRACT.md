@@ -49,6 +49,10 @@ Un agente **no** es un prompt largo ni un archivo de instrucciones. Es un **cont
 | `memory` | alcance de la memoria entre sesiones |
 | `effort`, `max_turns` | presupuesto de razonamiento y de pasos |
 | `skill_dependencies` | capacidades **opcionales**; el agente funciona sin ellas |
+| `capabilities` | *(opcional)* capacidades requeridas y opcionales, si no basta con derivarlas de `tools` |
+| `input_modalities` | *(opcional)* modalidades de entrada requeridas y opcionales; por defecto, texto |
+
+Los dos últimos campos son opcionales y ningún agente del catálogo los declara todavía: sus capacidades se derivan de `tools` y el resultado es idéntico. Existen para que un agente pueda expresar lo que necesita sin nombrar la tool de un runtime concreto. Ver [CAPABILITY_MODEL.md](CAPABILITY_MODEL.md).
 
 ### Ciclo de trabajo
 
@@ -78,6 +82,8 @@ Se cumplen siempre, en todos los agentes, y varias están cubiertas por pruebas 
 6. **No modificar antes de comprender** alcance, fuentes de verdad y camino de reversión.
 7. **Un agente mutante nunca omite permisos.** Si declara `Write` o `Edit`, su `permission_mode` es `default` y su `isolation` es `worktree`.
 8. **Un agente de solo lectura deniega la escritura explícitamente**, no solo por omisión.
+9. **La allowlist es exhaustiva.** Una capacidad que el contrato no autoriza se marca `BLOCKED` aunque el runtime la ofrezca, y nunca entra en el conjunto ejecutable.
+10. **El contrato no nombra proveedor.** Ni modelo, ni API, ni servidor MCP: esas decisiones viven en el runtime y en las integraciones.
 
 ## Vistas derivadas
 
