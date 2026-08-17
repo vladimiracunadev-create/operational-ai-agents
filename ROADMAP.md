@@ -8,14 +8,14 @@
 
 ## v0.1 — base implementada ✅
 
-- [x] Trece agentes transversales con contrato completo.
+- [x] Diez agentes transversales con contrato completo en v0.1.0.
 - [x] Catálogo como fuente única de verdad, con vistas generadas y sin drift.
 - [x] Exportación a Claude Code que preserva los agentes del usuario.
 - [x] Planificador determinista, panel local, validación y evaluaciones.
 - [x] Políticas de seguridad verificadas por pruebas y modelo de madurez honesto.
 - [x] CI multiplataforma, CodeQL y landing page publicada.
 
-## v0.2 — uso real y evidencia
+## v0.3 — uso real y evidencia
 
 El salto que de verdad importa: hoy ningún agente ha demostrado resolver una misión real.
 
@@ -27,7 +27,7 @@ El salto que de verdad importa: hoy ningún agente ha demostrado resolver una mi
 > [!NOTE]
 > Este hito no se cierra escribiendo documentación. Se cierra con casos revisados en `evidence/case-studies/`, uno por agente promovido.
 
-## v0.3 — integraciones
+## v0.4 — integraciones
 
 - [ ] Adaptador para OpenAI Agents SDK.
 - [ ] Adaptador local con Ollama, declarando capacidades y degradación.

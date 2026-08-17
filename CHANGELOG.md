@@ -27,6 +27,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
   catálogo y el badge del README ya iban por `0.2.0`. La prueba de coherencia de
   versión no cubría el módulo, así que el marcador derivó sin que nada fallara;
   ahora lo ancla también a él.
+- **Hitos del `ROADMAP.md` renumerados** para coincidir con el README: «uso real
+  y evidencia» pasa a `v0.3` e «integraciones» a `v0.4`. El número `v0.2` lo
+  ocupó el release del 2026-08-13, que no contenía ninguna de las dos cosas.
+- **El inventario del hito `v0.1` afirmaba trece agentes**, que es el catálogo de
+  hoy y no lo que aquel release publicó. Ahora dice diez y nombra su versión, que
+  es lo que la prueba de conteos distingue: un marcador de estado actual se
+  sincroniza, una referencia histórica se conserva.
 
 > La versión del repositorio sigue en `0.2.0`: publicar un release es una decisión
 > humana, no una consecuencia de que la build esté verde.
