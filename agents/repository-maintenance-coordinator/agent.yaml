@@ -87,21 +87,39 @@
   "scenarios": [
     {
       "title": "Una tarea que no cabe en un solo especialista",
-      "situation": "Lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano.",
+      "context": "Antes del release hay que revisar seguridad, actualizar la documentación desfasada, cerrar dos deudas técnicas y decidir la versión. Encargárselo todo a un único agente da un resultado plano y sin profundidad en ninguna.",
       "ask": "Coordina una revisión integral del repositorio y prepara el próximo release.",
-      "delivers": "El mapa de qué se delegó a quién, los hallazgos de cada especialista, los conflictos entre ellos resueltos y un plan integrado con una sola cola de aprobaciones."
+      "walkthrough": [
+        "`dependency-map` — ordena el trabajo por dependencia real: la documentación no se puede cerrar antes de que la deuda técnica cambie el código.",
+        "`delegation` — delega solo lo necesario a cuatro especialistas, con el alcance de cada uno acotado por escrito.",
+        "`evidence-reconciliation` — junta los cuatro informes y detecta dónde se pisan."
+      ],
+      "returns": "| Especialista | Alcance delegado | Resultado |\n|---|---|---|\n| seguridad | dependencias y SAST | 3 hallazgos, 1 bloqueante |\n| documentación | conteos y ejemplos | 6 desvíos, todos corregibles |\n| evolución | las 2 deudas técnicas | 1 resuelta, 1 mayor de lo estimado |\n| release | versión y artefactos | en espera de las otras tres |",
+      "status": "`PARTIAL` — plan integrado con **una sola cola de aprobaciones** en vez de cuatro. El bloqueante de seguridad detiene el release, y eso se decide una vez, no cuatro."
     },
     {
       "title": "Dos análisis que se contradicen",
-      "situation": "Un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. Ambos tienen razón dentro de su alcance.",
+      "context": "El informe de seguridad pide subir una librería a la versión 3. El de compatibilidad advierte que la versión 3 cambia una firma que usan 14 archivos. Los dos tienen razón dentro de su alcance.",
       "ask": "Resuelve las contradicciones entre estos análisis y dame un plan único.",
-      "delivers": "El conflicto nombrado, el criterio con el que se resolvió y un plan que no diluye la responsabilidad de ninguno de los especialistas."
+      "walkthrough": [
+        "`evidence-reconciliation` — comprueba que ambos hablan de lo mismo y que ninguno se equivoca: la contradicción es real, no un malentendido.",
+        "`decision-gates` — nombra el conflicto de forma explícita en vez de elegir el informe más reciente.",
+        "`integration-plan` — construye una salida que respeta las dos restricciones, con su costo declarado."
+      ],
+      "returns": "- **Conflicto** — seguridad exige la versión 3; compatibilidad demuestra que rompe 14 llamadas.\n- **Descartado** — quedarse en la versión 2 con la vulnerabilidad, y saltar a la 3 rompiendo a los consumidores.\n- **Plan** — adaptador que absorbe el cambio de firma en un punto, subida a la versión 3 detrás de él, y retirada del adaptador cuando los 14 usos estén migrados.\n- **Costo declarado** — 1 punto de indirección extra mientras dure la transición.",
+      "status": "`COMPLETED` — la responsabilidad de cada especialista queda intacta: ninguno tuvo que rebajar su hallazgo para que el plan cerrara."
     },
     {
       "title": "Una modernización demasiado grande",
-      "situation": "La migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte.",
+      "context": "La migración toca base de datos, pruebas, documentación y despliegue. Cada vez que intentas empezar te bloqueas porque cualquier frente parece depender de otro.",
       "ask": "Divide esta modernización entre especialistas y consolida un plan verificable.",
-      "delivers": "La descomposición en misiones acotadas, las dependencias entre ellas y el índice de evidencia que permite comprobar cada parte por separado."
+      "walkthrough": [
+        "`mission` — delimita qué entra y, sobre todo, qué no entra en esta misión.",
+        "`specialist-selection` — elige tres especialistas y descarta dos: delegar de más diluye la responsabilidad tanto como delegar de menos.",
+        "`final-handoff` — entrega el índice de evidencia que permite comprobar cada parte por separado."
+      ],
+      "returns": "- **Orden por dependencia** — pruebas de caracterización primero (nada se mueve sin línea base), después base de datos, después despliegue, y la documentación al final porque describe el resultado.\n- **No entra en esta misión** — el rediseño de la interfaz, que apareció en la conversación y no depende de la migración.\n- **Índice de evidencia** — cada tramo con el comando exacto que demuestra que quedó bien.",
+      "status": "`COMPLETED` en planificación — 3 misiones acotadas, 0 líneas modificadas. Cada tramo se aprueba por separado."
     }
   ]
 }

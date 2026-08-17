@@ -83,7 +83,7 @@ flowchart LR
 
 ### ¿Cuál necesito?
 
-Empieza por lo que tienes delante, no por lo que el agente sabe hacer. Cada ficha abre con **tres ejemplos de uso** completos: qué tienes, qué le escribes y qué te devuelve.
+Empieza por lo que tienes delante, no por lo que el agente sabe hacer. Cada ficha abre con **tres casos trabajados**: el contexto concreto, el mensaje literal que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
 
 ```mermaid
 flowchart LR
@@ -155,7 +155,7 @@ Analiza un repositorio real, separa hechos de promesas y conduce su evolución i
 </td>
 <td>
 
-🎯 El README promete más de lo que el código hace<br>🎯 Quieres mejorarlo y no sabes por dónde empezar<br>🎯 Vas a enseñarlo y no quieres sorpresas<br><br>💬 «Examina este repositorio y dime qué afirma el README que el código no sostiene.»<br><br>[Los 3 ejemplos completos →](agents/repository-evolution-agent/README.md#ejemplos-de-uso)
+🎯 El README promete más de lo que el código hace<br>🎯 Quieres mejorarlo y no sabes por dónde empezar<br>🎯 Vas a enseñarlo mañana y no quieres sorpresas<br><br>💬 «Examina este repositorio y dime qué afirma el README que el código no sostiene.»<br><br>[Los 3 casos trabajados →](agents/repository-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -183,7 +183,7 @@ Diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando c
 </td>
 <td>
 
-🎯 Una versión del lenguaje que ya nadie soporta<br>🎯 Cambiar el motor de datos sin romper a quien lo consume<br>🎯 Nadie se atreve a tocar ese módulo<br><br>💬 «Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.»<br><br>[Los 3 ejemplos completos →](agents/legacy-modernization-agent/README.md#ejemplos-de-uso)
+🎯 Una versión del lenguaje que ya nadie soporta<br>🎯 Cambiar el motor de datos sin romper a quien lo consume<br>🎯 Nadie se atreve a tocar ese módulo<br><br>💬 «Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.»<br><br>[Los 3 casos trabajados →](agents/legacy-modernization-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -211,7 +211,7 @@ Coordina especialistas para una misión de mantenimiento amplia, conserva decisi
 </td>
 <td>
 
-🎯 Una tarea que no cabe en un solo especialista<br>🎯 Dos análisis que se contradicen<br>🎯 Una modernización demasiado grande<br><br>💬 «Coordina una revisión integral del repositorio y prepara el próximo release.»<br><br>[Los 3 ejemplos completos →](agents/repository-maintenance-coordinator/README.md#ejemplos-de-uso)
+🎯 Una tarea que no cabe en un solo especialista<br>🎯 Dos análisis que se contradicen<br>🎯 Una modernización demasiado grande<br><br>💬 «Coordina una revisión integral del repositorio y prepara el próximo release.»<br><br>[Los 3 casos trabajados →](agents/repository-maintenance-coordinator/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -256,7 +256,7 @@ Evalúa productos parciales, alinea producto y arquitectura y convierte brechas 
 </td>
 <td>
 
-🎯 Diez cosas a medias y ninguna prioridad<br>🎯 El roadmap dice una cosa y el código otra<br>🎯 Añadir algo sin romper a quien ya lo usa<br><br>💬 «Examina este producto parcial y construye el siguiente incremento útil.»<br><br>[Los 3 ejemplos completos →](agents/product-evolution-agent/README.md#ejemplos-de-uso)
+🎯 Diez frentes abiertos y ninguna prioridad<br>🎯 El roadmap dice una cosa y el código otra<br>🎯 Añadir algo sin romper a quien ya lo usa<br><br>💬 «Examina este producto parcial y construye el siguiente incremento útil.»<br><br>[Los 3 casos trabajados →](agents/product-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -284,7 +284,7 @@ Diseña y mantiene programas educativos evolutivos con progresión, laboratorios
 </td>
 <td>
 
-🎯 Un dominio en la cabeza y ningún curso<br>🎯 Un curso que se lee bien pero no se practica<br>🎯 Saber qué falta antes de prometer fechas<br><br>💬 «Crea un programa de agentes de IA desde fundamentos hasta producción.»<br><br>[Los 3 ejemplos completos →](agents/learning-program-architect/README.md#ejemplos-de-uso)
+🎯 Un dominio en la cabeza y ningún curso<br>🎯 Un curso que se lee bien pero no se practica<br>🎯 Saber qué falta antes de prometer fechas<br><br>💬 «Crea un programa de agentes de IA desde fundamentos hasta producción.»<br><br>[Los 3 casos trabajados →](agents/learning-program-architect/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -312,7 +312,7 @@ Mantiene un programa formativo al día con su campo: investiga novedades, verifi
 </td>
 <td>
 
-🎯 Un curso que envejeció mientras no mirabas<br>🎯 Incorporar lo nuevo sin reescribir el curso<br>🎯 Saber si está desactualizado, sin tocarlo<br><br>💬 «Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.»<br><br>[Los 3 ejemplos completos →](agents/curriculum-evolution-agent/README.md#ejemplos-de-uso)
+🎯 Un curso que envejeció mientras no mirabas<br>🎯 Incorporar lo nuevo sin reescribir el curso<br>🎯 Saber si está desactualizado, sin tocarlo<br><br>💬 «Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.»<br><br>[Los 3 casos trabajados →](agents/curriculum-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -357,7 +357,7 @@ Prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, 
 </td>
 <td>
 
-🎯 Publicar sin saber si está listo<br>🎯 Dejarlo todo listo y decidir tú cuándo sale<br>🎯 Un artefacto que compila pero llega vacío<br><br>💬 «Evalúa si el repositorio está listo para release y entrega un go/no-go.»<br><br>[Los 3 ejemplos completos →](agents/release-governance-agent/README.md#ejemplos-de-uso)
+🎯 Publicar sin saber si está listo<br>🎯 Dejarlo todo listo y decidir tú cuándo sale<br>🎯 Un artefacto que compila pero llega vacío<br><br>💬 «Evalúa si el repositorio está listo para release y entrega un go/no-go.»<br><br>[Los 3 casos trabajados →](agents/release-governance-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -385,7 +385,7 @@ Reconcilia documentación, arquitectura, ejemplos y métricas con las fuentes de
 </td>
 <td>
 
-🎯 Números que dejaron de ser ciertos<br>🎯 Corregir el presente sin reescribir el pasado<br>🎯 Un diagrama que ya no representa el sistema<br><br>💬 «Audita si la documentación coincide con el repositorio y corrige el drift.»<br><br>[Los 3 ejemplos completos →](agents/documentation-coherence-agent/README.md#ejemplos-de-uso)
+🎯 Números que dejaron de ser ciertos<br>🎯 Corregir el presente sin reescribir el pasado<br>🎯 Un diagrama que ya no representa el sistema<br><br>💬 «Audita si la documentación coincide con el repositorio y corrige el drift.»<br><br>[Los 3 casos trabajados →](agents/documentation-coherence-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -430,7 +430,7 @@ Clasifica y audita un portafolio de repositorios, detecta solapamientos y produc
 </td>
 <td>
 
-🎯 Veinte repositorios y ninguna historia<br>🎯 Dos repositorios que hacen lo mismo<br>🎯 Preparar la conversación con un reclutador<br><br>💬 «Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.»<br><br>[Los 3 ejemplos completos →](agents/portfolio-curator-agent/README.md#ejemplos-de-uso)
+🎯 Veinte repositorios y ninguna historia<br>🎯 Dos repositorios que hacen lo mismo<br>🎯 Preparar la conversación con un reclutador<br><br>💬 «Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.»<br><br>[Los 3 casos trabajados →](agents/portfolio-curator-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -458,7 +458,7 @@ Reconcilia una superficie publicada —sitio, API, documentos generados y perfil
 </td>
 <td>
 
-🎯 La web dice una versión y el release otra<br>🎯 Hace meses que no actualizas lo publicado<br>🎯 Sin destruir lo que escribiste a mano<br><br>💬 «Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.»<br><br>[Los 3 ejemplos completos →](agents/portfolio-publication-agent/README.md#ejemplos-de-uso)
+🎯 La web dice una versión y el release otra<br>🎯 Hace meses que no actualizas lo publicado<br>🎯 Sin destruir lo que escribiste a mano<br><br>💬 «Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.»<br><br>[Los 3 casos trabajados →](agents/portfolio-publication-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -486,7 +486,7 @@ Audita y mejora un perfil profesional público alojado en un servicio de tercero
 </td>
 <td>
 
-🎯 El perfil no cuenta lo que ya construiste<br>🎯 Actualizarlo sin perder tu voz<br>🎯 Prepararlo antes de postular<br><br>💬 «Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.»<br><br>[Los 3 ejemplos completos →](agents/professional-profile-agent/README.md#ejemplos-de-uso)
+🎯 El perfil no cuenta lo que ya construiste<br>🎯 Actualizarlo sin perder tu voz<br>🎯 Prepararlo antes de postular<br><br>💬 «Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.»<br><br>[Los 3 casos trabajados →](agents/professional-profile-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -531,7 +531,7 @@ Investiga incidentes técnicos con línea temporal, hipótesis falsables, eviden
 </td>
 <td>
 
-🎯 Un error que aparece y desaparece<br>🎯 El CI falla solo a veces<br>🎯 Ya se arregló, pero nadie sabe por qué<br><br>💬 «Investiga por qué este servicio produce 504 de forma intermitente.»<br><br>[Los 3 ejemplos completos →](agents/incident-root-cause-agent/README.md#ejemplos-de-uso)
+🎯 Un error que aparece y desaparece<br>🎯 El CI falla solo a veces<br>🎯 Ya se arregló, pero nadie sabe por qué<br><br>💬 «Investiga por qué este servicio produce 504 de forma intermitente.»<br><br>[Los 3 casos trabajados →](agents/incident-root-cause-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -559,7 +559,7 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 </td>
 <td>
 
-🎯 Un scan con cincuenta alertas<br>🎯 ¿Este hallazgo es real o es ruido?<br>🎯 «Cero vulnerabilidades» que no significa nada<br><br>💬 «Remedia estos CVE y verifica que el sistema siga funcionando.»<br><br>[Los 3 ejemplos completos →](agents/security-remediation-agent/README.md#ejemplos-de-uso)
+🎯 Un scan con cincuenta alertas<br>🎯 ¿Este hallazgo es real o es ruido?<br>🎯 «Cero vulnerabilidades» que no significa nada<br><br>💬 «Remedia estos CVE y verifica que el sistema siga funcionando.»<br><br>[Los 3 casos trabajados →](agents/security-remediation-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>

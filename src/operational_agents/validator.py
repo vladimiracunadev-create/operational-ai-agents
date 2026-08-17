@@ -21,9 +21,9 @@ REQUIRED = {
     "required_inputs", "deliverables", "approval_points", "checks", "non_goals", "scenarios",
 }
 
-# Un escenario sin las cuatro respuestas deja al lector igual que el contrato
-# técnico: sabiendo qué hace el agente y no cuándo le sirve.
-SCENARIO_FIELDS = {"title", "situation", "ask", "delivers"}
+# Un escenario incompleto vuelve a ser una definición reformulada. Exigimos el
+# caso concreto, el mensaje literal, los pasos y la forma real de la salida.
+SCENARIO_FIELDS = {"title", "context", "ask", "walkthrough", "returns", "status"}
 
 
 def validate(root: Path) -> list[dict[str, str]]:
@@ -101,9 +101,18 @@ def _check_scenarios(agent: dict[str, Any], issues: list[dict[str, str]]) -> Non
         extra = sorted(set(scenario) - SCENARIO_FIELDS)
         if extra:
             issues.append(_issue("error", aid, f"Escenario {number} con campos desconocidos: {', '.join(extra)}"))
-        vacios = sorted(key for key in SCENARIO_FIELDS if len(str(scenario[key]).strip()) < 20)
+        pasos = scenario["walkthrough"]
+        if not isinstance(pasos, list) or len(pasos) < 3:
+            issues.append(_issue("error", aid, f"Escenario {number} necesita al menos tres pasos"))
+        elif any(len(str(paso).strip()) < 40 for paso in pasos):
+            issues.append(_issue("error", aid, f"Escenario {number} tiene pasos sin contenido"))
+        textos = {key: scenario[key] for key in SCENARIO_FIELDS if key != "walkthrough"}
+        vacios = sorted(key for key, value in textos.items() if len(str(value).strip()) < 20)
         if vacios:
             issues.append(_issue("error", aid, f"Escenario {number} apenas explica: {', '.join(vacios)}"))
+        # Un ejemplo genérico no enseña nada: el caso tiene que ser un caso.
+        if len(str(scenario["context"]).strip()) < 90:
+            issues.append(_issue("error", aid, f"Escenario {number} describe un caso demasiado vago"))
 
 
 def _check_generated(root: Path, agent: dict[str, Any], issues: list[dict[str, str]]) -> None:

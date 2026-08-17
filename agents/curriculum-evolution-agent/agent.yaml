@@ -97,21 +97,39 @@
   "scenarios": [
     {
       "title": "Un curso que envejeció mientras no mirabas",
-      "situation": "El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.",
+      "context": "Un programa de 40 lecciones sobre desarrollo con modelos de lenguaje, escrito hace siete meses. En ese tiempo salieron modelos nuevos, cambió el nombre de dos APIs y apareció un patrón de arquitectura que hoy se da por estándar.",
       "ask": "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
-      "delivers": "Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo."
+      "walkthrough": [
+        "`field-research` — busca novedades desde la fecha de la última versión, no en general.",
+        "`source-verification` — abre cada fuente con una petición real: de 14 candidatas, 3 eran refritos sin fuente primaria y quedan fuera.",
+        "`gap-classification` — distingue brecha de contenido real de simple cambio de terminología, que es lo que separa una actualización útil de una reescritura cosmética."
+      ],
+      "returns": "| Novedad | Clasificación | Decisión |\n|---|---|---|\n| patrón de arquitectura nuevo | brecha real: no hay lección que lo cubra | **entra**: lección nueva en el módulo 6 |\n| API renombrada | cambio de terminología | **entra**: solo los nombres, en 4 lecciones |\n| modelos nuevos | los ejemplos siguen siendo válidos | tabla de referencia actualizada |\n| 3 novedades sin fuente primaria | no verificables | fuera, con el motivo por escrito |",
+      "status": "`PARTIAL` — 1 lección nueva, 4 con nombres corregidos, 35 sin tocar. La mayoría del curso no necesitaba nada."
     },
     {
       "title": "Incorporar lo nuevo sin reescribir el curso",
-      "situation": "Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.",
+      "context": "Salió algo que sí importa y hay que meterlo. El curso ya está publicado, con PDFs generados y una web que se compila desde el mismo contenido.",
       "ask": "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
-      "delivers": "Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito."
+      "walkthrough": [
+        "`content-update` — toca 4 lecciones y ninguna más; el resto del material queda literalmente igual.",
+        "`artifact-regeneration` — regenera PDFs y web desde el contenido actualizado.",
+        "`verification` — abre los artefactos regenerados y comprueba que el contenido nuevo está dentro, en vez de confiar en que el generador terminó sin error."
+      ],
+      "returns": "- **Tocado** — 4 lecciones, con el diff de cada una a la vista.\n- **Regenerado** — 6 PDFs y 41 páginas web, con el conteo de secciones contrastado contra el origen.\n- **Verificado** — la lección nueva aparece en el PDF del módulo 6 y en el índice de la web; el PDF pasó de 118 a 126 páginas.\n- **Sin tocar a propósito** — las 36 lecciones restantes y toda la estructura de navegación.",
+      "status": "`COMPLETED` — el generador terminó sin error **y además** el contenido llegó al artefacto. Son dos comprobaciones distintas."
     },
     {
       "title": "Saber si está desactualizado, sin tocarlo",
-      "situation": "Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.",
+      "context": "Te preguntan si el programa sigue vigente. Antes de invertir dos semanas necesitas un diagnóstico con fuentes, no una impresión.",
       "ask": "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.",
-      "delivers": "El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología."
+      "walkthrough": [
+        "`curriculum-inventory` — levanta qué cubre hoy el temario, lección por lección.",
+        "`coverage-contrast` — contrasta esa cobertura contra lo verificado en el campo.",
+        "`approval` — se detiene antes de escribir una sola línea de contenido: el encargo era diagnosticar."
+      ],
+      "returns": "- **Vigente** — 33 de 40 lecciones; los fundamentos no se movieron.\n- **Desfasado de forma cosmética** — 5 lecciones con nombres de API antiguos; el concepto sigue siendo correcto.\n- **Brecha real** — 2 temas que hoy se esperan de un curso así y no aparecen en ninguna lección.\n- **Fuentes** — 11 verificadas con petición real, cada hallazgo con su enlace.",
+      "status": "`NO_CHANGE` — resultado legítimo: el programa no necesita reescritura, necesita dos lecciones y un repaso de nombres."
     }
   ]
 }

@@ -88,21 +88,39 @@
   "scenarios": [
     {
       "title": "Publicar sin saber si está listo",
-      "situation": "Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.",
+      "context": "38 commits desde la última versión, el equipo pregunta cuándo sale y nadie ha mirado el conjunto. Hay una dependencia actualizada la semana pasada y dos pruebas que alguien marcó como omitidas.",
       "ask": "Evalúa si el repositorio está listo para release y entrega un go/no-go.",
-      "delivers": "Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos."
+      "walkthrough": [
+        "`change-inventory` — agrupa los 38 commits por tipo y detecta un cambio que rompe compatibilidad sin declararlo.",
+        "`quality-gates` — corre pruebas, lint y análisis de dependencias; encuentra las 2 pruebas omitidas y comprueba qué cubrían.",
+        "`release-candidate` — construye el artefacto y lo abre, en vez de fiarse del log del build."
+      ],
+      "returns": "| Comprobación | Resultado |\n|---|---|\n| pruebas | 214 en verde, **2 omitidas** que cubrían el flujo de reembolso |\n| compatibilidad | un cambio rompe el contrato de `/v1/orders` y va marcado como `fix` |\n| dependencias | 1 vulnerabilidad de severidad media sin parche disponible |\n| artefacto | se construye y contiene los 3 binarios esperados |",
+      "status": "**NO-GO** · `BLOCKED` — no por las pruebas, sino porque un cambio incompatible saldría como versión de parche y rompería a quien actualice sin leer."
     },
     {
       "title": "Dejarlo todo listo y decidir tú cuándo sale",
-      "situation": "Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.",
+      "context": "La versión está lista de verdad, pero quieres publicarla el lunes con el equipo disponible, no un viernes por la tarde.",
       "ask": "Prepara la versión 0.4.0 y detente antes de publicar.",
-      "delivers": "La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación."
+      "walkthrough": [
+        "`version-decision` — comprueba que 0.4.0 es la que corresponde por los cambios acumulados y sube el número en los 5 sitios donde aparece.",
+        "`artifact-build` — construye los artefactos y verifica su contenido y su checksum.",
+        "`approval` — se detiene. Tiene todo hecho y no publica: publicar es un gate humano, no un paso más."
+      ],
+      "returns": "- Versión subida en `pyproject.toml`, el manifiesto, el badge del README, el módulo y el endpoint de estado. Las referencias del changelog a versiones anteriores quedaron intactas.\n- Changelog de 0.4.0 redactado a partir de los commits reales, no de los títulos de los PR.\n- Artefactos construidos, con su checksum y su contenido verificado abriéndolos.\n- Plan de reversión escrito antes de publicar, no después.",
+      "status": "`PARTIAL` por diseño — todo preparado, nada publicado. El tag y el release esperan tu orden."
     },
     {
       "title": "Un artefacto que compila pero llega vacío",
-      "situation": "El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.",
+      "context": "El build pasa en verde y el instalador pesa lo esperado, pero un usuario reporta que la aplicación se abre sin ningún contenido dentro.",
       "ask": "Verifica que los artefactos de este release contienen de verdad lo que prometen.",
-      "delivers": "La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado."
+      "walkthrough": [
+        "`artifact-build` — reconstruye el artefacto y lo **abre**: descomprime, lista y cuenta lo que hay dentro.",
+        "`release-candidate` — compara ese conteo con la fuente: 0 de las 48 unidades de contenido llegaron al paquete.",
+        "`post-release-checks` — localiza la causa en el patrón de inclusión del empaquetador, que dejaba fuera el directorio de datos."
+      ],
+      "returns": "- **Build**: en verde. **Checksum**: correcto. **Versión**: correcta. **Contenido**: 0 de 48.\n- Causa: el patrón de inclusión solo tomaba `*.py`, y el contenido son `.md` dentro de `data/`.\n- Comprobación añadida al proceso: contar unidades dentro del artefacto y fallar si son menos que en el origen.",
+      "status": "`COMPLETED` — el release anterior queda marcado para retirar. Un build en verde nunca fue prueba de un artefacto correcto."
     }
   ]
 }

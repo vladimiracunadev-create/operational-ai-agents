@@ -6,28 +6,16 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ejemplos](#ejemplos-de-uso) · [Mapa](#mapa-de-la-misión) · [Flujo](#flujo-operativo) · [Ficha](#ficha-técnica) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
-## Misión
+## Qué hace por ti
 
 Incorporar a un programa formativo existente solo las novedades que superen el umbral de relevancia curricular, con fuentes verificadas y artefactos regenerados y comprobados.
 
-## Ficha técnica
-
-| Propiedad | Valor |
-|---|---|
-| Identificador | `curriculum-evolution-agent` |
-| Categoría | `education-engineering` |
-| Versión | `0.1.0` |
-| Estado honesto | `IMPLEMENTED` |
-| Riesgo | `medium` |
-| Modo de permisos | `default` |
-| Aislamiento | `worktree` |
-| Memoria | `project` |
-| Esfuerzo | `high` |
-| Turnos máximos | `30` |
+> [!NOTE]
+> Trabaja en un worktree aislado y se detiene ante 4 gates humanos. Inspecciona primero; muta solo lo aprobado.
 
 ## Cuándo delegarle trabajo
 
@@ -35,64 +23,136 @@ Incorporar a un programa formativo existente solo las novedades que superen el u
 
 ## Ejemplos de uso
 
-Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+3 casos trabajados: el contexto real, el mensaje que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
+
+> [!NOTE]
+> Son **ejemplos ilustrativos del contrato**, no transcripciones de ejecuciones registradas. Ningún agente del catálogo declara todavía evidencia de uso real — ver [Madurez](#madurez).
 
 ### 1 · Un curso que envejeció mientras no mirabas
 
-**Lo que tienes delante —** El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.
+**El caso.** Un programa de 40 lecciones sobre desarrollo con modelos de lenguaje, escrito hace siete meses. En ese tiempo salieron modelos nuevos, cambió el nombre de dos APIs y apareció un patrón de arquitectura que hoy se da por estándar.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.
+```text
+Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.
+```
 
-**Lo que te devuelve —** Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo.
+**Qué hace, paso a paso:**
+
+1. `field-research` — busca novedades desde la fecha de la última versión, no en general.
+2. `source-verification` — abre cada fuente con una petición real: de 14 candidatas, 3 eran refritos sin fuente primaria y quedan fuera.
+3. `gap-classification` — distingue brecha de contenido real de simple cambio de terminología, que es lo que separa una actualización útil de una reescritura cosmética.
+
+**Lo que te devuelve:**
+
+| Novedad | Clasificación | Decisión |
+|---|---|---|
+| patrón de arquitectura nuevo | brecha real: no hay lección que lo cubra | **entra**: lección nueva en el módulo 6 |
+| API renombrada | cambio de terminología | **entra**: solo los nombres, en 4 lecciones |
+| modelos nuevos | los ejemplos siguen siendo válidos | tabla de referencia actualizada |
+| 3 novedades sin fuente primaria | no verificables | fuera, con el motivo por escrito |
+
+**Cómo cierra —** `PARTIAL` — 1 lección nueva, 4 con nombres corregidos, 35 sin tocar. La mayoría del curso no necesitaba nada.
 
 ### 2 · Incorporar lo nuevo sin reescribir el curso
 
-**Lo que tienes delante —** Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.
+**El caso.** Salió algo que sí importa y hay que meterlo. El curso ya está publicado, con PDFs generados y una web que se compila desde el mismo contenido.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.
+```text
+Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.
+```
 
-**Lo que te devuelve —** Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito.
+**Qué hace, paso a paso:**
+
+1. `content-update` — toca 4 lecciones y ninguna más; el resto del material queda literalmente igual.
+2. `artifact-regeneration` — regenera PDFs y web desde el contenido actualizado.
+3. `verification` — abre los artefactos regenerados y comprueba que el contenido nuevo está dentro, en vez de confiar en que el generador terminó sin error.
+
+**Lo que te devuelve:**
+
+- **Tocado** — 4 lecciones, con el diff de cada una a la vista.
+- **Regenerado** — 6 PDFs y 41 páginas web, con el conteo de secciones contrastado contra el origen.
+- **Verificado** — la lección nueva aparece en el PDF del módulo 6 y en el índice de la web; el PDF pasó de 118 a 126 páginas.
+- **Sin tocar a propósito** — las 36 lecciones restantes y toda la estructura de navegación.
+
+**Cómo cierra —** `COMPLETED` — el generador terminó sin error **y además** el contenido llegó al artefacto. Son dos comprobaciones distintas.
 
 ### 3 · Saber si está desactualizado, sin tocarlo
 
-**Lo que tienes delante —** Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.
+**El caso.** Te preguntan si el programa sigue vigente. Antes de invertir dos semanas necesitas un diagnóstico con fuentes, no una impresión.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.
+```text
+Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.
+```
 
-**Lo que te devuelve —** El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología.
+**Qué hace, paso a paso:**
+
+1. `curriculum-inventory` — levanta qué cubre hoy el temario, lección por lección.
+2. `coverage-contrast` — contrasta esa cobertura contra lo verificado en el campo.
+3. `approval` — se detiene antes de escribir una sola línea de contenido: el encargo era diagnosticar.
+
+**Lo que te devuelve:**
+
+- **Vigente** — 33 de 40 lecciones; los fundamentos no se movieron.
+- **Desfasado de forma cosmética** — 5 lecciones con nombres de API antiguos; el concepto sigue siendo correcto.
+- **Brecha real** — 2 temas que hoy se esperan de un curso así y no aparecen en ninguna lección.
+- **Fuentes** — 11 verificadas con petición real, cada hallazgo con su enlace.
+
+**Cómo cierra —** `NO_CHANGE` — resultado legítimo: el programa no necesita reescritura, necesita dos lecciones y un repaso de nombres.
+
+## Mapa de la misión
+
+```mermaid
+flowchart LR
+    IN["📥 Necesita de ti<br/>· curriculum_repository_path<br/>· field_or_domain<br/>· change_authorization"]
+    AG(["📡 curriculum-evolution-agent"])
+    OUT["📦 Te entrega<br/>· curriculum_inventory<br/>· verified_sources<br/>· coverage_report<br/>· curriculum_updates<br/>· regenerated_artifacts<br/>· residual_gaps"]
+    GATE["🚦 Se detiene y pregunta antes de<br/>· scope_expansion<br/>· curriculum_restructure<br/>· version_or_release_change<br/>· external_publish"]
+    IN --> AG --> OUT
+    AG -.->|"sin tu decisión, no avanza"| GATE
+    style AG fill:#8957e5,color:#fff
+    style GATE fill:#bf8700,color:#fff
+    style OUT fill:#2da44e,color:#fff
+```
 
 ## Flujo operativo
 
 ```mermaid
 flowchart LR
-    p1["scope"]
-    p2["curriculum inventory"]
-    p3["field research"]
-    p4["source verification"]
-    p5["coverage contrast"]
-    p6["gap classification"]
-    p7["approval"]
-    p8["content update"]
-    p9["artifact regeneration"]
-    p10["verification"]
-    p11["publication handoff"]
-    p1 --> p2
-    p2 --> p3
-    p3 --> p4
-    p4 --> p5
-    p5 --> p6
-    p6 --> p7
-    p7 --> p8
-    p8 --> p9
-    p9 --> p10
-    p10 --> p11
-    p11 --> done(["entrega verificada"])
+    subgraph A["🔍 Diagnóstico · solo lectura"]
+        direction TB
+        p1["1 · scope"]
+        p2["2 · curriculum inventory"]
+        p3["3 · field research"]
+        p4["4 · source verification"]
+        p5["5 · coverage contrast"]
+        p6["6 · gap classification"]
+        p1 --> p2
+        p2 --> p3
+        p3 --> p4
+        p4 --> p5
+        p5 --> p6
+    end
+    G{{"🚦 approval<br/>decisión humana"}}
+    subgraph B["⚙️ Ejecución acotada y verificación"]
+        direction TB
+        p8["8 · content update"]
+        p9["9 · artifact regeneration"]
+        p10["10 · verification"]
+        p11["11 · publication handoff"]
+        p8 --> p9
+        p9 --> p10
+        p10 --> p11
+    end
+    A --> G --> B --> FIN(["📋 entrega verificada"])
+    G -.->|"si deniegas"| A
+    style G fill:#bf8700,color:#fff
+    style FIN fill:#2da44e,color:#fff
 ```
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
@@ -110,6 +170,21 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 | 9 | `artifact-regeneration` | Ejecuta los generadores del repositorio y comprueba el contenido dentro de los artefactos producidos, extrayendo el texto en vez de leer el log del generador. |
 | 10 | `verification` | Corre los validadores en modo estricto, las pruebas y la resolución de enlaces internos, y confirma que las páginas publicadas responden. |
 | 11 | `publication-handoff` | Entrega qué se incorporó, con qué fuente verificada, qué se regeneró y qué quedó deliberadamente fuera. |
+
+## Ficha técnica
+
+| Propiedad | Valor |
+|---|---|
+| Identificador | `curriculum-evolution-agent` |
+| Categoría | `education-engineering` |
+| Versión | `0.1.0` |
+| Estado honesto | `IMPLEMENTED` |
+| Riesgo | `medium` |
+| Modo de permisos | `default` |
+| Aislamiento | `worktree` |
+| Memoria | `project` |
+| Esfuerzo | `high` |
+| Turnos máximos | `30` |
 
 ## Contrato de entrega
 

@@ -36,7 +36,7 @@ Un agente **no** es un prompt largo ni un archivo de instrucciones. Es un **cont
 | `description` | qué resuelve, en una frase |
 | `delegate_when` | criterio para seleccionar este agente; es lo que lee el runtime al decidir |
 | `mission` | el resultado integral del que responde |
-| `scenarios` | dos o más situaciones de uso, cada una con `title`, `situation`, `ask` y `delivers`: qué tiene delante quien lo necesita, qué le escribe y qué recibe de vuelta |
+| `scenarios` | dos o más casos trabajados. Cada uno lleva `title`, `context` (el caso concreto, con nombres y cifras), `ask` (el mensaje literal), `walkthrough` (tres pasos o más, anclados a fases reales), `returns` (la forma exacta de la salida, en Markdown) y `status` (cómo cierra). El validador rechaza un contexto de menos de 90 caracteres: un ejemplo genérico no enseña cuándo delegarle |
 
 ### Frontera operativa
 

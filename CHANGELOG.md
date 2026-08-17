@@ -6,11 +6,19 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ### Añadido
 
-- **`scenarios`: tres ejemplos de uso por agente**, en el catálogo y por tanto en
-  todas las vistas generadas. Cada uno responde lo que el contrato técnico no
-  contestaba —qué tienes delante (`situation`), qué le escribes (`ask`) y qué te
-  devuelve (`delivers`)— porque quien lee un catálogo compara situaciones, no
-  capacidades. Sustituye al campo `examples`, que solo llevaba frases sueltas.
+- **`scenarios`: tres casos trabajados por agente**, en el catálogo y por tanto
+  en todas las vistas generadas. Cada uno lleva el contexto concreto con nombres
+  y cifras (`context`), el mensaje literal (`ask`), los pasos anclados a fases
+  reales (`walkthrough`), la forma exacta de la salida (`returns`) y cómo cierra
+  (`status`). Sustituye al campo `examples`, que solo llevaba frases sueltas.
+  El validador rechaza un contexto de menos de 90 caracteres: un ejemplo que
+  vale para cualquier repositorio no enseña cuándo delegarle este.
+- **Dos diagramas por ficha**, generados del contrato: el *mapa de la misión*
+  —qué necesita, qué entrega y dónde se detiene— y un *flujo operativo* que ya
+  no es una línea recta, sino el tramo de solo lectura, el gate humano con su
+  vuelta atrás si deniegas, y el tramo de ejecución acotada.
+- Las fichas se reordenaron: los ejemplos van primero y la ficha técnica al
+  final. Quien llega quiere saber si el agente le sirve, no cuántos turnos gasta.
 - **Sección «¿Cuál necesito?» en el README**, con un diagrama de decisión que
   parte del problema del lector y desemboca en uno de los trece agentes.
 - La tabla del catálogo muestra ahora las tres situaciones de cada agente, un
@@ -36,9 +44,9 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 - Conteos de agentes y evaluaciones sincronizados en README, `RECRUITER.md` y
   `evidence/README.md` tras crecer el catálogo a trece.
-- `schema_version` del catálogo a `1.2` por el cambio de `examples` a
+- `schema_version` del catálogo a `1.3` por el cambio de `examples` a
   `scenarios`. El validador rechaza un escenario incompleto, con campos
-  desconocidos o con respuestas de menos de veinte caracteres.
+  desconocidos, con menos de tres pasos o con un contexto genérico.
 
 ### Corregido
 

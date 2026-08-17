@@ -276,14 +276,17 @@ class RepositoryTests(unittest.TestCase):
             asks = [item["ask"] for item in scenarios]
             self.assertEqual(len(asks), len(set(asks)), f"{agent['id']} repite un ejemplo")
             for scenario in scenarios:
-                self.assertEqual({"title", "situation", "ask", "delivers"}, set(scenario))
-                for field, value in scenario.items():
-                    self.assertGreater(len(value.strip()), 20, f"{agent['id']}/{field}")
+                self.assertEqual({"title", "context", "ask", "walkthrough", "returns", "status"}, set(scenario))
+                self.assertGreaterEqual(len(scenario["walkthrough"]), 3, agent["id"])
+                # Un «si pides A obtienes B» cabe en una línea; un caso real, no.
+                self.assertGreater(len(scenario["context"].strip()), 90, f"{agent['id']}/context")
+                for field in ("title", "ask", "returns", "status"):
+                    self.assertGreater(len(scenario[field].strip()), 20, f"{agent['id']}/{field}")
             ficha = (ROOT / "agents" / agent["id"] / "README.md").read_text(encoding="utf-8")
             instrucciones = (ROOT / "agents" / agent["id"] / "instructions.md").read_text(encoding="utf-8")
             for scenario in scenarios:
-                self.assertIn(scenario["situation"], ficha, agent["id"])
-                self.assertIn(scenario["delivers"], ficha, agent["id"])
+                self.assertIn(scenario["context"], ficha, agent["id"])
+                self.assertIn(scenario["returns"], ficha, agent["id"])
                 self.assertIn(scenario["ask"], instrucciones, agent["id"])
 
     def test_documented_agent_counts_are_current(self):

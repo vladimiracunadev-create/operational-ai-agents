@@ -6,28 +6,16 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ejemplos](#ejemplos-de-uso) · [Mapa](#mapa-de-la-misión) · [Flujo](#flujo-operativo) · [Ficha](#ficha-técnica) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
-## Misión
+## Qué hace por ti
 
 Convertir un conjunto de cambios en una decisión de release explícita, reproducible y segura.
 
-## Ficha técnica
-
-| Propiedad | Valor |
-|---|---|
-| Identificador | `release-governance-agent` |
-| Categoría | `delivery-governance` |
-| Versión | `0.1.0` |
-| Estado honesto | `IMPLEMENTED` |
-| Riesgo | `high` |
-| Modo de permisos | `default` |
-| Aislamiento | `worktree` |
-| Memoria | `project` |
-| Esfuerzo | `high` |
-| Turnos máximos | `24` |
+> [!WARNING]
+> **Riesgo alto.** Este agente puede cambiar cosas difíciles de deshacer, así que se detiene ante 4 gates humanos y ninguno se salta con acceso técnico.
 
 ## Cuándo delegarle trabajo
 
@@ -35,60 +23,131 @@ Convertir un conjunto de cambios en una decisión de release explícita, reprodu
 
 ## Ejemplos de uso
 
-Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+3 casos trabajados: el contexto real, el mensaje que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
+
+> [!NOTE]
+> Son **ejemplos ilustrativos del contrato**, no transcripciones de ejecuciones registradas. Ningún agente del catálogo declara todavía evidencia de uso real — ver [Madurez](#madurez).
 
 ### 1 · Publicar sin saber si está listo
 
-**Lo que tienes delante —** Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.
+**El caso.** 38 commits desde la última versión, el equipo pregunta cuándo sale y nadie ha mirado el conjunto. Hay una dependencia actualizada la semana pasada y dos pruebas que alguien marcó como omitidas.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Evalúa si el repositorio está listo para release y entrega un go/no-go.
+```text
+Evalúa si el repositorio está listo para release y entrega un go/no-go.
+```
 
-**Lo que te devuelve —** Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos.
+**Qué hace, paso a paso:**
+
+1. `change-inventory` — agrupa los 38 commits por tipo y detecta un cambio que rompe compatibilidad sin declararlo.
+2. `quality-gates` — corre pruebas, lint y análisis de dependencias; encuentra las 2 pruebas omitidas y comprueba qué cubrían.
+3. `release-candidate` — construye el artefacto y lo abre, en vez de fiarse del log del build.
+
+**Lo que te devuelve:**
+
+| Comprobación | Resultado |
+|---|---|
+| pruebas | 214 en verde, **2 omitidas** que cubrían el flujo de reembolso |
+| compatibilidad | un cambio rompe el contrato de `/v1/orders` y va marcado como `fix` |
+| dependencias | 1 vulnerabilidad de severidad media sin parche disponible |
+| artefacto | se construye y contiene los 3 binarios esperados |
+
+**Cómo cierra —** **NO-GO** · `BLOCKED` — no por las pruebas, sino porque un cambio incompatible saldría como versión de parche y rompería a quien actualice sin leer.
 
 ### 2 · Dejarlo todo listo y decidir tú cuándo sale
 
-**Lo que tienes delante —** Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.
+**El caso.** La versión está lista de verdad, pero quieres publicarla el lunes con el equipo disponible, no un viernes por la tarde.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Prepara la versión 0.4.0 y detente antes de publicar.
+```text
+Prepara la versión 0.4.0 y detente antes de publicar.
+```
 
-**Lo que te devuelve —** La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación.
+**Qué hace, paso a paso:**
+
+1. `version-decision` — comprueba que 0.4.0 es la que corresponde por los cambios acumulados y sube el número en los 5 sitios donde aparece.
+2. `artifact-build` — construye los artefactos y verifica su contenido y su checksum.
+3. `approval` — se detiene. Tiene todo hecho y no publica: publicar es un gate humano, no un paso más.
+
+**Lo que te devuelve:**
+
+- Versión subida en `pyproject.toml`, el manifiesto, el badge del README, el módulo y el endpoint de estado. Las referencias del changelog a versiones anteriores quedaron intactas.
+- Changelog de 0.4.0 redactado a partir de los commits reales, no de los títulos de los PR.
+- Artefactos construidos, con su checksum y su contenido verificado abriéndolos.
+- Plan de reversión escrito antes de publicar, no después.
+
+**Cómo cierra —** `PARTIAL` por diseño — todo preparado, nada publicado. El tag y el release esperan tu orden.
 
 ### 3 · Un artefacto que compila pero llega vacío
 
-**Lo que tienes delante —** El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.
+**El caso.** El build pasa en verde y el instalador pesa lo esperado, pero un usuario reporta que la aplicación se abre sin ningún contenido dentro.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Verifica que los artefactos de este release contienen de verdad lo que prometen.
+```text
+Verifica que los artefactos de este release contienen de verdad lo que prometen.
+```
 
-**Lo que te devuelve —** La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado.
+**Qué hace, paso a paso:**
+
+1. `artifact-build` — reconstruye el artefacto y lo **abre**: descomprime, lista y cuenta lo que hay dentro.
+2. `release-candidate` — compara ese conteo con la fuente: 0 de las 48 unidades de contenido llegaron al paquete.
+3. `post-release-checks` — localiza la causa en el patrón de inclusión del empaquetador, que dejaba fuera el directorio de datos.
+
+**Lo que te devuelve:**
+
+- **Build**: en verde. **Checksum**: correcto. **Versión**: correcta. **Contenido**: 0 de 48.
+- Causa: el patrón de inclusión solo tomaba `*.py`, y el contenido son `.md` dentro de `data/`.
+- Comprobación añadida al proceso: contar unidades dentro del artefacto y fallar si son menos que en el origen.
+
+**Cómo cierra —** `COMPLETED` — el release anterior queda marcado para retirar. Un build en verde nunca fue prueba de un artefacto correcto.
+
+## Mapa de la misión
+
+```mermaid
+flowchart LR
+    IN["📥 Necesita de ti<br/>· repository_path<br/>· release_intent<br/>· target_channel"]
+    AG(["🏷️ release-governance-agent"])
+    OUT["📦 Te entrega<br/>· release_readiness_report<br/>· version_change<br/>· changelog_entry<br/>· verified_artifacts<br/>· rollback_and_post_release_plan"]
+    GATE["🚦 Se detiene y pregunta antes de<br/>· version_change<br/>· tag_or_release_publish<br/>· registry_upload<br/>· production_deploy"]
+    IN --> AG --> OUT
+    AG -.->|"sin tu decisión, no avanza"| GATE
+    style AG fill:#8957e5,color:#fff
+    style GATE fill:#bf8700,color:#fff
+    style OUT fill:#2da44e,color:#fff
+```
 
 ## Flujo operativo
 
 ```mermaid
 flowchart LR
-    p1["scope"]
-    p2["change inventory"]
-    p3["version decision"]
-    p4["quality gates"]
-    p5["artifact build"]
-    p6["release candidate"]
-    p7["approval"]
-    p8["publish handoff"]
-    p9["post release checks"]
-    p1 --> p2
-    p2 --> p3
-    p3 --> p4
-    p4 --> p5
-    p5 --> p6
-    p6 --> p7
-    p7 --> p8
-    p8 --> p9
-    p9 --> done(["entrega verificada"])
+    subgraph A["🔍 Diagnóstico · solo lectura"]
+        direction TB
+        p1["1 · scope"]
+        p2["2 · change inventory"]
+        p3["3 · version decision"]
+        p4["4 · quality gates"]
+        p5["5 · artifact build"]
+        p6["6 · release candidate"]
+        p1 --> p2
+        p2 --> p3
+        p3 --> p4
+        p4 --> p5
+        p5 --> p6
+    end
+    G{{"🚦 approval<br/>decisión humana"}}
+    subgraph B["⚙️ Ejecución acotada y verificación"]
+        direction TB
+        p8["8 · publish handoff"]
+        p9["9 · post release checks"]
+        p8 --> p9
+    end
+    A --> G --> B --> FIN(["📋 entrega verificada"])
+    G -.->|"si deniegas"| A
+    style G fill:#bf8700,color:#fff
+    style FIN fill:#2da44e,color:#fff
 ```
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
@@ -104,6 +163,21 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 | 7 | `approval` | Presenta el go/no-go con su evidencia y espera la decisión humana. Publicar nunca es una consecuencia automática de que todo esté verde. |
 | 8 | `publish-handoff` | Publica solo tras la aprobación y deja registrado qué se publicó, dónde y con qué checksum. |
 | 9 | `post-release-checks` | Comprueba en vivo que lo publicado se descarga, instala y responde como se prometió. |
+
+## Ficha técnica
+
+| Propiedad | Valor |
+|---|---|
+| Identificador | `release-governance-agent` |
+| Categoría | `delivery-governance` |
+| Versión | `0.1.0` |
+| Estado honesto | `IMPLEMENTED` |
+| Riesgo | `high` |
+| Modo de permisos | `default` |
+| Aislamiento | `worktree` |
+| Memoria | `project` |
+| Esfuerzo | `high` |
+| Turnos máximos | `24` |
 
 ## Contrato de entrega
 

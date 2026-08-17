@@ -95,21 +95,39 @@
   "scenarios": [
     {
       "title": "El perfil no cuenta lo que ya construiste",
-      "situation": "Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.",
+      "context": "Publicaste seis proyectos con releases firmados y pruebas. El perfil describe el cargo que tenías hace dos años, no menciona ninguno de los seis y el titular no contiene ni una tecnología buscable.",
       "ask": "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
-      "delivers": "El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes."
+      "walkthrough": [
+        "`verified-inventory` — abre cada sección por su formulario de edición. La sección «Acerca de» parecía vacía al leer la página y tenía 2.068 caracteres: la interfaz carga en diferido.",
+        "`evidence-collection` — toma los datos del portafolio y comprueba cada URL con una petición real antes de proponerla.",
+        "`gap-report` — prioriza por lo que ve alguien en sus primeros quince segundos."
+      ],
+      "returns": "| Sección | Estado verificado | Brecha |\n|---|---|---|\n| titular | 96 caracteres, sin tecnologías | P0: no aparece en ninguna búsqueda técnica |\n| acerca de | 2.068 caracteres, sólido | P1: no menciona ninguno de los 6 proyectos |\n| proyectos | vacío, confirmado por formulario | P0: seis productos invisibles |\n| contacto | portafolio ya enlazado | correcto, no se toca |",
+      "status": "`BLOCKED` esperando `LINKEDIN CONFIRMAR` — 0 campos modificados. Aquí no hay control de versiones: lo que se sobrescribe no se recupera."
     },
     {
       "title": "Actualizarlo sin perder tu voz",
-      "situation": "El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.",
+      "context": "El resumen está bien escrito, suena a ti y tiene 2.505 de los 2.600 caracteres permitidos. Solo le faltan dos proyectos. Reescribirlo de cero sería un retroceso.",
       "ask": "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.",
-      "delivers": "El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo."
+      "walkthrough": [
+        "`drafting` — mide el contenido actual contra el límite del campo **antes** de redactar: quedan 95 caracteres, así que lo nuevo se ajusta a eso, no se recorta lo que ya estaba.",
+        "`approval` — presenta el texto exacto que se publicaría, con el diff frente al actual.",
+        "`post-publication-verification` — recarga el perfil y comprueba que el texto quedó, y que quedó donde debía."
+      ],
+      "returns": "- **Diff** — 2 frases añadidas al final del tercer párrafo; ni una palabra del texto original modificada.\n- **Presupuesto** — 2.505 + 89 = 2.594 de 2.600. Cabe sin recortar nada.\n- **Proyectos** — 2 fichas nuevas, cada una con su repositorio verificado con una petición real, no con una URL plausible.\n- **Verificación** — perfil recargado; ambos cambios visibles.",
+      "status": "`COMPLETED` — un formulario guardado sin error no prueba que el cambio quedara; por eso la comprobación es sobre el perfil recargado."
     },
     {
       "title": "Prepararlo antes de postular",
-      "situation": "Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.",
+      "context": "Postulas el jueves a un cargo de arquitectura. Tu perfil dice «en transición laboral» en el título del puesto actual y tus tres aptitudes visibles son de un trabajo de hace ocho años.",
       "ask": "Prepara mi perfil para postular a este tipo de cargo.",
-      "delivers": "La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos."
+      "walkthrough": [
+        "`audience-rubric` — evalúa el perfil como lo haría quien filtra candidaturas: el título del puesto es lo que se indexa, y una señal negativa ahí cuesta más de lo que aporta en honestidad.",
+        "`gap-report` — ordena por impacto sobre la candidatura concreta, no en abstracto.",
+        "`handoff` — declara lo que no se puede automatizar en vez de intentarlo y dejarlo a medias."
+      ],
+      "returns": "- **P0** — el título del puesto actual: el matiz de la transición va en la descripción, donde se lee, no en el campo que se indexa.\n- **P0** — las 3 aptitudes visibles no tienen relación con el cargo objetivo.\n- **P1** — dos proyectos que sí encajan con el cargo no están destacados.\n- **No automatizable** — reordenar aptitudes exige arrastre manual y su diálogo guarda cada movimiento por separado: se explica cómo hacerlo en treinta segundos en vez de dejarlo a medias.",
+      "status": "`PARTIAL` — 3 cambios aplicados tras tu confirmación y 1 devuelto como trabajo manual, con el motivo técnico y las instrucciones."
     }
   ]
 }

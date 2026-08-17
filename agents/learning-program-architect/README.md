@@ -6,28 +6,16 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ejemplos](#ejemplos-de-uso) · [Mapa](#mapa-de-la-misión) · [Flujo](#flujo-operativo) · [Ficha](#ficha-técnica) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
-## Misión
+## Qué hace por ti
 
 Transformar un dominio en una experiencia formativa completa, verificable y mantenible, evitando carpetas vacías y contenido ornamental.
 
-## Ficha técnica
-
-| Propiedad | Valor |
-|---|---|
-| Identificador | `learning-program-architect` |
-| Categoría | `education-engineering` |
-| Versión | `0.1.0` |
-| Estado honesto | `IMPLEMENTED` |
-| Riesgo | `medium` |
-| Modo de permisos | `default` |
-| Aislamiento | `worktree` |
-| Memoria | `project` |
-| Esfuerzo | `high` |
-| Turnos máximos | `30` |
+> [!NOTE]
+> Trabaja en un worktree aislado y se detiene ante 4 gates humanos. Inspecciona primero; muta solo lo aprobado.
 
 ## Cuándo delegarle trabajo
 
@@ -35,60 +23,130 @@ Transformar un dominio en una experiencia formativa completa, verificable y mant
 
 ## Ejemplos de uso
 
-Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+3 casos trabajados: el contexto real, el mensaje que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
+
+> [!NOTE]
+> Son **ejemplos ilustrativos del contrato**, no transcripciones de ejecuciones registradas. Ningún agente del catálogo declara todavía evidencia de uso real — ver [Madurez](#madurez).
 
 ### 1 · Un dominio en la cabeza y ningún curso
 
-**Lo que tienes delante —** Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.
+**El caso.** Llevas años trabajando con agentes de IA y quieres convertirlo en un programa. Tienes un índice de 8 módulos en un documento y nada más: ni una lección escrita, ni un laboratorio.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Crea un programa de agentes de IA desde fundamentos hasta producción.
+```text
+Crea un programa de agentes de IA desde fundamentos hasta producción.
+```
 
-**Lo que te devuelve —** El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento.
+**Qué hace, paso a paso:**
+
+1. `audience` y `outcomes` — fija a quién va dirigido y qué debe saber hacer al terminar, en verbos comprobables: «despliega un agente con gates», no «entiende los agentes».
+2. `curriculum-map` — ordena los 8 módulos por dependencia real y detecta que dos exigen conocimientos que ningún módulo anterior entrega.
+3. `technical-validation` — ejecuta cada laboratorio de principio a fin antes de darlo por escrito.
+
+**Lo que te devuelve:**
+
+- **Currículo** — 8 módulos reordenados a 10, con los 2 prerrequisitos que faltaban ahora explícitos.
+- **Contenido** — 34 lecciones escritas, ninguna carpeta con título y sin cuerpo.
+- **Laboratorios** — 12 ejecutables, cada uno con su criterio de corrección y probado de verdad.
+- **Evaluación** — 8 evaluaciones y 2 capstones que integran lo aprendido.
+
+**Cómo cierra —** `COMPLETED` — 3 laboratorios quedaron marcados como dependientes de una clave de API que el alumno debe aportar, y así se declara en el material.
 
 ### 2 · Un curso que se lee bien pero no se practica
 
-**Lo que tienes delante —** El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.
+**El caso.** Un programa de 20 lecciones bien escritas sobre Docker. Quien lo sigue solo lee: no hay nada que ejecutar, ni forma de saber si aprendió, ni un proyecto final.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Amplía este curso con laboratorios reales, evaluaciones y capstones.
+```text
+Amplía este curso con laboratorios reales, evaluaciones y capstones.
+```
 
-**Lo que te devuelve —** Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe.
+**Qué hace, paso a paso:**
+
+1. `curriculum-map` — engancha cada laboratorio nuevo a la lección que ya existe, sin reescribir el material que funciona.
+2. `assessment-design` — diseña evaluaciones que comprueban el resultado esperado de la lección, no la memoria del texto.
+3. `technical-validation` — corre los 14 laboratorios en limpio y descarta 2 que dependían de una imagen que ya no se publica.
+
+**Lo que te devuelve:**
+
+- 14 laboratorios ejecutables enganchados a las lecciones existentes, 12 validados y 2 rehechos tras fallar.
+- 20 evaluaciones, una por lección, con su criterio de corrección.
+- 1 capstone: levantar un stack de tres servicios con healthchecks y reversión.
+- Las 20 lecciones originales **sin tocar**: solo se añadió.
+
+**Cómo cierra —** `COMPLETED` — con la advertencia de que 2 laboratorios exigen 4 GB de RAM libres, declarado en su encabezado.
 
 ### 3 · Saber qué falta antes de prometer fechas
 
-**Lo que tienes delante —** Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.
+**El caso.** Tienes medio programa construido y te piden un calendario. Antes de comprometerte necesitas saber qué falta de verdad, sin ponerte a escribir todavía.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.
+```text
+Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.
+```
 
-**Lo que te devuelve —** El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas.
+**Qué hace, paso a paso:**
+
+1. `curriculum-map` — levanta el mapa de cobertura: qué resultado de aprendizaje cubre cada lección y cuál no cubre ninguna.
+2. `content-production` — se limita a inventariar: marca las carpetas que solo tienen título, sin rellenarlas.
+3. `release` — entrega el orden de llenado por dependencia, no por comodidad.
+
+**Lo que te devuelve:**
+
+| Módulo | Estado | Qué falta |
+|---|---|---|
+| 1-4 | completo | nada; los laboratorios corren |
+| 5 | esqueleto | 6 lecciones con título y sin cuerpo |
+| 6 | parcial | falta la evaluación y el laboratorio |
+| 7-8 | no existe | dependen del módulo 5, que va primero |
+
+**Cómo cierra —** `COMPLETED` en modo diagnóstico — 0 archivos escritos. El orden de llenado es 5 → 6 → 7 → 8, no el numérico.
+
+## Mapa de la misión
+
+```mermaid
+flowchart LR
+    IN["📥 Necesita de ti<br/>· domain<br/>· target_audience<br/>· depth_and_duration"]
+    AG(["🎓 learning-program-architect"])
+    OUT["📦 Te entrega<br/>· curriculum<br/>· lessons<br/>· executable_labs<br/>· assessments<br/>· capstones<br/>· maintenance_roadmap"]
+    GATE["🚦 Se detiene y pregunta antes de<br/>· scope_or_duration_change<br/>· licensed_dataset<br/>· paid_dependency<br/>· publication"]
+    IN --> AG --> OUT
+    AG -.->|"sin tu decisión, no avanza"| GATE
+    style AG fill:#8957e5,color:#fff
+    style GATE fill:#bf8700,color:#fff
+    style OUT fill:#2da44e,color:#fff
+```
 
 ## Flujo operativo
 
 ```mermaid
 flowchart LR
-    p1["audience"]
-    p2["outcomes"]
-    p3["prerequisites"]
-    p4["curriculum map"]
-    p5["content production"]
-    p6["assessment design"]
-    p7["technical validation"]
-    p8["accessibility"]
-    p9["release"]
-    p1 --> p2
-    p2 --> p3
-    p3 --> p4
-    p4 --> p5
-    p5 --> p6
-    p6 --> p7
-    p7 --> p8
-    p8 --> p9
-    p9 --> done(["entrega verificada"])
+    subgraph A["🔍 Recorrido completo · sin mutaciones fuera de contrato"]
+        direction TB
+        p1["1 · audience"]
+        p2["2 · outcomes"]
+        p3["3 · prerequisites"]
+        p4["4 · curriculum map"]
+        p5["5 · content production"]
+        p6["6 · assessment design"]
+        p7["7 · technical validation"]
+        p8["8 · accessibility"]
+        p9["9 · release"]
+        p1 --> p2
+        p2 --> p3
+        p3 --> p4
+        p4 --> p5
+        p5 --> p6
+        p6 --> p7
+        p7 --> p8
+        p8 --> p9
+    end
+    A --> FIN(["📋 entrega verificada"])
+    A -.->|"se detiene y pregunta"| G["🚦 4 gates humanos"]
+    style FIN fill:#2da44e,color:#fff
 ```
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
@@ -104,6 +162,21 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 | 7 | `technical-validation` | Ejecuta el código, los comandos y los enlaces del material. Lo que no corre, no se publica. |
 | 8 | `accessibility` | Revisa lenguaje, estructura de encabezados, contraste, alternativas textuales y navegación por teclado. |
 | 9 | `release` | Publica la versión y registra qué cambió respecto de la anterior y para quién es relevante. |
+
+## Ficha técnica
+
+| Propiedad | Valor |
+|---|---|
+| Identificador | `learning-program-architect` |
+| Categoría | `education-engineering` |
+| Versión | `0.1.0` |
+| Estado honesto | `IMPLEMENTED` |
+| Riesgo | `medium` |
+| Modo de permisos | `default` |
+| Aislamiento | `worktree` |
+| Memoria | `project` |
+| Esfuerzo | `high` |
+| Turnos máximos | `30` |
 
 ## Contrato de entrega
 

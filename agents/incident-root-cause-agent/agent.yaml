@@ -87,21 +87,39 @@
   "scenarios": [
     {
       "title": "Un error que aparece y desaparece",
-      "situation": "El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.",
+      "context": "El servicio de checkout devuelve 504 unas veinte veces al día, sin patrón evidente. Reiniciarlo lo arregla durante unas horas. Lleva tres semanas y ya nadie lo mira.",
       "ask": "Investiga por qué este servicio produce 504 de forma intermitente.",
-      "delivers": "La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie."
+      "walkthrough": [
+        "`timeline` — cruza los 504 con despliegues, picos de tráfico y ventanas de mantenimiento: los fallos se agrupan a los 40-50 minutos de cada reinicio.",
+        "`hypotheses` — plantea cuatro causas posibles como afirmaciones falsables, no como sospechas.",
+        "`discrimination-tests` — diseña la observación que separa unas de otras, en vez de aplicar la corrección más probable."
+      ],
+      "returns": "| Hipótesis | Cómo se comprobó | Veredicto |\n|---|---|---|\n| saturación de CPU | métricas del contenedor en las ventanas de fallo | descartada: pico del 22% |\n| pool de conexiones agotado | conteo de conexiones activas contra el máximo | **sostenida**: llega al tope justo antes de cada 504 |\n| timeout del balanceador | comparación de su umbral con la latencia real | descartada |\n| DNS intermitente | resolución medida durante 6 horas | descartada |",
+      "status": "`COMPLETED` — causa: las conexiones no se devuelven al pool en la ruta de error, así que se agota con el tiempo y no con la carga. Eso explica por qué reiniciar «funcionaba»."
     },
     {
       "title": "El CI falla solo a veces",
-      "situation": "La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.",
+      "context": "Una prueba de integración falla en aproximadamente 1 de cada 6 ejecuciones, sin que el código cambie. El equipo ya normalizó reintentar el job hasta que pase.",
       "ask": "Construye un RCA de esta falla usando logs, métricas y cambios recientes.",
-      "delivers": "El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron."
+      "walkthrough": [
+        "`symptom-baseline` — mide la frecuencia real sobre 120 ejecuciones históricas en vez de fiarse de la impresión: 19 fallos, un 15,8%.",
+        "`evidence-collection` — recoge los logs de los 19 y encuentra que en todos el fallo llega antes de los 400 ms.",
+        "`discrimination-tests` — ejecuta la prueba aislada 200 veces y luego en paralelo con el resto de la suite."
+      ],
+      "returns": "- **Aislada**: 200 ejecuciones, 0 fallos.\n- **En paralelo**: 200 ejecuciones, 31 fallos.\n- Dos pruebas escriben en el mismo registro de la base de datos de test y el orden de ejecución no está fijado.\n- **Corrección** — aislar los datos por prueba. **Verificación** — 300 ejecuciones en paralelo sin fallos.",
+      "status": "`COMPLETED` — sin culpar a quien escribió la prueba: el fallo estaba en que la suite no garantizaba aislamiento, y eso es una propiedad del diseño, no de una persona."
     },
     {
       "title": "Ya se arregló, pero nadie sabe por qué",
-      "situation": "El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.",
+      "context": "El sábado el sistema estuvo caído 40 minutos. Alguien reinició algo y volvió. El lunes te piden un informe y no hay nada escrito de lo que pasó.",
       "ask": "El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.",
-      "delivers": "La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación."
+      "walkthrough": [
+        "`safety` — comprueba primero que el sistema está estable ahora, antes de tocar nada por investigar.",
+        "`timeline` — reconstruye la ventana a partir de logs, métricas y el historial de despliegues, incluida la hora exacta del reinicio.",
+        "`corrective-actions` — propone acciones verificables, no propósitos generales."
+      ],
+      "returns": "- **Línea temporal** — 02:14 despliegue automático de una dependencia; 02:51 primeros errores; 03:29 reinicio manual; 03:31 recuperación.\n- **Causa contribuyente** — la dependencia subió de versión mayor por un rango abierto en el manifiesto, sin que nadie lo aprobara.\n- **Causas descartadas** — tráfico (plano) y disco (38% libre).\n- **Acciones** — fijar la versión, exigir aprobación para versiones mayores, y una alerta que dispare a los 5 minutos de error sostenido en vez de a los 37.",
+      "status": "`COMPLETED` — lo que evita la repetición no es el reinicio, que solo ocultó el síntoma, sino el rango de versión abierto."
     }
   ]
 }

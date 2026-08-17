@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "repository_version": "0.2.0",
   "source_of_truth": "catalog/agents.yaml",
   "maturity_model": {
@@ -100,21 +100,39 @@
       "scenarios": [
         {
           "title": "El README promete más de lo que el código hace",
-          "situation": "Retomas un repositorio cuyo README describe funciones que nadie ha comprobado en meses. No sabes qué parte es real.",
+          "context": "`pagos-api` — 3.400 líneas de Python, 12 tests, sin releases publicados. El README anuncia autenticación OAuth2, rate limiting y webhooks. Nadie ha comprobado esas tres afirmaciones en ocho meses.",
           "ask": "Examina este repositorio y dime qué afirma el README que el código no sostiene.",
-          "delivers": "El inventario del estado real y una matriz que clasifica cada afirmación como implementada, parcial, simulada, planificada u obsoleta, con el archivo o la prueba que lo demuestra."
+          "walkthrough": [
+            "`inventory` — recorre 47 archivos, 12 tests y 2 workflows, y anota que sin releases no hay contra qué contrastar la versión.",
+            "`truth-map` — busca cada afirmación en el árbol: `oauth` aparece en un módulo, `ratelimit` y `throttle` no aparecen en ninguno.",
+            "`gap-analysis` — clasifica las tres afirmaciones adjuntando archivo y línea, o la ausencia de coincidencias, como evidencia."
+          ],
+          "returns": "| Afirmación del README | Estado | Evidencia |\n|---|---|---|\n| «autenticación OAuth2» | parcial | `auth/oauth.py:41` implementa el flujo; `refresh_token()` lanza `NotImplementedError` |\n| «rate limiting» | no implementado | sin coincidencias de `ratelimit` ni `throttle` en 47 archivos |\n| «webhooks» | implementado | `webhooks/dispatch.py` con 12 casos en `tests/test_webhooks.py` |",
+          "status": "`PARTIAL` — 3 afirmaciones revisadas, 1 se sostiene entera. No modifica nada: el plan de corrección espera tu decisión."
         },
         {
           "title": "Quieres mejorarlo y no sabes por dónde empezar",
-          "situation": "El proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias.",
+          "context": "Un proyecto propio que funciona: API en Flask con 6 endpoints, sin CI, sin pruebas de integración y con tres `TODO` de hace un año. Quieres avanzarlo sin romperlo.",
           "ask": "Completa lo que falta en este repositorio sin romper lo que ya funciona.",
-          "delivers": "Un plan por fases ordenado por valor y riesgo, con cada paso verificable por separado. Ejecuta solo lo que apruebes y deja verde lo que ya lo estaba."
+          "walkthrough": [
+            "`gap-analysis` — separa lo que falta de lo que sobra: no hay CI, el endpoint de pagos no tiene cobertura y `utils/fechas.py` no lo importa nadie.",
+            "`plan` — ordena las brechas por valor y riesgo, cada paso con su propia forma de verificarse.",
+            "`approval` — se detiene aquí. No escribe una línea hasta que elijas qué pasos entran."
+          ],
+          "returns": "1. **CI mínimo** · riesgo bajo — workflow con lint y pruebas. Se verifica: el workflow pasa en verde sobre el commit actual.\n2. **Cobertura del endpoint de pagos** · riesgo medio — 4 casos, incluido el de reintento. Se verifica: `pytest tests/test_pagos.py` en verde.\n3. **Retirar el módulo duplicado** · riesgo bajo, reversible — `utils/fechas.py` no se importa desde ninguna parte. Se verifica: la suite sigue verde tras borrarlo.",
+          "status": "`BLOCKED` a propósito, esperando tu decisión. Ejecuta solo los pasos que apruebes, uno a uno, dejando verde lo que ya lo estaba."
         },
         {
-          "title": "Vas a enseñarlo y no quieres sorpresas",
-          "situation": "Vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar.",
+          "title": "Vas a enseñarlo mañana y no quieres sorpresas",
+          "context": "Muestras el repositorio en una entrevista técnica. Tiene un badge de cobertura, una sección «Arquitectura» con diagrama y un roadmap con seis puntos marcados como hechos.",
           "ask": "Antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.",
-          "delivers": "La lista de afirmaciones sin respaldo, la corrección propuesta para cada una y los riesgos que siguen abiertos aunque se corrijan."
+          "walkthrough": [
+            "`truth-map` — contrasta el badge, el diagrama y los seis puntos del roadmap contra su fuente verificable, no contra otro documento.",
+            "`gap-analysis` — separa lo falso de lo desactualizado: un número viejo y una promesa que nunca fue cierta no cuestan lo mismo en una entrevista.",
+            "`handoff` — entrega qué conviene corregir antes y qué es defendible tal como está."
+          ],
+          "returns": "| Afirmación | Veredicto | Qué hacer |\n|---|---|---|\n| badge «cobertura 94%» | falso — la medición real da 71% | corregir el número o retirar el badge |\n| diagrama de arquitectura | obsoleto — muestra un cache retirado en marzo | actualizar el diagrama |\n| roadmap «6 de 6 hechos» | 4 hechos, 1 parcial, 1 sin empezar | marcar el estado real |",
+          "status": "`COMPLETED` — 3 hallazgos, ninguno corregido todavía: tocar tu repositorio exige tu OK explícito."
         }
       ]
     },
@@ -208,21 +226,39 @@
       "scenarios": [
         {
           "title": "Una versión del lenguaje que ya nadie soporta",
-          "situation": "El sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio.",
+          "context": "ERP interno en PHP 5.4 sobre Apache: 180.000 líneas, 40 personas usándolo cada día, cero pruebas automatizadas. La versión dejó de recibir parches hace años y auditoría dio 90 días de plazo.",
           "ask": "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
-          "delivers": "El inventario de lo que hay, pruebas de caracterización que fijan el comportamiento actual como línea base, un plan de migración por etapas y el plan de reversión de cada una."
+          "walkthrough": [
+            "`system-map` — inventaria 312 archivos, 27 dependencias sin gestor y 4 puntos que usan `mysql_*`, retirado desde PHP 7.",
+            "`contract-baseline` — graba 60 peticiones reales y las convierte en pruebas de caracterización: esa es la línea base contra la que se compara todo lo demás.",
+            "`migration-slices` — corta la migración en tramos desplegables y reversibles por separado, en vez de un salto único."
+          ],
+          "returns": "| Tramo | Qué mueve | Cómo se revierte |\n|---|---|---|\n| 1 | `mysql_*` a PDO, sin tocar el esquema | revertir el commit; la base de datos no cambia |\n| 2 | dependencias a Composer con versiones fijadas | volver al include manual |\n| 3 | 4 archivos con sintaxis retirada en PHP 7 | archivo por archivo |\n| 4-6 | plantillas, sesiones y cabeceras | por tramo, con el anterior ya estable |",
+          "status": "`COMPLETED` en diseño — 0 líneas migradas todavía. Cada tramo pide su propia aprobación antes de ejecutarse."
         },
         {
           "title": "Cambiar el motor de datos sin romper a quien lo consume",
-          "situation": "Quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez.",
+          "context": "Tres aplicaciones leen directamente 12 tablas de SQL Server. Quieres mover la lógica a una API, pero dos de ellas las mantiene otro equipo y no puedes coordinar un corte simultáneo.",
           "ask": "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición.",
-          "delivers": "El contrato actual congelado como línea base, la capa de compatibilidad que sostiene a los consumidores durante la transición y el criterio para retirarla."
+          "walkthrough": [
+            "`contract-baseline` — congela el contrato real: qué columnas lee cada consumidor y con qué tipos, medido sobre las consultas que de verdad se ejecutan y no sobre el esquema declarado.",
+            "`risk-analysis` — marca las 3 tablas que algún consumidor externo **escribe**, no solo lee: ahí la compatibilidad tiene que ser bidireccional.",
+            "`migration-slices` — propone la capa que sostiene a los consumidores antiguos mientras el acceso nuevo convive con ellos."
+          ],
+          "returns": "- **Capa de compatibilidad** — 12 vistas con los nombres y tipos actuales, para que ningún consumidor note el cambio.\n- **Criterio de retirada** — cuando los tres consumidores no aparezcan en el log de acceso durante 30 días seguidos.\n- **Riesgo señalado** — `pagos_detalle` recibe escrituras desde una aplicación externa: una vista no basta y hace falta coordinación explícita con ese equipo.",
+          "status": "`PARTIAL` — plan completo con un punto sin resolver que no depende de código, sino de una conversación entre equipos."
         },
         {
           "title": "Nadie se atreve a tocar ese módulo",
-          "situation": "Hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona.",
+          "context": "`calculo_comisiones.py`: 1.400 líneas, sin pruebas, con tres condicionales que nadie sabe explicar y de los que depende el cierre contable del mes. Cambiarlo asusta más que dejarlo como está.",
           "ask": "Cubre este módulo con pruebas de caracterización antes de que lo toquemos.",
-          "delivers": "Pruebas que capturan el comportamiento real, rarezas incluidas, para que cualquier cambio posterior falle de forma visible en vez de silenciosa."
+          "walkthrough": [
+            "`contract-baseline` — ejecuta el módulo con 200 casos del histórico real y graba la salida tal cual sale, rarezas incluidas.",
+            "`risk-analysis` — señala 2 comportamientos que parecen errores: un redondeo al alza y una comisión que puede quedar negativa.",
+            "`compatibility-verification` — deja la suite en verde, de modo que cualquier cambio futuro que altere el resultado falle de forma visible."
+          ],
+          "returns": "- 200 pruebas de caracterización en verde, que fijan el comportamiento **actual**, no el deseado.\n- 2 comportamientos sospechosos documentados y **sin corregir**: cambiarlos altera cifras contables y esa es una decisión de negocio, no técnica.\n- Cobertura del módulo de 0% a 87%; lo no cubierto son las ramas que ningún caso histórico alcanza.",
+          "status": "`COMPLETED` — el módulo sigue haciendo exactamente lo mismo que antes. La diferencia es que ahora se puede tocar."
         }
       ]
     },
@@ -318,21 +354,39 @@
       "scenarios": [
         {
           "title": "Un dominio en la cabeza y ningún curso",
-          "situation": "Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.",
+          "context": "Llevas años trabajando con agentes de IA y quieres convertirlo en un programa. Tienes un índice de 8 módulos en un documento y nada más: ni una lección escrita, ni un laboratorio.",
           "ask": "Crea un programa de agentes de IA desde fundamentos hasta producción.",
-          "delivers": "El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento."
+          "walkthrough": [
+            "`audience` y `outcomes` — fija a quién va dirigido y qué debe saber hacer al terminar, en verbos comprobables: «despliega un agente con gates», no «entiende los agentes».",
+            "`curriculum-map` — ordena los 8 módulos por dependencia real y detecta que dos exigen conocimientos que ningún módulo anterior entrega.",
+            "`technical-validation` — ejecuta cada laboratorio de principio a fin antes de darlo por escrito."
+          ],
+          "returns": "- **Currículo** — 8 módulos reordenados a 10, con los 2 prerrequisitos que faltaban ahora explícitos.\n- **Contenido** — 34 lecciones escritas, ninguna carpeta con título y sin cuerpo.\n- **Laboratorios** — 12 ejecutables, cada uno con su criterio de corrección y probado de verdad.\n- **Evaluación** — 8 evaluaciones y 2 capstones que integran lo aprendido.",
+          "status": "`COMPLETED` — 3 laboratorios quedaron marcados como dependientes de una clave de API que el alumno debe aportar, y así se declara en el material."
         },
         {
           "title": "Un curso que se lee bien pero no se practica",
-          "situation": "El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.",
+          "context": "Un programa de 20 lecciones bien escritas sobre Docker. Quien lo sigue solo lee: no hay nada que ejecutar, ni forma de saber si aprendió, ni un proyecto final.",
           "ask": "Amplía este curso con laboratorios reales, evaluaciones y capstones.",
-          "delivers": "Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe."
+          "walkthrough": [
+            "`curriculum-map` — engancha cada laboratorio nuevo a la lección que ya existe, sin reescribir el material que funciona.",
+            "`assessment-design` — diseña evaluaciones que comprueban el resultado esperado de la lección, no la memoria del texto.",
+            "`technical-validation` — corre los 14 laboratorios en limpio y descarta 2 que dependían de una imagen que ya no se publica."
+          ],
+          "returns": "- 14 laboratorios ejecutables enganchados a las lecciones existentes, 12 validados y 2 rehechos tras fallar.\n- 20 evaluaciones, una por lección, con su criterio de corrección.\n- 1 capstone: levantar un stack de tres servicios con healthchecks y reversión.\n- Las 20 lecciones originales **sin tocar**: solo se añadió.",
+          "status": "`COMPLETED` — con la advertencia de que 2 laboratorios exigen 4 GB de RAM libres, declarado en su encabezado."
         },
         {
           "title": "Saber qué falta antes de prometer fechas",
-          "situation": "Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.",
+          "context": "Tienes medio programa construido y te piden un calendario. Antes de comprometerte necesitas saber qué falta de verdad, sin ponerte a escribir todavía.",
           "ask": "Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.",
-          "delivers": "El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas."
+          "walkthrough": [
+            "`curriculum-map` — levanta el mapa de cobertura: qué resultado de aprendizaje cubre cada lección y cuál no cubre ninguna.",
+            "`content-production` — se limita a inventariar: marca las carpetas que solo tienen título, sin rellenarlas.",
+            "`release` — entrega el orden de llenado por dependencia, no por comodidad."
+          ],
+          "returns": "| Módulo | Estado | Qué falta |\n|---|---|---|\n| 1-4 | completo | nada; los laboratorios corren |\n| 5 | esqueleto | 6 lecciones con título y sin cuerpo |\n| 6 | parcial | falta la evaluación y el laboratorio |\n| 7-8 | no existe | dependen del módulo 5, que va primero |",
+          "status": "`COMPLETED` en modo diagnóstico — 0 archivos escritos. El orden de llenado es 5 → 6 → 7 → 8, no el numérico."
         }
       ]
     },
@@ -426,22 +480,40 @@
       ],
       "scenarios": [
         {
-          "title": "Diez cosas a medias y ninguna prioridad",
-          "situation": "El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.",
+          "title": "Diez frentes abiertos y ninguna prioridad",
+          "context": "Una aplicación de gestión con 200 usuarios reales. Hay diez cosas empezadas: exportación a Excel a medias, notificaciones sin enviar, un panel que carga en 9 segundos. Todo parece urgente.",
           "ask": "Examina este producto parcial y construye el siguiente incremento útil.",
-          "delivers": "El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado."
+          "walkthrough": [
+            "`implemented-state` — comprueba qué funciona de verdad ejecutándolo, no leyendo el backlog: 6 de las 10 cosas están más avanzadas de lo que decía el tablero.",
+            "`user-journeys` — recorre el flujo completo del usuario y encuentra que el panel lento bloquea la tarea que el 80% hace a diario.",
+            "`prioritization` — ordena por valor sobre esfuerzo y deja el resto explícitamente fuera de este incremento."
+          ],
+          "returns": "| Frente | Estado real | Decisión |\n|---|---|---|\n| panel de 9 s | funcional pero bloquea el uso diario | **entra**: es el cuello de botella medido |\n| exportación a Excel | 70% hecho, sin pruebas | siguiente incremento |\n| notificaciones | diseño sin implementar | fuera: nadie lo ha pedido |",
+          "status": "`COMPLETED` — panel de 9,1 s a 1,4 s medidos con el mismo conjunto de datos. Los otros 9 frentes siguen intactos y priorizados."
         },
         {
           "title": "El roadmap dice una cosa y el código otra",
-          "situation": "El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.",
+          "context": "El roadmap público lleva cinco meses sin tocarse. Marca como entregadas dos funciones que nunca se terminaron y no menciona tres que sí se construyeron por el camino.",
           "ask": "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.",
-          "delivers": "Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado."
+          "walkthrough": [
+            "`implemented-state` — contrasta cada punto del roadmap con el código y las pruebas que lo respaldan.",
+            "`gap-map` — nombra las dos direcciones del desfase: lo prometido que no está y lo construido que no se anunció.",
+            "`roadmap-update` — corrige el documento y deja constancia de qué se movió y por qué."
+          ],
+          "returns": "- **Marcado como hecho y no lo está** — «informes programados» (solo la UI) y «SSO» (una rama sin fusionar desde marzo).\n- **Hecho y sin anunciar** — importación masiva, registro de auditoría y API de solo lectura, las tres con pruebas.\n- **Roadmap corregido** — 2 puntos devueltos a «en curso», 3 puntos nuevos en «entregado», con el enlace al código de cada uno.",
+          "status": "`COMPLETED` — el roadmap deja de ser una promesa y pasa a ser una descripción. La diferencia se nota más en las dos que había que bajar."
         },
         {
           "title": "Añadir algo sin romper a quien ya lo usa",
-          "situation": "Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.",
+          "context": "Quieres añadir filtros guardados a una herramienta con 200 usuarios activos. La tabla que hay que modificar la consumen también dos integraciones externas por API.",
           "ask": "Añade esta función manteniendo compatibilidad con lo que ya está en uso.",
-          "delivers": "El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado."
+          "walkthrough": [
+            "`user-journeys` — recorre los caminos que hoy funcionan y los fija como lo que no puede romperse.",
+            "`increment` — implementa los filtros guardados como añadido, sin cambiar la forma de la respuesta que consumen las integraciones.",
+            "`acceptance` — comprueba lo que pudo romperse, no solo lo que se quería mejorar: los dos consumidores externos siguen recibiendo el mismo contrato."
+          ],
+          "returns": "- Filtros guardados operativos, con 7 pruebas nuevas.\n- Los 4 recorridos anteriores verificados uno a uno tras el cambio.\n- Contrato de la API sin modificar: los campos nuevos van en una clave opcional, así que un cliente antiguo los ignora.\n- **Riesgo residual** — una de las integraciones valida el esquema de forma estricta; se avisó al equipo antes de desplegar.",
+          "status": "`COMPLETED` con un riesgo declarado que depende de un tercero, no del código."
         }
       ]
     },
@@ -532,21 +604,39 @@
       "scenarios": [
         {
           "title": "Veinte repositorios y ninguna historia",
-          "situation": "Tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real.",
+          "context": "Tu cuenta tiene 23 repositorios públicos acumulados en cuatro años: ejercicios de curso, pruebas de concepto, dos productos con releases y varios que ya no recuerdas. Puestos juntos no cuentan nada.",
           "ask": "Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.",
-          "delivers": "Cada repositorio clasificado por su propósito principal, con su madurez honesta y la evidencia que la respalda. No modifica nada: solo lee."
+          "walkthrough": [
+            "`repository-discovery` — enumera los 23 con su actividad real, visibilidad, releases y última señal de vida.",
+            "`evidence-sampling` — abre una muestra de cada uno: la descripción corta suele estar más desactualizada que el código.",
+            "`maturity-map` — sitúa cada repositorio en su estado honesto, separando madurez técnica de adopción real."
+          ],
+          "returns": "| Clase | Cuántos | Ejemplo de criterio |\n|---|---|---|\n| producto | 2 | releases firmados y usuarios fuera del autor |\n| caso de referencia | 3 | resuelve un proceso completo, no una capacidad |\n| skill o herramienta | 5 | se instala y se usa desde otro proyecto |\n| aprendizaje | 11 | ejercicio con objetivo didáctico, sin usuarios |\n| sin clasificar | 2 | sin commits en 3 años y sin README |",
+          "status": "`COMPLETED` en solo lectura — este agente tiene `Write` y `Edit` **denegadas** por contrato: no puede modificar ni un archivo aunque se lo pidas."
         },
         {
           "title": "Dos repositorios que hacen lo mismo",
-          "situation": "Sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una.",
+          "context": "Tienes un repositorio de utilidades y otro de automatizaciones. Sospechas que la mitad del código está duplicado y no sabes cuál debería quedarse con qué.",
           "ask": "Detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad.",
-          "delivers": "El mapa de duplicación y la recomendación de fusionar, archivar o renombrar, cada una con su justificación."
+          "walkthrough": [
+            "`classification` — clasifica ambos por su propósito primario, no por su nombre.",
+            "`overlap-analysis` — encuentra 4 capacidades presentes en los dos y compara cuál versión está más viva: pruebas, commits recientes, quién la importa.",
+            "`recommendations` — propone destino para cada una, con su justificación y su costo."
+          ],
+          "returns": "| Capacidad duplicada | Vive mejor en | Por qué |\n|---|---|---|\n| parseo de fechas | utilidades | tiene 14 pruebas; la otra copia ninguna |\n| cliente HTTP con reintentos | automatizaciones | es donde se usa de verdad, 9 llamadas |\n| logging | utilidades | la copia diverge y ya no formatea igual |\n| lectura de `.env` | ninguno | ambas versiones son peores que la librería estándar del ecosistema |",
+          "status": "`COMPLETED` — 4 recomendaciones, 0 cambios aplicados. Fusionar o archivar exige tu aprobación explícita."
         },
         {
           "title": "Preparar la conversación con un reclutador",
-          "situation": "Vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices.",
+          "context": "Tienes entrevista el jueves. Te van a pedir que expliques tu trabajo en cinco minutos y necesitas que cada afirmación tenga un enlace que la sostenga.",
           "ask": "Prepara un mapa de portafolio para reclutadores con evidencia real.",
-          "delivers": "La narrativa que conecta los repositorios sin exagerar adopción, con el enlace concreto que respalda cada afirmación."
+          "walkthrough": [
+            "`evidence-sampling` — comprueba lo que cada repositorio puede demostrar de verdad: pruebas que corren, releases descargables, CI en verde.",
+            "`maturity-map` — separa madurez técnica de adopción: tener CI no es tener usuarios, y decirlo al revés se nota.",
+            "`narrative` — redacta la conexión entre los repositorios sin inflar el impacto."
+          ],
+          "returns": "- **Hilo propuesto** — de automatizar tareas propias, a empaquetarlas como herramientas reutilizables, a publicarlas con contrato y pruebas.\n- **Tres piezas que sostienen el hilo**, cada una con enlace directo al release, a la suite de pruebas y al workflow de CI.\n- **Lo que conviene no afirmar** — «usado en producción» no es defendible en ninguno de los 23: no hay usuarios fuera de ti y el reclutador puede comprobarlo.",
+          "status": "`COMPLETED` — la narrativa incluye explícitamente lo que **no** se puede afirmar, que es lo que evita la pregunta incómoda."
         }
       ]
     },
@@ -640,21 +730,39 @@
       "scenarios": [
         {
           "title": "Publicar sin saber si está listo",
-          "situation": "Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.",
+          "context": "38 commits desde la última versión, el equipo pregunta cuándo sale y nadie ha mirado el conjunto. Hay una dependencia actualizada la semana pasada y dos pruebas que alguien marcó como omitidas.",
           "ask": "Evalúa si el repositorio está listo para release y entrega un go/no-go.",
-          "delivers": "Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos."
+          "walkthrough": [
+            "`change-inventory` — agrupa los 38 commits por tipo y detecta un cambio que rompe compatibilidad sin declararlo.",
+            "`quality-gates` — corre pruebas, lint y análisis de dependencias; encuentra las 2 pruebas omitidas y comprueba qué cubrían.",
+            "`release-candidate` — construye el artefacto y lo abre, en vez de fiarse del log del build."
+          ],
+          "returns": "| Comprobación | Resultado |\n|---|---|\n| pruebas | 214 en verde, **2 omitidas** que cubrían el flujo de reembolso |\n| compatibilidad | un cambio rompe el contrato de `/v1/orders` y va marcado como `fix` |\n| dependencias | 1 vulnerabilidad de severidad media sin parche disponible |\n| artefacto | se construye y contiene los 3 binarios esperados |",
+          "status": "**NO-GO** · `BLOCKED` — no por las pruebas, sino porque un cambio incompatible saldría como versión de parche y rompería a quien actualice sin leer."
         },
         {
           "title": "Dejarlo todo listo y decidir tú cuándo sale",
-          "situation": "Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.",
+          "context": "La versión está lista de verdad, pero quieres publicarla el lunes con el equipo disponible, no un viernes por la tarde.",
           "ask": "Prepara la versión 0.4.0 y detente antes de publicar.",
-          "delivers": "La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación."
+          "walkthrough": [
+            "`version-decision` — comprueba que 0.4.0 es la que corresponde por los cambios acumulados y sube el número en los 5 sitios donde aparece.",
+            "`artifact-build` — construye los artefactos y verifica su contenido y su checksum.",
+            "`approval` — se detiene. Tiene todo hecho y no publica: publicar es un gate humano, no un paso más."
+          ],
+          "returns": "- Versión subida en `pyproject.toml`, el manifiesto, el badge del README, el módulo y el endpoint de estado. Las referencias del changelog a versiones anteriores quedaron intactas.\n- Changelog de 0.4.0 redactado a partir de los commits reales, no de los títulos de los PR.\n- Artefactos construidos, con su checksum y su contenido verificado abriéndolos.\n- Plan de reversión escrito antes de publicar, no después.",
+          "status": "`PARTIAL` por diseño — todo preparado, nada publicado. El tag y el release esperan tu orden."
         },
         {
           "title": "Un artefacto que compila pero llega vacío",
-          "situation": "El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.",
+          "context": "El build pasa en verde y el instalador pesa lo esperado, pero un usuario reporta que la aplicación se abre sin ningún contenido dentro.",
           "ask": "Verifica que los artefactos de este release contienen de verdad lo que prometen.",
-          "delivers": "La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado."
+          "walkthrough": [
+            "`artifact-build` — reconstruye el artefacto y lo **abre**: descomprime, lista y cuenta lo que hay dentro.",
+            "`release-candidate` — compara ese conteo con la fuente: 0 de las 48 unidades de contenido llegaron al paquete.",
+            "`post-release-checks` — localiza la causa en el patrón de inclusión del empaquetador, que dejaba fuera el directorio de datos."
+          ],
+          "returns": "- **Build**: en verde. **Checksum**: correcto. **Versión**: correcta. **Contenido**: 0 de 48.\n- Causa: el patrón de inclusión solo tomaba `*.py`, y el contenido son `.md` dentro de `data/`.\n- Comprobación añadida al proceso: contar unidades dentro del artefacto y fallar si son menos que en el origen.",
+          "status": "`COMPLETED` — el release anterior queda marcado para retirar. Un build en verde nunca fue prueba de un artefacto correcto."
         }
       ]
     },
@@ -745,21 +853,39 @@
       "scenarios": [
         {
           "title": "Números que dejaron de ser ciertos",
-          "situation": "El README dice «49 tests» y hay 62; la guía pide una versión del runtime que el CI ya no usa. Nadie mintió: derivó.",
+          "context": "El README dice «49 tests» y la suite tiene 62. La guía de instalación pide Node 20 y el CI usa Node 24. La tabla de SHAs de las acciones muestra los pines de hace tres meses.",
           "ask": "Audita si la documentación coincide con el repositorio y corrige el drift.",
-          "delivers": "Cada afirmación contrastada con su fuente verificable, la lista de las que ya no se sostienen y la corrección aplicada solo sobre los marcadores de estado actual."
+          "walkthrough": [
+            "`claim-extraction` — extrae todas las afirmaciones numéricas y de versión de los 14 archivos Markdown.",
+            "`source-resolution` — resuelve cada una contra su fuente ejecutable: la suite, el workflow, los `uses:` reales.",
+            "`drift-classification` — clasifica cada desvío y descarta 6 coincidencias que ya eran correctas."
+          ],
+          "returns": "| Afirmación | Dice | Es | Fuente |\n|---|---|---|---|\n| conteo de pruebas | 49 | 62 | recuento de la suite |\n| versión de Node | 20+ | 24 | `setup-node` del workflow |\n| pines de acciones | 3 SHAs viejos | 5 actuales | los `uses:` reales |\n| cobertura | 71% | 71% | correcto, no se toca |",
+          "status": "`COMPLETED` — 3 corregidos, 6 verificados y dejados como estaban. Corregir lo que ya era cierto es la otra forma de romper la documentación."
         },
         {
           "title": "Corregir el presente sin reescribir el pasado",
-          "situation": "Los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro.",
+          "context": "El número de agentes aparece en 9 sitios: badges, texto del README, roadmap y varias entradas del changelog. Un reemplazo global lo dejaría todo «coherente» y falsificaría el registro histórico.",
           "ask": "Actualiza los conteos del README desde la fuente de verdad sin tocar el historial.",
-          "delivers": "Los marcadores de estado actual sincronizados y las referencias históricas intactas, con la distinción justificada caso por caso."
+          "walkthrough": [
+            "`claim-extraction` — recoge las 9 apariciones sin decidir todavía nada sobre ellas.",
+            "`drift-classification` — clasifica cada una: marcador de estado actual o referencia histórica. «v0.1.0 publicó diez agentes» era cierto cuando se escribió.",
+            "`documentation-update` — sincroniza solo las 4 del primer grupo y deja las 5 restantes intactas."
+          ],
+          "returns": "- **Sincronizadas (4)** — badge, párrafo de apertura del catálogo, salida de ejemplo del comando y nota de madurez.\n- **Conservadas (5)** — tres entradas de changelog y dos hitos del roadmap que describen releases pasados.\n- **Criterio aplicado** — ¿la línea afirma cómo está el repositorio ahora, o narra qué pasó en una versión concreta?",
+          "status": "`COMPLETED` — la prueba de fuego, buscar el valor viejo junto a un marcador de estado actual, sale vacía."
         },
         {
           "title": "Un diagrama que ya no representa el sistema",
-          "situation": "La arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo.",
+          "context": "La arquitectura cambió en marzo: se retiró un cache y se partió un servicio en dos. El diagrama del README sigue mostrando el sistema de antes, y tres ejemplos de código usan una función renombrada.",
           "ask": "Revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.",
-          "delivers": "El informe de lo que el diagrama afirma frente a lo que el código hace, y lo que quedó sin resolver por falta de fuente fiable."
+          "walkthrough": [
+            "`source-resolution` — contrasta cada componente del diagrama contra el código que debería implementarlo.",
+            "`link-and-example-verification` — ejecuta los ejemplos en vez de leerlos: 3 de 11 fallan por una función que se renombró.",
+            "`report` — declara lo que no pudo resolver en vez de inventarlo."
+          ],
+          "returns": "- **Diagrama** — 1 componente que ya no existe y 1 servicio que aparece como uno cuando son dos. Corregido.\n- **Ejemplos** — 11 ejecutados, 3 fallaban, 3 corregidos y vueltos a ejecutar.\n- **Sin resolver** — el diagrama muestra una cola de mensajes que no aparece en el código ni en la infraestructura declarada. No se borra sin preguntar: puede vivir fuera de este repositorio.",
+          "status": "`PARTIAL` — 2 de 3 frentes cerrados y 1 afirmación pendiente, marcada como tal en vez de resuelta a la ligera."
         }
       ]
     },
@@ -852,21 +978,39 @@
       "scenarios": [
         {
           "title": "Un error que aparece y desaparece",
-          "situation": "El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.",
+          "context": "El servicio de checkout devuelve 504 unas veinte veces al día, sin patrón evidente. Reiniciarlo lo arregla durante unas horas. Lleva tres semanas y ya nadie lo mira.",
           "ask": "Investiga por qué este servicio produce 504 de forma intermitente.",
-          "delivers": "La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie."
+          "walkthrough": [
+            "`timeline` — cruza los 504 con despliegues, picos de tráfico y ventanas de mantenimiento: los fallos se agrupan a los 40-50 minutos de cada reinicio.",
+            "`hypotheses` — plantea cuatro causas posibles como afirmaciones falsables, no como sospechas.",
+            "`discrimination-tests` — diseña la observación que separa unas de otras, en vez de aplicar la corrección más probable."
+          ],
+          "returns": "| Hipótesis | Cómo se comprobó | Veredicto |\n|---|---|---|\n| saturación de CPU | métricas del contenedor en las ventanas de fallo | descartada: pico del 22% |\n| pool de conexiones agotado | conteo de conexiones activas contra el máximo | **sostenida**: llega al tope justo antes de cada 504 |\n| timeout del balanceador | comparación de su umbral con la latencia real | descartada |\n| DNS intermitente | resolución medida durante 6 horas | descartada |",
+          "status": "`COMPLETED` — causa: las conexiones no se devuelven al pool en la ruta de error, así que se agota con el tiempo y no con la carga. Eso explica por qué reiniciar «funcionaba»."
         },
         {
           "title": "El CI falla solo a veces",
-          "situation": "La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.",
+          "context": "Una prueba de integración falla en aproximadamente 1 de cada 6 ejecuciones, sin que el código cambie. El equipo ya normalizó reintentar el job hasta que pase.",
           "ask": "Construye un RCA de esta falla usando logs, métricas y cambios recientes.",
-          "delivers": "El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron."
+          "walkthrough": [
+            "`symptom-baseline` — mide la frecuencia real sobre 120 ejecuciones históricas en vez de fiarse de la impresión: 19 fallos, un 15,8%.",
+            "`evidence-collection` — recoge los logs de los 19 y encuentra que en todos el fallo llega antes de los 400 ms.",
+            "`discrimination-tests` — ejecuta la prueba aislada 200 veces y luego en paralelo con el resto de la suite."
+          ],
+          "returns": "- **Aislada**: 200 ejecuciones, 0 fallos.\n- **En paralelo**: 200 ejecuciones, 31 fallos.\n- Dos pruebas escriben en el mismo registro de la base de datos de test y el orden de ejecución no está fijado.\n- **Corrección** — aislar los datos por prueba. **Verificación** — 300 ejecuciones en paralelo sin fallos.",
+          "status": "`COMPLETED` — sin culpar a quien escribió la prueba: el fallo estaba en que la suite no garantizaba aislamiento, y eso es una propiedad del diseño, no de una persona."
         },
         {
           "title": "Ya se arregló, pero nadie sabe por qué",
-          "situation": "El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.",
+          "context": "El sábado el sistema estuvo caído 40 minutos. Alguien reinició algo y volvió. El lunes te piden un informe y no hay nada escrito de lo que pasó.",
           "ask": "El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.",
-          "delivers": "La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación."
+          "walkthrough": [
+            "`safety` — comprueba primero que el sistema está estable ahora, antes de tocar nada por investigar.",
+            "`timeline` — reconstruye la ventana a partir de logs, métricas y el historial de despliegues, incluida la hora exacta del reinicio.",
+            "`corrective-actions` — propone acciones verificables, no propósitos generales."
+          ],
+          "returns": "- **Línea temporal** — 02:14 despliegue automático de una dependencia; 02:51 primeros errores; 03:29 reinicio manual; 03:31 recuperación.\n- **Causa contribuyente** — la dependencia subió de versión mayor por un rango abierto en el manifiesto, sin que nadie lo aprobara.\n- **Causas descartadas** — tráfico (plano) y disco (38% libre).\n- **Acciones** — fijar la versión, exigir aprobación para versiones mayores, y una alerta que dispare a los 5 minutos de error sostenido en vez de a los 37.",
+          "status": "`COMPLETED` — lo que evita la repetición no es el reinicio, que solo ocultó el síntoma, sino el rango de versión abierto."
         }
       ]
     },
@@ -962,21 +1106,39 @@
       "scenarios": [
         {
           "title": "Un scan con cincuenta alertas",
-          "situation": "El análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema.",
+          "context": "El análisis de dependencias devolvió 50 hallazgos: 4 críticos, 18 altos y el resto medios y bajos. Actualizar todo a ciegas rompería dos integraciones que dependen de la versión actual.",
           "ask": "Remedia estos CVE y verifica que el sistema siga funcionando.",
-          "delivers": "Los hallazgos validados uno a uno y priorizados por riesgo real, las correcciones aplicadas y la prueba de que el sistema sigue en pie."
+          "walkthrough": [
+            "`finding-validation` — comprueba uno a uno si la versión vulnerable está realmente instalada y si el código llega a la función afectada.",
+            "`exploitability` — 12 de los 50 tocan rutas que este sistema nunca ejecuta; se documentan, no se ignoran.",
+            "`fix` y `verification` — actualiza por lotes y corre la suite después de cada lote, no al final."
+          ],
+          "returns": "| Grupo | Cuántos | Qué se hizo |\n|---|---|---|\n| explotables en esta ruta | 9 | actualizados y verificados |\n| dependencia transitiva sin parche | 3 | mitigación en configuración, documentada |\n| código no alcanzable desde aquí | 12 | sin acción, con la razón por escrito |\n| falsos positivos | 6 | descartados con evidencia |\n| severidad baja sin impacto | 20 | agendados, no urgentes |",
+          "status": "`PARTIAL` — 9 corregidos con la suite en verde, 3 mitigados sin parche disponible y 3 riesgos residuales en el registro. «Cero alertas» no era el objetivo."
         },
         {
           "title": "¿Este hallazgo es real o es ruido?",
-          "situation": "El análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo.",
+          "context": "El análisis estático marca una inyección SQL en `reportes/consulta.py:88`. La línea concatena una variable dentro de una consulta, pero no está claro de dónde viene esa variable.",
           "ask": "Analiza este hallazgo SAST, confirma si es explotable y corrígelo.",
-          "delivers": "El veredicto con la ruta de explotación —o la razón por la que no existe—, la corrección si procede y el riesgo residual declarado."
+          "walkthrough": [
+            "`asset-and-trust-map` — traza el origen del dato: viene de un parámetro de la API, o sea de fuera, o sea no confiable.",
+            "`exploitability` — construye la ruta completa desde la petición hasta la consulta y confirma que no hay validación intermedia.",
+            "`fix` — parametriza la consulta y añade la prueba que falla con el código anterior."
+          ],
+          "returns": "- **Veredicto** — explotable. Ruta: `POST /api/reportes` → `filtros[fecha]` → concatenación directa sin validación.\n- **Impacto** — lectura de cualquier tabla con el usuario de la aplicación, que tiene permiso de `SELECT` sobre todo el esquema.\n- **Corrección** — consulta parametrizada, más una prueba con la carga que antes la rompía.\n- **Hallazgo adicional** — el usuario de base de datos tiene más permisos de los que necesita; se reporta, no se cambia sin aprobación.",
+          "status": "`COMPLETED` — con un riesgo residual abierto que no es un CVE: el privilegio excesivo convierte cualquier inyección futura en algo mucho peor."
         },
         {
           "title": "«Cero vulnerabilidades» que no significa nada",
-          "situation": "El informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas.",
+          "context": "El informe del scanner dice cero hallazgos y el equipo lo celebra. Pero el archivo de dependencias declara `requests`, `flask` y otras doce sin fijar versión, y no hay lockfile.",
           "ask": "Dime qué parte de este repositorio quedó realmente cubierta por el análisis.",
-          "delivers": "La cobertura real en porcentaje, la lista de lo que quedó fuera del alcance y por qué, y el registro de riesgo residual."
+          "walkthrough": [
+            "`scope` — separa lo que el scanner pudo resolver de lo que no: una dependencia sin versión exacta no se puede contrastar contra ninguna base de vulnerabilidades.",
+            "`finding-validation` — mide la cobertura real en vez de aceptar el resumen.",
+            "`residual-risk` — nombra una a una las dependencias invisibles, sin agregarlas en un porcentaje que las esconda."
+          ],
+          "returns": "- **Cobertura real del scan: 31%** — 7 de 22 dependencias resolvían a una versión concreta.\n- **Fuera del análisis (15)** — `requests`, `flask`, `sqlalchemy`, `celery`… todas declaradas con rango abierto.\n- **Qué significa** — «cero vulnerabilidades» aquí significa «cero en el 31% que se pudo mirar».\n- **Receta** — generar el lockfile del gestor detectado y repetir el análisis sobre la resolución completa.",
+          "status": "`COMPLETED` — 0 vulnerabilidades encontradas y un hallazgo mayor: el informe anterior tranquilizaba sin haber mirado casi nada."
         }
       ]
     },
@@ -1069,21 +1231,39 @@
       "scenarios": [
         {
           "title": "Una tarea que no cabe en un solo especialista",
-          "situation": "Lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano.",
+          "context": "Antes del release hay que revisar seguridad, actualizar la documentación desfasada, cerrar dos deudas técnicas y decidir la versión. Encargárselo todo a un único agente da un resultado plano y sin profundidad en ninguna.",
           "ask": "Coordina una revisión integral del repositorio y prepara el próximo release.",
-          "delivers": "El mapa de qué se delegó a quién, los hallazgos de cada especialista, los conflictos entre ellos resueltos y un plan integrado con una sola cola de aprobaciones."
+          "walkthrough": [
+            "`dependency-map` — ordena el trabajo por dependencia real: la documentación no se puede cerrar antes de que la deuda técnica cambie el código.",
+            "`delegation` — delega solo lo necesario a cuatro especialistas, con el alcance de cada uno acotado por escrito.",
+            "`evidence-reconciliation` — junta los cuatro informes y detecta dónde se pisan."
+          ],
+          "returns": "| Especialista | Alcance delegado | Resultado |\n|---|---|---|\n| seguridad | dependencias y SAST | 3 hallazgos, 1 bloqueante |\n| documentación | conteos y ejemplos | 6 desvíos, todos corregibles |\n| evolución | las 2 deudas técnicas | 1 resuelta, 1 mayor de lo estimado |\n| release | versión y artefactos | en espera de las otras tres |",
+          "status": "`PARTIAL` — plan integrado con **una sola cola de aprobaciones** en vez de cuatro. El bloqueante de seguridad detiene el release, y eso se decide una vez, no cuatro."
         },
         {
           "title": "Dos análisis que se contradicen",
-          "situation": "Un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. Ambos tienen razón dentro de su alcance.",
+          "context": "El informe de seguridad pide subir una librería a la versión 3. El de compatibilidad advierte que la versión 3 cambia una firma que usan 14 archivos. Los dos tienen razón dentro de su alcance.",
           "ask": "Resuelve las contradicciones entre estos análisis y dame un plan único.",
-          "delivers": "El conflicto nombrado, el criterio con el que se resolvió y un plan que no diluye la responsabilidad de ninguno de los especialistas."
+          "walkthrough": [
+            "`evidence-reconciliation` — comprueba que ambos hablan de lo mismo y que ninguno se equivoca: la contradicción es real, no un malentendido.",
+            "`decision-gates` — nombra el conflicto de forma explícita en vez de elegir el informe más reciente.",
+            "`integration-plan` — construye una salida que respeta las dos restricciones, con su costo declarado."
+          ],
+          "returns": "- **Conflicto** — seguridad exige la versión 3; compatibilidad demuestra que rompe 14 llamadas.\n- **Descartado** — quedarse en la versión 2 con la vulnerabilidad, y saltar a la 3 rompiendo a los consumidores.\n- **Plan** — adaptador que absorbe el cambio de firma en un punto, subida a la versión 3 detrás de él, y retirada del adaptador cuando los 14 usos estén migrados.\n- **Costo declarado** — 1 punto de indirección extra mientras dure la transición.",
+          "status": "`COMPLETED` — la responsabilidad de cada especialista queda intacta: ninguno tuvo que rebajar su hallazgo para que el plan cerrara."
         },
         {
           "title": "Una modernización demasiado grande",
-          "situation": "La migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte.",
+          "context": "La migración toca base de datos, pruebas, documentación y despliegue. Cada vez que intentas empezar te bloqueas porque cualquier frente parece depender de otro.",
           "ask": "Divide esta modernización entre especialistas y consolida un plan verificable.",
-          "delivers": "La descomposición en misiones acotadas, las dependencias entre ellas y el índice de evidencia que permite comprobar cada parte por separado."
+          "walkthrough": [
+            "`mission` — delimita qué entra y, sobre todo, qué no entra en esta misión.",
+            "`specialist-selection` — elige tres especialistas y descarta dos: delegar de más diluye la responsabilidad tanto como delegar de menos.",
+            "`final-handoff` — entrega el índice de evidencia que permite comprobar cada parte por separado."
+          ],
+          "returns": "- **Orden por dependencia** — pruebas de caracterización primero (nada se mueve sin línea base), después base de datos, después despliegue, y la documentación al final porque describe el resultado.\n- **No entra en esta misión** — el rediseño de la interfaz, que apareció en la conversación y no depende de la migración.\n- **Índice de evidencia** — cada tramo con el comando exacto que demuestra que quedó bien.",
+          "status": "`COMPLETED` en planificación — 3 misiones acotadas, 0 líneas modificadas. Cada tramo se aprueba por separado."
         }
       ]
     },
@@ -1186,21 +1366,39 @@
       "scenarios": [
         {
           "title": "Un curso que envejeció mientras no mirabas",
-          "situation": "El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.",
+          "context": "Un programa de 40 lecciones sobre desarrollo con modelos de lenguaje, escrito hace siete meses. En ese tiempo salieron modelos nuevos, cambió el nombre de dos APIs y apareció un patrón de arquitectura que hoy se da por estándar.",
           "ask": "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
-          "delivers": "Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo."
+          "walkthrough": [
+            "`field-research` — busca novedades desde la fecha de la última versión, no en general.",
+            "`source-verification` — abre cada fuente con una petición real: de 14 candidatas, 3 eran refritos sin fuente primaria y quedan fuera.",
+            "`gap-classification` — distingue brecha de contenido real de simple cambio de terminología, que es lo que separa una actualización útil de una reescritura cosmética."
+          ],
+          "returns": "| Novedad | Clasificación | Decisión |\n|---|---|---|\n| patrón de arquitectura nuevo | brecha real: no hay lección que lo cubra | **entra**: lección nueva en el módulo 6 |\n| API renombrada | cambio de terminología | **entra**: solo los nombres, en 4 lecciones |\n| modelos nuevos | los ejemplos siguen siendo válidos | tabla de referencia actualizada |\n| 3 novedades sin fuente primaria | no verificables | fuera, con el motivo por escrito |",
+          "status": "`PARTIAL` — 1 lección nueva, 4 con nombres corregidos, 35 sin tocar. La mayoría del curso no necesitaba nada."
         },
         {
           "title": "Incorporar lo nuevo sin reescribir el curso",
-          "situation": "Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.",
+          "context": "Salió algo que sí importa y hay que meterlo. El curso ya está publicado, con PDFs generados y una web que se compila desde el mismo contenido.",
           "ask": "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
-          "delivers": "Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito."
+          "walkthrough": [
+            "`content-update` — toca 4 lecciones y ninguna más; el resto del material queda literalmente igual.",
+            "`artifact-regeneration` — regenera PDFs y web desde el contenido actualizado.",
+            "`verification` — abre los artefactos regenerados y comprueba que el contenido nuevo está dentro, en vez de confiar en que el generador terminó sin error."
+          ],
+          "returns": "- **Tocado** — 4 lecciones, con el diff de cada una a la vista.\n- **Regenerado** — 6 PDFs y 41 páginas web, con el conteo de secciones contrastado contra el origen.\n- **Verificado** — la lección nueva aparece en el PDF del módulo 6 y en el índice de la web; el PDF pasó de 118 a 126 páginas.\n- **Sin tocar a propósito** — las 36 lecciones restantes y toda la estructura de navegación.",
+          "status": "`COMPLETED` — el generador terminó sin error **y además** el contenido llegó al artefacto. Son dos comprobaciones distintas."
         },
         {
           "title": "Saber si está desactualizado, sin tocarlo",
-          "situation": "Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.",
+          "context": "Te preguntan si el programa sigue vigente. Antes de invertir dos semanas necesitas un diagnóstico con fuentes, no una impresión.",
           "ask": "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.",
-          "delivers": "El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología."
+          "walkthrough": [
+            "`curriculum-inventory` — levanta qué cubre hoy el temario, lección por lección.",
+            "`coverage-contrast` — contrasta esa cobertura contra lo verificado en el campo.",
+            "`approval` — se detiene antes de escribir una sola línea de contenido: el encargo era diagnosticar."
+          ],
+          "returns": "- **Vigente** — 33 de 40 lecciones; los fundamentos no se movieron.\n- **Desfasado de forma cosmética** — 5 lecciones con nombres de API antiguos; el concepto sigue siendo correcto.\n- **Brecha real** — 2 temas que hoy se esperan de un curso así y no aparecen en ninguna lección.\n- **Fuentes** — 11 verificadas con petición real, cada hallazgo con su enlace.",
+          "status": "`NO_CHANGE` — resultado legítimo: el programa no necesita reescritura, necesita dos lecciones y un repaso de nombres."
         }
       ]
     },
@@ -1301,21 +1499,39 @@
       "scenarios": [
         {
           "title": "La web dice una versión y el release otra",
-          "situation": "El sitio, la API y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos.",
+          "context": "Un sitio publicado, una API JSON que lo alimenta y 30 PDFs generados. Cada superficie salió en un momento distinto: la web anuncia la versión 1.2, la API devuelve 1.0 y los PDFs llevan la portada de la 0.9.",
           "ask": "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
-          "delivers": "El inventario de todas las superficies que afirman algo, el informe de divergencias y una pasada en seco completa antes de modificar nada."
+          "walkthrough": [
+            "`surface-inventory` — enumera cada superficie que afirma algo: web, API, PDFs, descripciones de repositorio. Cada una puede mentir por separado.",
+            "`source-of-truth-collection` — toma el estado real de los repositorios de origen, nunca de otra superficie publicada.",
+            "`dry-run` — ejecuta la sincronización completa en modo lectura y presenta el informe antes de modificar nada."
+          ],
+          "returns": "| Superficie | Afirma | Real | Acción propuesta |\n|---|---|---|---|\n| web | v1.2 | v1.4 | actualizar |\n| API JSON | v1.0 | v1.4 | regenerar |\n| 30 PDFs | v0.9 en portada | v1.4 | regenerar con respaldo previo |\n| descripción del repo | «en desarrollo» | 3 releases firmados | reescribir |",
+          "status": "`BLOCKED` esperando aprobación — 0 archivos modificados. La pasada en seco es obligatoria antes de tocar una superficie publicada."
         },
         {
           "title": "Hace meses que no actualizas lo publicado",
-          "situation": "Publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses.",
+          "context": "Publicaste cuatro releases nuevos en tres meses y la superficie pública sigue mostrando el estado de antes. No recuerdas qué quedó atrás ni por dónde empezar.",
           "ask": "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable.",
-          "delivers": "Qué cambió en el origen, qué superficie quedó atrás y el plan de actualización, con respaldo de cada artefacto antes de sobrescribirlo."
+          "walkthrough": [
+            "`drift-detection` — compara superficie contra origen y encuentra que la descripción corta de un repositorio está **más** desactualizada que la web.",
+            "`apply` — respalda cada artefacto binario antes de sobrescribirlo, sin reutilizar jamás un respaldo anterior.",
+            "`cross-surface-verification` — mide también lo que pudo romperse, no solo lo que se quería mejorar."
+          ],
+          "returns": "- **Origen** — 4 releases, 2 productos nuevos y un repositorio archivado.\n- **Atrasado** — la web (3 meses), la API (3 meses) y los PDFs (5 meses).\n- **Respaldos** — 30 PDFs guardados con marca de tiempo antes de regenerar.\n- **Verificación cruzada** — tras aplicar, el conteo de proyectos de la web y el de la API coinciden, y ningún PDF quedó con menos páginas que su respaldo.",
+          "status": "`COMPLETED` — con el trabajo manual pendiente declarado: dos capturas de pantalla del sitio siguen mostrando la interfaz antigua y eso no se automatiza."
         },
         {
           "title": "Sin destruir lo que escribiste a mano",
-          "situation": "Parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar.",
+          "context": "La página de inicio tiene tres párrafos que escribiste con cuidado y que ningún generador sabe reproducir. Regenerar el sitio entero los borraría sin avisar.",
           "ask": "Actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.",
-          "delivers": "Los cambios integrados sobre el esquema existente, la comprobación de que lo curado sigue ahí y el trabajo manual que la sincronización no puede cubrir."
+          "walkthrough": [
+            "`surface-inventory` — distingue lo generado de lo curado a mano antes de tocar nada.",
+            "`apply` — integra los datos nuevos dentro del esquema existente en vez de anexar secciones sueltas o reemplazar el archivo.",
+            "`post-publication-checks` — comprueba en vivo que lo publicado sirve el contenido nuevo y no una versión cacheada."
+          ],
+          "returns": "- **Curado a mano, intacto** — 3 párrafos de la portada, el orden manual de los proyectos destacados y dos textos alternativos de imagen.\n- **Actualizado** — versiones, fechas y conteos, dentro de la estructura que ya existía.\n- **Comprobación en vivo** — la URL pública devuelve el contenido nuevo, no el de la caché; verificado con una petición real tras el despliegue.",
+          "status": "`COMPLETED` — los repositorios de origen no se tocaron en ningún momento: para este agente son de solo lectura por contrato."
         }
       ]
     },
@@ -1416,21 +1632,39 @@
       "scenarios": [
         {
           "title": "El perfil no cuenta lo que ya construiste",
-          "situation": "Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.",
+          "context": "Publicaste seis proyectos con releases firmados y pruebas. El perfil describe el cargo que tenías hace dos años, no menciona ninguno de los seis y el titular no contiene ni una tecnología buscable.",
           "ask": "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
-          "delivers": "El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes."
+          "walkthrough": [
+            "`verified-inventory` — abre cada sección por su formulario de edición. La sección «Acerca de» parecía vacía al leer la página y tenía 2.068 caracteres: la interfaz carga en diferido.",
+            "`evidence-collection` — toma los datos del portafolio y comprueba cada URL con una petición real antes de proponerla.",
+            "`gap-report` — prioriza por lo que ve alguien en sus primeros quince segundos."
+          ],
+          "returns": "| Sección | Estado verificado | Brecha |\n|---|---|---|\n| titular | 96 caracteres, sin tecnologías | P0: no aparece en ninguna búsqueda técnica |\n| acerca de | 2.068 caracteres, sólido | P1: no menciona ninguno de los 6 proyectos |\n| proyectos | vacío, confirmado por formulario | P0: seis productos invisibles |\n| contacto | portafolio ya enlazado | correcto, no se toca |",
+          "status": "`BLOCKED` esperando `LINKEDIN CONFIRMAR` — 0 campos modificados. Aquí no hay control de versiones: lo que se sobrescribe no se recupera."
         },
         {
           "title": "Actualizarlo sin perder tu voz",
-          "situation": "El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.",
+          "context": "El resumen está bien escrito, suena a ti y tiene 2.505 de los 2.600 caracteres permitidos. Solo le faltan dos proyectos. Reescribirlo de cero sería un retroceso.",
           "ask": "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.",
-          "delivers": "El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo."
+          "walkthrough": [
+            "`drafting` — mide el contenido actual contra el límite del campo **antes** de redactar: quedan 95 caracteres, así que lo nuevo se ajusta a eso, no se recorta lo que ya estaba.",
+            "`approval` — presenta el texto exacto que se publicaría, con el diff frente al actual.",
+            "`post-publication-verification` — recarga el perfil y comprueba que el texto quedó, y que quedó donde debía."
+          ],
+          "returns": "- **Diff** — 2 frases añadidas al final del tercer párrafo; ni una palabra del texto original modificada.\n- **Presupuesto** — 2.505 + 89 = 2.594 de 2.600. Cabe sin recortar nada.\n- **Proyectos** — 2 fichas nuevas, cada una con su repositorio verificado con una petición real, no con una URL plausible.\n- **Verificación** — perfil recargado; ambos cambios visibles.",
+          "status": "`COMPLETED` — un formulario guardado sin error no prueba que el cambio quedara; por eso la comprobación es sobre el perfil recargado."
         },
         {
           "title": "Prepararlo antes de postular",
-          "situation": "Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.",
+          "context": "Postulas el jueves a un cargo de arquitectura. Tu perfil dice «en transición laboral» en el título del puesto actual y tus tres aptitudes visibles son de un trabajo de hace ocho años.",
           "ask": "Prepara mi perfil para postular a este tipo de cargo.",
-          "delivers": "La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos."
+          "walkthrough": [
+            "`audience-rubric` — evalúa el perfil como lo haría quien filtra candidaturas: el título del puesto es lo que se indexa, y una señal negativa ahí cuesta más de lo que aporta en honestidad.",
+            "`gap-report` — ordena por impacto sobre la candidatura concreta, no en abstracto.",
+            "`handoff` — declara lo que no se puede automatizar en vez de intentarlo y dejarlo a medias."
+          ],
+          "returns": "- **P0** — el título del puesto actual: el matiz de la transición va en la descripción, donde se lee, no en el campo que se indexa.\n- **P0** — las 3 aptitudes visibles no tienen relación con el cargo objetivo.\n- **P1** — dos proyectos que sí encajan con el cargo no están destacados.\n- **No automatizable** — reordenar aptitudes exige arrastre manual y su diálogo guarda cada movimiento por separado: se explica cómo hacerlo en treinta segundos en vez de dejarlo a medias.",
+          "status": "`PARTIAL` — 3 cambios aplicados tras tu confirmación y 1 devuelto como trabajo manual, con el motivo técnico y las instrucciones."
         }
       ]
     }

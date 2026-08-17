@@ -85,21 +85,39 @@
   "scenarios": [
     {
       "title": "Veinte repositorios y ninguna historia",
-      "situation": "Tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real.",
+      "context": "Tu cuenta tiene 23 repositorios públicos acumulados en cuatro años: ejercicios de curso, pruebas de concepto, dos productos con releases y varios que ya no recuerdas. Puestos juntos no cuentan nada.",
       "ask": "Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.",
-      "delivers": "Cada repositorio clasificado por su propósito principal, con su madurez honesta y la evidencia que la respalda. No modifica nada: solo lee."
+      "walkthrough": [
+        "`repository-discovery` — enumera los 23 con su actividad real, visibilidad, releases y última señal de vida.",
+        "`evidence-sampling` — abre una muestra de cada uno: la descripción corta suele estar más desactualizada que el código.",
+        "`maturity-map` — sitúa cada repositorio en su estado honesto, separando madurez técnica de adopción real."
+      ],
+      "returns": "| Clase | Cuántos | Ejemplo de criterio |\n|---|---|---|\n| producto | 2 | releases firmados y usuarios fuera del autor |\n| caso de referencia | 3 | resuelve un proceso completo, no una capacidad |\n| skill o herramienta | 5 | se instala y se usa desde otro proyecto |\n| aprendizaje | 11 | ejercicio con objetivo didáctico, sin usuarios |\n| sin clasificar | 2 | sin commits en 3 años y sin README |",
+      "status": "`COMPLETED` en solo lectura — este agente tiene `Write` y `Edit` **denegadas** por contrato: no puede modificar ni un archivo aunque se lo pidas."
     },
     {
       "title": "Dos repositorios que hacen lo mismo",
-      "situation": "Sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una.",
+      "context": "Tienes un repositorio de utilidades y otro de automatizaciones. Sospechas que la mitad del código está duplicado y no sabes cuál debería quedarse con qué.",
       "ask": "Detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad.",
-      "delivers": "El mapa de duplicación y la recomendación de fusionar, archivar o renombrar, cada una con su justificación."
+      "walkthrough": [
+        "`classification` — clasifica ambos por su propósito primario, no por su nombre.",
+        "`overlap-analysis` — encuentra 4 capacidades presentes en los dos y compara cuál versión está más viva: pruebas, commits recientes, quién la importa.",
+        "`recommendations` — propone destino para cada una, con su justificación y su costo."
+      ],
+      "returns": "| Capacidad duplicada | Vive mejor en | Por qué |\n|---|---|---|\n| parseo de fechas | utilidades | tiene 14 pruebas; la otra copia ninguna |\n| cliente HTTP con reintentos | automatizaciones | es donde se usa de verdad, 9 llamadas |\n| logging | utilidades | la copia diverge y ya no formatea igual |\n| lectura de `.env` | ninguno | ambas versiones son peores que la librería estándar del ecosistema |",
+      "status": "`COMPLETED` — 4 recomendaciones, 0 cambios aplicados. Fusionar o archivar exige tu aprobación explícita."
     },
     {
       "title": "Preparar la conversación con un reclutador",
-      "situation": "Vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices.",
+      "context": "Tienes entrevista el jueves. Te van a pedir que expliques tu trabajo en cinco minutos y necesitas que cada afirmación tenga un enlace que la sostenga.",
       "ask": "Prepara un mapa de portafolio para reclutadores con evidencia real.",
-      "delivers": "La narrativa que conecta los repositorios sin exagerar adopción, con el enlace concreto que respalda cada afirmación."
+      "walkthrough": [
+        "`evidence-sampling` — comprueba lo que cada repositorio puede demostrar de verdad: pruebas que corren, releases descargables, CI en verde.",
+        "`maturity-map` — separa madurez técnica de adopción: tener CI no es tener usuarios, y decirlo al revés se nota.",
+        "`narrative` — redacta la conexión entre los repositorios sin inflar el impacto."
+      ],
+      "returns": "- **Hilo propuesto** — de automatizar tareas propias, a empaquetarlas como herramientas reutilizables, a publicarlas con contrato y pruebas.\n- **Tres piezas que sostienen el hilo**, cada una con enlace directo al release, a la suite de pruebas y al workflow de CI.\n- **Lo que conviene no afirmar** — «usado en producción» no es defendible en ninguno de los 23: no hay usuarios fuera de ti y el reclutador puede comprobarlo.",
+      "status": "`COMPLETED` — la narrativa incluye explícitamente lo que **no** se puede afirmar, que es lo que evita la pregunta incómoda."
     }
   ]
 }

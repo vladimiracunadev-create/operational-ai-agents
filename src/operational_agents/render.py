@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+from itertools import pairwise
 from typing import Any
 
 
@@ -17,29 +18,109 @@ def phase_title(phase: str) -> str:
 def render_scenarios_brief(agent: dict[str, Any]) -> str:
     """Escenarios en formato compacto, para el prompt del agente."""
     return "\n\n".join(
-        f"{index}. **{item['title']}** — {item['situation']}\n"
+        f"{index}. **{item['title']}** — {item['context']}\n"
         f"   - Te lo pedirán más o menos así: «{item['ask']}»\n"
-        f"   - Debes devolver: {item['delivers']}"
+        f"   - Cómo se resuelve: {' '.join(item['walkthrough'])}\n"
+        f"   - Cierre esperado: {item['status']}"
         for index, item in enumerate(agent["scenarios"], 1)
     )
 
 
 def render_scenarios_full(agent: dict[str, Any]) -> str:
-    """Escenarios en formato largo, para la ficha que lee una persona."""
-    return "\n\n".join(
-        "\n".join([
+    """Cada escenario como un caso trabajado: contexto, prompt, pasos y salida."""
+    bloques = []
+    for index, item in enumerate(agent["scenarios"], 1):
+        pasos = "\n".join(f"{n}. {paso}" for n, paso in enumerate(item["walkthrough"], 1))
+        bloques.append("\n".join([
             f"### {index} · {item['title']}",
             "",
-            f"**Lo que tienes delante —** {item['situation']}",
+            f"**El caso.** {item['context']}",
             "",
-            "**Lo que le escribes —**",
+            "**Le escribes:**",
             "",
-            f"> {item['ask']}",
+            "```text",
+            item["ask"],
+            "```",
             "",
-            f"**Lo que te devuelve —** {item['delivers']}",
-        ])
-        for index, item in enumerate(agent["scenarios"], 1)
-    )
+            "**Qué hace, paso a paso:**",
+            "",
+            pasos,
+            "",
+            "**Lo que te devuelve:**",
+            "",
+            item["returns"],
+            "",
+            f"**Cómo cierra —** {item['status']}",
+        ]))
+    return "\n\n".join(bloques)
+
+
+def _gate_phase(agent: dict[str, Any]) -> int | None:
+    """Índice de la fase que separa diagnosticar de ejecutar, si existe."""
+    for index, phase in enumerate(agent["phases"]):
+        if "approval" in phase:
+            return index
+    return None
+
+
+def render_mission_map(agent: dict[str, Any]) -> str:
+    """Qué necesita, qué entrega y dónde se detiene, de un vistazo."""
+    def lista(items: list[str], limite: int = 6) -> str:
+        visibles = [f"· {item}" for item in items[:limite]]
+        if len(items) > limite:
+            visibles.append(f"· … y {len(items) - limite} más")
+        return "<br/>".join(visibles)
+
+    return "\n".join([
+        "```mermaid",
+        "flowchart LR",
+        f'    IN["📥 Necesita de ti<br/>{lista(agent["required_inputs"])}"]',
+        f'    AG(["{agent["icon"]} {agent["id"]}"])',
+        f'    OUT["📦 Te entrega<br/>{lista(agent["deliverables"])}"]',
+        f'    GATE["🚦 Se detiene y pregunta antes de<br/>{lista(agent["approval_points"])}"]',
+        "    IN --> AG --> OUT",
+        '    AG -.->|"sin tu decisión, no avanza"| GATE',
+        "    style AG fill:#8957e5,color:#fff",
+        "    style GATE fill:#bf8700,color:#fff",
+        "    style OUT fill:#2da44e,color:#fff",
+        "```",
+    ])
+
+
+def render_phase_flow(agent: dict[str, Any]) -> str:
+    """Fases agrupadas por lo que el agente puede hacer en cada tramo."""
+    phases = agent["phases"]
+    gate = _gate_phase(agent)
+
+    def cadena(indices: list[int]) -> list[str]:
+        lineas = [f'        p{i + 1}["{i + 1} · {phases[i].replace("-", " ")}"]' for i in indices]
+        lineas += [f"        p{a + 1} --> p{b + 1}" for a, b in pairwise(indices)]
+        return lineas
+
+    out = ["```mermaid", "flowchart LR"]
+    if gate is None:
+        out += ['    subgraph A["🔍 Recorrido completo · sin mutaciones fuera de contrato"]', "        direction TB"]
+        out += cadena(list(range(len(phases))))
+        out += [
+            "    end",
+            '    A --> FIN(["📋 entrega verificada"])',
+            f'    A -.->|"se detiene y pregunta"| G["🚦 {len(agent["approval_points"])} gates humanos"]',
+        ]
+    else:
+        out += ['    subgraph A["🔍 Diagnóstico · solo lectura"]', "        direction TB"]
+        out += cadena(list(range(gate)))
+        out += ["    end"]
+        out += [f'    G{{{{"🚦 {phases[gate]}<br/>decisión humana"}}}}']
+        out += ['    subgraph B["⚙️ Ejecución acotada y verificación"]', "        direction TB"]
+        out += cadena(list(range(gate + 1, len(phases))))
+        out += [
+            "    end",
+            '    A --> G --> B --> FIN(["📋 entrega verificada"])',
+            '    G -.->|"si deniegas"| A',
+            "    style G fill:#bf8700,color:#fff",
+        ]
+    out += ['    style FIN fill:#2da44e,color:#fff', "```"]
+    return "\n".join(out)
 
 
 def render_instructions(agent: dict[str, Any]) -> str:
@@ -144,17 +225,34 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
         _badge("version", agent["version"], "8957e5", "../../CHANGELOG.md"),
         _badge("permisos", agent["permission_mode"], "0969da", "../../docs/SECURITY_MODEL.md"),
     ])
-    last = len(agent["phases"])
-    labels = "\n".join(
-        f"    p{index}[\"{phase.replace('-', ' ')}\"]"
-        for index, phase in enumerate(agent["phases"], 1)
-    )
-    nodes = "\n".join(f"    p{index} --> p{index + 1}" for index in range(1, last))
     phase_table = "\n".join(
         f"| {index} | `{phase}` | {agent['phase_details'][phase]} |"
         for index, phase in enumerate(agent["phases"], 1)
     )
     scenarios = render_scenarios_full(agent)
+    mission_map = render_mission_map(agent)
+    phase_flow = render_phase_flow(agent)
+    write_capable = "Edit" in agent["tools"] or "Write" in agent["tools"]
+    if agent["risk"] == "high":
+        aviso = (
+            "> [!WARNING]\n"
+            f"> **Riesgo alto.** Este agente puede cambiar cosas difíciles de deshacer, así que se detiene "
+            f"ante {len(agent['approval_points'])} gates humanos y ninguno se salta con acceso técnico."
+        )
+    elif not write_capable:
+        aviso = (
+            "> [!NOTE]\n"
+            "> **Solo lectura.** `Write` y `Edit` están denegadas por contrato: analiza y recomienda, "
+            "pero no puede modificar un archivo aunque se lo pidas."
+        )
+    else:
+        aviso = (
+            "> [!NOTE]\n"
+            f"> Trabaja en un worktree aislado y se detiene ante {len(agent['approval_points'])} gates humanos. "
+            "Inspecciona primero; muta solo lo aprobado."
+            if agent.get("isolation") == "worktree"
+            else f"> [!NOTE]\n> Se detiene ante {len(agent['approval_points'])} gates humanos."
+        )
     facts = "\n".join([
         "| Propiedad | Valor |",
         "|---|---|",
@@ -194,17 +292,15 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
 
 {badges}
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ejemplos](#ejemplos-de-uso) · [Mapa](#mapa-de-la-misión) · [Flujo](#flujo-operativo) · [Ficha](#ficha-técnica) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
-## Misión
+## Qué hace por ti
 
 {agent['mission']}
 
-## Ficha técnica
-
-{facts}
+{aviso}
 
 ## Cuándo delegarle trabajo
 
@@ -212,24 +308,30 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
 
 ## Ejemplos de uso
 
-Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+{len(agent['scenarios'])} casos trabajados: el contexto real, el mensaje que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
+
+> [!NOTE]
+> Son **ejemplos ilustrativos del contrato**, no transcripciones de ejecuciones registradas. Ningún agente del catálogo declara todavía evidencia de uso real — ver [Madurez](#madurez).
 
 {scenarios}
 
+## Mapa de la misión
+
+{mission_map}
+
 ## Flujo operativo
 
-```mermaid
-flowchart LR
-{labels}
-{nodes}
-    p{last} --> done(["entrega verificada"])
-```
+{phase_flow}
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
 
 | # | Fase | Qué ocurre en ella |
 |:-:|---|---|
 {phase_table}
+
+## Ficha técnica
+
+{facts}
 
 ## Contrato de entrega
 

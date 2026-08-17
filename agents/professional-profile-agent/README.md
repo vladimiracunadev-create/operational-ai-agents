@@ -6,28 +6,16 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ejemplos](#ejemplos-de-uso) · [Mapa](#mapa-de-la-misión) · [Flujo](#flujo-operativo) · [Ficha](#ficha-técnica) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
-## Misión
+## Qué hace por ti
 
 Hacer que un perfil público afirme exactamente lo que la evidencia sostiene, integrando sobre el texto existente y sin convertir el acceso a la cuenta en autorización para publicar.
 
-## Ficha técnica
-
-| Propiedad | Valor |
-|---|---|
-| Identificador | `professional-profile-agent` |
-| Categoría | `portfolio-governance` |
-| Versión | `0.1.0` |
-| Estado honesto | `IMPLEMENTED` |
-| Riesgo | `high` |
-| Modo de permisos | `default` |
-| Aislamiento | `worktree` |
-| Memoria | `project` |
-| Esfuerzo | `high` |
-| Turnos máximos | `30` |
+> [!WARNING]
+> **Riesgo alto.** Este agente puede cambiar cosas difíciles de deshacer, así que se detiene ante 4 gates humanos y ninguno se salta con acceso técnico.
 
 ## Cuándo delegarle trabajo
 
@@ -35,62 +23,134 @@ Hacer que un perfil público afirme exactamente lo que la evidencia sostiene, in
 
 ## Ejemplos de uso
 
-Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+3 casos trabajados: el contexto real, el mensaje que le escribes, lo que hace paso a paso y la forma exacta de lo que te devuelve.
+
+> [!NOTE]
+> Son **ejemplos ilustrativos del contrato**, no transcripciones de ejecuciones registradas. Ningún agente del catálogo declara todavía evidencia de uso real — ver [Madurez](#madurez).
 
 ### 1 · El perfil no cuenta lo que ya construiste
 
-**Lo que tienes delante —** Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.
+**El caso.** Publicaste seis proyectos con releases firmados y pruebas. El perfil describe el cargo que tenías hace dos años, no menciona ninguno de los seis y el titular no contiene ni una tecnología buscable.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.
+```text
+Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.
+```
 
-**Lo que te devuelve —** El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes.
+**Qué hace, paso a paso:**
+
+1. `verified-inventory` — abre cada sección por su formulario de edición. La sección «Acerca de» parecía vacía al leer la página y tenía 2.068 caracteres: la interfaz carga en diferido.
+2. `evidence-collection` — toma los datos del portafolio y comprueba cada URL con una petición real antes de proponerla.
+3. `gap-report` — prioriza por lo que ve alguien en sus primeros quince segundos.
+
+**Lo que te devuelve:**
+
+| Sección | Estado verificado | Brecha |
+|---|---|---|
+| titular | 96 caracteres, sin tecnologías | P0: no aparece en ninguna búsqueda técnica |
+| acerca de | 2.068 caracteres, sólido | P1: no menciona ninguno de los 6 proyectos |
+| proyectos | vacío, confirmado por formulario | P0: seis productos invisibles |
+| contacto | portafolio ya enlazado | correcto, no se toca |
+
+**Cómo cierra —** `BLOCKED` esperando `LINKEDIN CONFIRMAR` — 0 campos modificados. Aquí no hay control de versiones: lo que se sobrescribe no se recupera.
 
 ### 2 · Actualizarlo sin perder tu voz
 
-**Lo que tienes delante —** El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.
+**El caso.** El resumen está bien escrito, suena a ti y tiene 2.505 de los 2.600 caracteres permitidos. Solo le faltan dos proyectos. Reescribirlo de cero sería un retroceso.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.
+```text
+Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.
+```
 
-**Lo que te devuelve —** El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo.
+**Qué hace, paso a paso:**
+
+1. `drafting` — mide el contenido actual contra el límite del campo **antes** de redactar: quedan 95 caracteres, así que lo nuevo se ajusta a eso, no se recorta lo que ya estaba.
+2. `approval` — presenta el texto exacto que se publicaría, con el diff frente al actual.
+3. `post-publication-verification` — recarga el perfil y comprueba que el texto quedó, y que quedó donde debía.
+
+**Lo que te devuelve:**
+
+- **Diff** — 2 frases añadidas al final del tercer párrafo; ni una palabra del texto original modificada.
+- **Presupuesto** — 2.505 + 89 = 2.594 de 2.600. Cabe sin recortar nada.
+- **Proyectos** — 2 fichas nuevas, cada una con su repositorio verificado con una petición real, no con una URL plausible.
+- **Verificación** — perfil recargado; ambos cambios visibles.
+
+**Cómo cierra —** `COMPLETED` — un formulario guardado sin error no prueba que el cambio quedara; por eso la comprobación es sobre el perfil recargado.
 
 ### 3 · Prepararlo antes de postular
 
-**Lo que tienes delante —** Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.
+**El caso.** Postulas el jueves a un cargo de arquitectura. Tu perfil dice «en transición laboral» en el título del puesto actual y tus tres aptitudes visibles son de un trabajo de hace ocho años.
 
-**Lo que le escribes —**
+**Le escribes:**
 
-> Prepara mi perfil para postular a este tipo de cargo.
+```text
+Prepara mi perfil para postular a este tipo de cargo.
+```
 
-**Lo que te devuelve —** La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos.
+**Qué hace, paso a paso:**
+
+1. `audience-rubric` — evalúa el perfil como lo haría quien filtra candidaturas: el título del puesto es lo que se indexa, y una señal negativa ahí cuesta más de lo que aporta en honestidad.
+2. `gap-report` — ordena por impacto sobre la candidatura concreta, no en abstracto.
+3. `handoff` — declara lo que no se puede automatizar en vez de intentarlo y dejarlo a medias.
+
+**Lo que te devuelve:**
+
+- **P0** — el título del puesto actual: el matiz de la transición va en la descripción, donde se lee, no en el campo que se indexa.
+- **P0** — las 3 aptitudes visibles no tienen relación con el cargo objetivo.
+- **P1** — dos proyectos que sí encajan con el cargo no están destacados.
+- **No automatizable** — reordenar aptitudes exige arrastre manual y su diálogo guarda cada movimiento por separado: se explica cómo hacerlo en treinta segundos en vez de dejarlo a medias.
+
+**Cómo cierra —** `PARTIAL` — 3 cambios aplicados tras tu confirmación y 1 devuelto como trabajo manual, con el motivo técnico y las instrucciones.
+
+## Mapa de la misión
+
+```mermaid
+flowchart LR
+    IN["📥 Necesita de ti<br/>· profile_url_or_handle<br/>· evidence_sources<br/>· publication_authorization"]
+    AG(["👤 professional-profile-agent"])
+    OUT["📦 Te entrega<br/>· verified_section_inventory<br/>· evidence_matrix<br/>· gap_report<br/>· drafted_texts<br/>· applied_changes<br/>· publication_verification<br/>· … y 1 más"]
+    GATE["🚦 Se detiene y pregunta antes de<br/>· scope_expansion<br/>· destructive_change<br/>· external_publish<br/>· identity_or_contact_change"]
+    IN --> AG --> OUT
+    AG -.->|"sin tu decisión, no avanza"| GATE
+    style AG fill:#8957e5,color:#fff
+    style GATE fill:#bf8700,color:#fff
+    style OUT fill:#2da44e,color:#fff
+```
 
 ## Flujo operativo
 
 ```mermaid
 flowchart LR
-    p1["scope"]
-    p2["verified inventory"]
-    p3["evidence collection"]
-    p4["audience rubric"]
-    p5["gap report"]
-    p6["drafting"]
-    p7["approval"]
-    p8["apply"]
-    p9["post publication verification"]
-    p10["handoff"]
-    p1 --> p2
-    p2 --> p3
-    p3 --> p4
-    p4 --> p5
-    p5 --> p6
-    p6 --> p7
-    p7 --> p8
-    p8 --> p9
-    p9 --> p10
-    p10 --> done(["entrega verificada"])
+    subgraph A["🔍 Diagnóstico · solo lectura"]
+        direction TB
+        p1["1 · scope"]
+        p2["2 · verified inventory"]
+        p3["3 · evidence collection"]
+        p4["4 · audience rubric"]
+        p5["5 · gap report"]
+        p6["6 · drafting"]
+        p1 --> p2
+        p2 --> p3
+        p3 --> p4
+        p4 --> p5
+        p5 --> p6
+    end
+    G{{"🚦 approval<br/>decisión humana"}}
+    subgraph B["⚙️ Ejecución acotada y verificación"]
+        direction TB
+        p8["8 · apply"]
+        p9["9 · post publication verification"]
+        p10["10 · handoff"]
+        p8 --> p9
+        p9 --> p10
+    end
+    A --> G --> B --> FIN(["📋 entrega verificada"])
+    G -.->|"si deniegas"| A
+    style G fill:#bf8700,color:#fff
+    style FIN fill:#2da44e,color:#fff
 ```
 
 Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior asume la autorización de la anterior.
@@ -107,6 +167,21 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 | 8 | `apply` | Aplica solo lo aprobado, un campo a la vez y de mayor a menor impacto, dejando para el final lo que la interfaz maneja peor. |
 | 9 | `post-publication-verification` | Recarga el perfil y comprueba cada cambio en la superficie publicada. Un formulario que se guarda sin error no prueba que el texto quedara, ni que quedara donde debía. |
 | 10 | `handoff` | Entrega qué se aplicó, qué no y por qué, y qué queda como trabajo manual porque la interfaz no permite automatizarlo de forma fiable. |
+
+## Ficha técnica
+
+| Propiedad | Valor |
+|---|---|
+| Identificador | `professional-profile-agent` |
+| Categoría | `portfolio-governance` |
+| Versión | `0.1.0` |
+| Estado honesto | `IMPLEMENTED` |
+| Riesgo | `high` |
+| Modo de permisos | `default` |
+| Aislamiento | `worktree` |
+| Memoria | `project` |
+| Esfuerzo | `high` |
+| Turnos máximos | `30` |
 
 ## Contrato de entrega
 

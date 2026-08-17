@@ -90,21 +90,39 @@
   "scenarios": [
     {
       "title": "Un scan con cincuenta alertas",
-      "situation": "El análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema.",
+      "context": "El análisis de dependencias devolvió 50 hallazgos: 4 críticos, 18 altos y el resto medios y bajos. Actualizar todo a ciegas rompería dos integraciones que dependen de la versión actual.",
       "ask": "Remedia estos CVE y verifica que el sistema siga funcionando.",
-      "delivers": "Los hallazgos validados uno a uno y priorizados por riesgo real, las correcciones aplicadas y la prueba de que el sistema sigue en pie."
+      "walkthrough": [
+        "`finding-validation` — comprueba uno a uno si la versión vulnerable está realmente instalada y si el código llega a la función afectada.",
+        "`exploitability` — 12 de los 50 tocan rutas que este sistema nunca ejecuta; se documentan, no se ignoran.",
+        "`fix` y `verification` — actualiza por lotes y corre la suite después de cada lote, no al final."
+      ],
+      "returns": "| Grupo | Cuántos | Qué se hizo |\n|---|---|---|\n| explotables en esta ruta | 9 | actualizados y verificados |\n| dependencia transitiva sin parche | 3 | mitigación en configuración, documentada |\n| código no alcanzable desde aquí | 12 | sin acción, con la razón por escrito |\n| falsos positivos | 6 | descartados con evidencia |\n| severidad baja sin impacto | 20 | agendados, no urgentes |",
+      "status": "`PARTIAL` — 9 corregidos con la suite en verde, 3 mitigados sin parche disponible y 3 riesgos residuales en el registro. «Cero alertas» no era el objetivo."
     },
     {
       "title": "¿Este hallazgo es real o es ruido?",
-      "situation": "El análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo.",
+      "context": "El análisis estático marca una inyección SQL en `reportes/consulta.py:88`. La línea concatena una variable dentro de una consulta, pero no está claro de dónde viene esa variable.",
       "ask": "Analiza este hallazgo SAST, confirma si es explotable y corrígelo.",
-      "delivers": "El veredicto con la ruta de explotación —o la razón por la que no existe—, la corrección si procede y el riesgo residual declarado."
+      "walkthrough": [
+        "`asset-and-trust-map` — traza el origen del dato: viene de un parámetro de la API, o sea de fuera, o sea no confiable.",
+        "`exploitability` — construye la ruta completa desde la petición hasta la consulta y confirma que no hay validación intermedia.",
+        "`fix` — parametriza la consulta y añade la prueba que falla con el código anterior."
+      ],
+      "returns": "- **Veredicto** — explotable. Ruta: `POST /api/reportes` → `filtros[fecha]` → concatenación directa sin validación.\n- **Impacto** — lectura de cualquier tabla con el usuario de la aplicación, que tiene permiso de `SELECT` sobre todo el esquema.\n- **Corrección** — consulta parametrizada, más una prueba con la carga que antes la rompía.\n- **Hallazgo adicional** — el usuario de base de datos tiene más permisos de los que necesita; se reporta, no se cambia sin aprobación.",
+      "status": "`COMPLETED` — con un riesgo residual abierto que no es un CVE: el privilegio excesivo convierte cualquier inyección futura en algo mucho peor."
     },
     {
       "title": "«Cero vulnerabilidades» que no significa nada",
-      "situation": "El informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas.",
+      "context": "El informe del scanner dice cero hallazgos y el equipo lo celebra. Pero el archivo de dependencias declara `requests`, `flask` y otras doce sin fijar versión, y no hay lockfile.",
       "ask": "Dime qué parte de este repositorio quedó realmente cubierta por el análisis.",
-      "delivers": "La cobertura real en porcentaje, la lista de lo que quedó fuera del alcance y por qué, y el registro de riesgo residual."
+      "walkthrough": [
+        "`scope` — separa lo que el scanner pudo resolver de lo que no: una dependencia sin versión exacta no se puede contrastar contra ninguna base de vulnerabilidades.",
+        "`finding-validation` — mide la cobertura real en vez de aceptar el resumen.",
+        "`residual-risk` — nombra una a una las dependencias invisibles, sin agregarlas en un porcentaje que las esconda."
+      ],
+      "returns": "- **Cobertura real del scan: 31%** — 7 de 22 dependencias resolvían a una versión concreta.\n- **Fuera del análisis (15)** — `requests`, `flask`, `sqlalchemy`, `celery`… todas declaradas con rango abierto.\n- **Qué significa** — «cero vulnerabilidades» aquí significa «cero en el 31% que se pudo mirar».\n- **Receta** — generar el lockfile del gestor detectado y repetir el análisis sobre la resolución completa.",
+      "status": "`COMPLETED` — 0 vulnerabilidades encontradas y un hallazgo mayor: el informe anterior tranquilizaba sin haber mirado casi nada."
     }
   ]
 }

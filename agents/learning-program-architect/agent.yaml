@@ -90,21 +90,39 @@
   "scenarios": [
     {
       "title": "Un dominio en la cabeza y ningún curso",
-      "situation": "Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.",
+      "context": "Llevas años trabajando con agentes de IA y quieres convertirlo en un programa. Tienes un índice de 8 módulos en un documento y nada más: ni una lección escrita, ni un laboratorio.",
       "ask": "Crea un programa de agentes de IA desde fundamentos hasta producción.",
-      "delivers": "El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento."
+      "walkthrough": [
+        "`audience` y `outcomes` — fija a quién va dirigido y qué debe saber hacer al terminar, en verbos comprobables: «despliega un agente con gates», no «entiende los agentes».",
+        "`curriculum-map` — ordena los 8 módulos por dependencia real y detecta que dos exigen conocimientos que ningún módulo anterior entrega.",
+        "`technical-validation` — ejecuta cada laboratorio de principio a fin antes de darlo por escrito."
+      ],
+      "returns": "- **Currículo** — 8 módulos reordenados a 10, con los 2 prerrequisitos que faltaban ahora explícitos.\n- **Contenido** — 34 lecciones escritas, ninguna carpeta con título y sin cuerpo.\n- **Laboratorios** — 12 ejecutables, cada uno con su criterio de corrección y probado de verdad.\n- **Evaluación** — 8 evaluaciones y 2 capstones que integran lo aprendido.",
+      "status": "`COMPLETED` — 3 laboratorios quedaron marcados como dependientes de una clave de API que el alumno debe aportar, y así se declara en el material."
     },
     {
       "title": "Un curso que se lee bien pero no se practica",
-      "situation": "El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.",
+      "context": "Un programa de 20 lecciones bien escritas sobre Docker. Quien lo sigue solo lee: no hay nada que ejecutar, ni forma de saber si aprendió, ni un proyecto final.",
       "ask": "Amplía este curso con laboratorios reales, evaluaciones y capstones.",
-      "delivers": "Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe."
+      "walkthrough": [
+        "`curriculum-map` — engancha cada laboratorio nuevo a la lección que ya existe, sin reescribir el material que funciona.",
+        "`assessment-design` — diseña evaluaciones que comprueban el resultado esperado de la lección, no la memoria del texto.",
+        "`technical-validation` — corre los 14 laboratorios en limpio y descarta 2 que dependían de una imagen que ya no se publica."
+      ],
+      "returns": "- 14 laboratorios ejecutables enganchados a las lecciones existentes, 12 validados y 2 rehechos tras fallar.\n- 20 evaluaciones, una por lección, con su criterio de corrección.\n- 1 capstone: levantar un stack de tres servicios con healthchecks y reversión.\n- Las 20 lecciones originales **sin tocar**: solo se añadió.",
+      "status": "`COMPLETED` — con la advertencia de que 2 laboratorios exigen 4 GB de RAM libres, declarado en su encabezado."
     },
     {
       "title": "Saber qué falta antes de prometer fechas",
-      "situation": "Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.",
+      "context": "Tienes medio programa construido y te piden un calendario. Antes de comprometerte necesitas saber qué falta de verdad, sin ponerte a escribir todavía.",
       "ask": "Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.",
-      "delivers": "El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas."
+      "walkthrough": [
+        "`curriculum-map` — levanta el mapa de cobertura: qué resultado de aprendizaje cubre cada lección y cuál no cubre ninguna.",
+        "`content-production` — se limita a inventariar: marca las carpetas que solo tienen título, sin rellenarlas.",
+        "`release` — entrega el orden de llenado por dependencia, no por comodidad."
+      ],
+      "returns": "| Módulo | Estado | Qué falta |\n|---|---|---|\n| 1-4 | completo | nada; los laboratorios corren |\n| 5 | esqueleto | 6 lecciones con título y sin cuerpo |\n| 6 | parcial | falta la evaluación y el laboratorio |\n| 7-8 | no existe | dependen del módulo 5, que va primero |",
+      "status": "`COMPLETED` en modo diagnóstico — 0 archivos escritos. El orden de llenado es 5 → 6 → 7 → 8, no el numérico."
     }
   ]
 }

@@ -88,22 +88,40 @@
   ],
   "scenarios": [
     {
-      "title": "Diez cosas a medias y ninguna prioridad",
-      "situation": "El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.",
+      "title": "Diez frentes abiertos y ninguna prioridad",
+      "context": "Una aplicación de gestión con 200 usuarios reales. Hay diez cosas empezadas: exportación a Excel a medias, notificaciones sin enviar, un panel que carga en 9 segundos. Todo parece urgente.",
       "ask": "Examina este producto parcial y construye el siguiente incremento útil.",
-      "delivers": "El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado."
+      "walkthrough": [
+        "`implemented-state` — comprueba qué funciona de verdad ejecutándolo, no leyendo el backlog: 6 de las 10 cosas están más avanzadas de lo que decía el tablero.",
+        "`user-journeys` — recorre el flujo completo del usuario y encuentra que el panel lento bloquea la tarea que el 80% hace a diario.",
+        "`prioritization` — ordena por valor sobre esfuerzo y deja el resto explícitamente fuera de este incremento."
+      ],
+      "returns": "| Frente | Estado real | Decisión |\n|---|---|---|\n| panel de 9 s | funcional pero bloquea el uso diario | **entra**: es el cuello de botella medido |\n| exportación a Excel | 70% hecho, sin pruebas | siguiente incremento |\n| notificaciones | diseño sin implementar | fuera: nadie lo ha pedido |",
+      "status": "`COMPLETED` — panel de 9,1 s a 1,4 s medidos con el mismo conjunto de datos. Los otros 9 frentes siguen intactos y priorizados."
     },
     {
       "title": "El roadmap dice una cosa y el código otra",
-      "situation": "El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.",
+      "context": "El roadmap público lleva cinco meses sin tocarse. Marca como entregadas dos funciones que nunca se terminaron y no menciona tres que sí se construyeron por el camino.",
       "ask": "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.",
-      "delivers": "Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado."
+      "walkthrough": [
+        "`implemented-state` — contrasta cada punto del roadmap con el código y las pruebas que lo respaldan.",
+        "`gap-map` — nombra las dos direcciones del desfase: lo prometido que no está y lo construido que no se anunció.",
+        "`roadmap-update` — corrige el documento y deja constancia de qué se movió y por qué."
+      ],
+      "returns": "- **Marcado como hecho y no lo está** — «informes programados» (solo la UI) y «SSO» (una rama sin fusionar desde marzo).\n- **Hecho y sin anunciar** — importación masiva, registro de auditoría y API de solo lectura, las tres con pruebas.\n- **Roadmap corregido** — 2 puntos devueltos a «en curso», 3 puntos nuevos en «entregado», con el enlace al código de cada uno.",
+      "status": "`COMPLETED` — el roadmap deja de ser una promesa y pasa a ser una descripción. La diferencia se nota más en las dos que había que bajar."
     },
     {
       "title": "Añadir algo sin romper a quien ya lo usa",
-      "situation": "Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.",
+      "context": "Quieres añadir filtros guardados a una herramienta con 200 usuarios activos. La tabla que hay que modificar la consumen también dos integraciones externas por API.",
       "ask": "Añade esta función manteniendo compatibilidad con lo que ya está en uso.",
-      "delivers": "El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado."
+      "walkthrough": [
+        "`user-journeys` — recorre los caminos que hoy funcionan y los fija como lo que no puede romperse.",
+        "`increment` — implementa los filtros guardados como añadido, sin cambiar la forma de la respuesta que consumen las integraciones.",
+        "`acceptance` — comprueba lo que pudo romperse, no solo lo que se quería mejorar: los dos consumidores externos siguen recibiendo el mismo contrato."
+      ],
+      "returns": "- Filtros guardados operativos, con 7 pruebas nuevas.\n- Los 4 recorridos anteriores verificados uno a uno tras el cambio.\n- Contrato de la API sin modificar: los campos nuevos van en una clave opcional, así que un cliente antiguo los ignora.\n- **Riesgo residual** — una de las integraciones valida el esquema de forma estricta; se avisó al equipo antes de desplegar.",
+      "status": "`COMPLETED` con un riesgo declarado que depende de un tercero, no del código."
     }
   ]
 }

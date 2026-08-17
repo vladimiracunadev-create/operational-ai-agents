@@ -48,16 +48,16 @@ def _agent_card(agent: dict[str, Any]) -> str:
     tools = "".join(f"<code>{_e(tool)}</code>" for tool in agent["tools"])
     scenarios = "".join(
         f"<li><b>{_e(item['title'])}</b>"
-        f"<span class=\"scn__sit\">{_e(item['situation'])}</span>"
+        f"<span class=\"scn__sit\">{_e(item['context'])}</span>"
         f"<span class=\"scn__ask\">«{_e(item['ask'])}»</span>"
-        f"<span class=\"scn__get\">→ {_e(item['delivers'])}</span></li>"
+        f"<span class=\"scn__get\">→ {_e(item['status'])}</span></li>"
         for item in agent["scenarios"]
     )
     # El buscador indexa también los escenarios: la gente busca su problema
     # («el README no coincide»), no la categoría del contrato.
     haystack = " ".join([
         agent["name"], agent["id"], agent["category"], agent["description"],
-        *(f"{s['title']} {s['situation']} {s['ask']}" for s in agent["scenarios"]),
+        *(f"{s['title']} {s['context']} {s['ask']}" for s in agent["scenarios"]),
     ]).lower()
     return f"""        <article class="card" data-search="{_e(haystack)}">
           <header class="card__head">
