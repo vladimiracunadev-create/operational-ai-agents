@@ -93,21 +93,21 @@ flowchart LR
     S --> I["🚨 algo que falló"]
     S --> M["🎛️ una misión que cruza todo"]
 
-    C --> C1["no sé si dice la verdad<br/>repository-evolution"]
-    C --> C2["corre sobre tecnología muerta<br/>legacy-modernization"]
-    C --> C3["es un producto a medias<br/>product-evolution"]
-    C --> C4["la doc no cuadra con el código<br/>documentation-coherence"]
+    C --> C1["no sé si dice la verdad<br/>repository-evolution-agent"]
+    C --> C2["corre sobre tecnología muerta<br/>legacy-modernization-agent"]
+    C --> C3["es un producto a medias<br/>product-evolution-agent"]
+    C --> C4["la doc no cuadra con el código<br/>documentation-coherence-agent"]
 
-    D --> D1["una versión por publicar<br/>release-governance"]
-    D --> D2["muchos repos sin orden<br/>portfolio-curator"]
-    D --> D3["un sitio desactualizado<br/>portfolio-publication"]
-    D --> D4["un perfil profesional<br/>professional-profile"]
+    D --> D1["una versión por publicar<br/>release-governance-agent"]
+    D --> D2["muchos repos sin orden<br/>portfolio-curator-agent"]
+    D --> D3["un sitio desactualizado<br/>portfolio-publication-agent"]
+    D --> D4["un perfil profesional<br/>professional-profile-agent"]
 
     F --> F1["todavía no existe<br/>learning-program-architect"]
-    F --> F2["existe y envejeció<br/>curriculum-evolution"]
+    F --> F2["existe y envejeció<br/>curriculum-evolution-agent"]
 
-    I --> I1["un incidente sin causa clara<br/>incident-root-cause"]
-    I --> I2["hallazgos de seguridad<br/>security-remediation"]
+    I --> I1["un incidente sin causa clara<br/>incident-root-cause-agent"]
+    I --> I2["hallazgos de seguridad<br/>security-remediation-agent"]
 
     M --> M1["varios especialistas a la vez<br/>repository-maintenance-coordinator"]
 
