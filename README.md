@@ -683,7 +683,10 @@ operational-agents run repository-evolution-agent \
 Cuando el entorno es producción, infraestructura crítica o datos regulados, la pregunta no es si una herramienta *puede* actuar sola, sino si *debe*. El runtime `manual` prepara el trabajo y lo ejecuta una persona:
 
 ```bash
-operational-agents run incident-root-cause-agent   --runtime manual   --task "Investiga la caída del checkout de anoche"   --evidence evidence/executions/checkout.json
+operational-agents run incident-root-cause-agent \
+  --runtime manual \
+  --task "Investiga la caída del checkout de anoche" \
+  --evidence evidence/executions/checkout.json
 ```
 
 Devuelve el paquete portable completo y cierra en `NOT_EXECUTED` — la descripción honesta de lo que pasó. Sin clave API, sin red y sin tokens, recorriendo el mismo contrato, la misma resolución de capacidades y la misma evidencia que Claude Code.
