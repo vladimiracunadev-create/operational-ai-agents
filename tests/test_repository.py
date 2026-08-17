@@ -325,10 +325,17 @@ class RepositoryTests(unittest.TestCase):
         self.assertIn(f"badge/evals_deterministas-{stats['evaluaciones']}-", readme)
 
     def test_version_is_coherent_across_sources(self):
-        """pyproject, catálogo y badge del README deben declarar la misma versión."""
+        """pyproject, catálogo, paquete y badge del README declaran la misma versión.
+
+        El `__version__` del paquete quedó fuera de esta prueba hasta 2026-08-16
+        y derivó a `0.1.0` mientras el resto ya iba por `0.2.0`. Un marcador de
+        versión sin prueba que lo ancle se desincroniza; por eso está aquí.
+        """
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         declared = re.search(r'^version = "([^"]+)"', pyproject, re.MULTILINE).group(1)
         self.assertEqual(self.catalog["repository_version"], declared)
+        module = (ROOT / "src" / "operational_agents" / "__init__.py").read_text(encoding="utf-8")
+        self.assertIn(f'__version__ = "{declared}"', module)
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(f"badge/version-{declared}-", readme)
 

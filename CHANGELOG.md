@@ -21,6 +21,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 - Conteos de agentes y evaluaciones sincronizados en README, `RECRUITER.md` y
   `evidence/README.md` tras crecer el catálogo a trece.
 
+### Corregido
+
+- **`__version__` del paquete declaraba `0.1.0`** mientras `pyproject.toml`, el
+  catálogo y el badge del README ya iban por `0.2.0`. La prueba de coherencia de
+  versión no cubría el módulo, así que el marcador derivó sin que nada fallara;
+  ahora lo ancla también a él.
+
 > La versión del repositorio sigue en `0.2.0`: publicar un release es una decisión
 > humana, no una consecuencia de que la build esté verde.
 
