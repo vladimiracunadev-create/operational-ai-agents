@@ -85,8 +85,24 @@
     "Declarar producción sin evidencia",
     "Publicar o borrar sin aprobación"
   ],
-  "examples": [
-    "Examina este repositorio y completa lo que falta sin romper lo existente.",
-    "Comprueba si el README coincide con el código y propone una evolución por fases."
+  "scenarios": [
+    {
+      "title": "El README promete más de lo que el código hace",
+      "situation": "Retomas un repositorio cuyo README describe funciones que nadie ha comprobado en meses. No sabes qué parte es real.",
+      "ask": "Examina este repositorio y dime qué afirma el README que el código no sostiene.",
+      "delivers": "El inventario del estado real y una matriz que clasifica cada afirmación como implementada, parcial, simulada, planificada u obsoleta, con el archivo o la prueba que lo demuestra."
+    },
+    {
+      "title": "Quieres mejorarlo y no sabes por dónde empezar",
+      "situation": "El proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias.",
+      "ask": "Completa lo que falta en este repositorio sin romper lo que ya funciona.",
+      "delivers": "Un plan por fases ordenado por valor y riesgo, con cada paso verificable por separado. Ejecuta solo lo que apruebes y deja verde lo que ya lo estaba."
+    },
+    {
+      "title": "Vas a enseñarlo y no quieres sorpresas",
+      "situation": "Vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar.",
+      "ask": "Antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.",
+      "delivers": "La lista de afirmaciones sin respaldo, la corrección propuesta para cada una y los riesgos que siguen abiertos aunque se corrijan."
+    }
   ]
 }

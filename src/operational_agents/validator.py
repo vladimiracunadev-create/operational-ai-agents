@@ -18,8 +18,12 @@ REQUIRED = {
     "id", "name", "version", "status", "category", "risk", "description",
     "delegate_when", "mission", "tools", "disallowed_tools", "skill_dependencies",
     "permission_mode", "memory", "effort", "max_turns", "phases", "phase_details",
-    "required_inputs", "deliverables", "approval_points", "checks", "non_goals", "examples",
+    "required_inputs", "deliverables", "approval_points", "checks", "non_goals", "scenarios",
 }
+
+# Un escenario sin las cuatro respuestas deja al lector igual que el contrato
+# técnico: sabiendo qué hace el agente y no cuándo le sirve.
+SCENARIO_FIELDS = {"title", "situation", "ask", "delivers"}
 
 
 def validate(root: Path) -> list[dict[str, str]]:
@@ -53,6 +57,7 @@ def validate(root: Path) -> list[dict[str, str]]:
             issues.append(_issue("error", aid, f"Descripciones sin fase: {', '.join(huerfanos)}"))
         if not agent["approval_points"]:
             issues.append(_issue("error", aid, "Sin gates de aprobación"))
+        _check_scenarios(agent, issues)
         write_capable = "Edit" in agent["tools"] or "Write" in agent["tools"]
         if write_capable and agent["permission_mode"] in {"bypassPermissions", "acceptEdits"}:
             issues.append(_issue("error", aid, "Un agente mutante no puede omitir aprobación de permisos"))
@@ -76,6 +81,29 @@ def validate(root: Path) -> list[dict[str, str]]:
     for orphan in sorted(folders - ids):
         issues.append(_issue("warning", orphan, "Carpeta sin entrada en el catálogo"))
     return issues
+
+
+def _check_scenarios(agent: dict[str, Any], issues: list[dict[str, str]]) -> None:
+    """Un solo ejemplo no enseña cuándo delegarle: exigimos varios y completos."""
+    aid = agent["id"]
+    scenarios = agent["scenarios"]
+    if not isinstance(scenarios, list) or len(scenarios) < 2:
+        issues.append(_issue("error", aid, "Se requieren al menos dos escenarios de uso"))
+        return
+    for number, scenario in enumerate(scenarios, 1):
+        if not isinstance(scenario, dict):
+            issues.append(_issue("error", aid, f"Escenario {number} no es un objeto"))
+            continue
+        missing = sorted(SCENARIO_FIELDS - set(scenario))
+        if missing:
+            issues.append(_issue("error", aid, f"Escenario {number} sin {', '.join(missing)}"))
+            continue
+        extra = sorted(set(scenario) - SCENARIO_FIELDS)
+        if extra:
+            issues.append(_issue("error", aid, f"Escenario {number} con campos desconocidos: {', '.join(extra)}"))
+        vacios = sorted(key for key in SCENARIO_FIELDS if len(str(scenario[key]).strip()) < 20)
+        if vacios:
+            issues.append(_issue("error", aid, f"Escenario {number} apenas explica: {', '.join(vacios)}"))
 
 
 def _check_generated(root: Path, agent: dict[str, Any], issues: list[dict[str, str]]) -> None:

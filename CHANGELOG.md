@@ -6,6 +6,22 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ### Añadido
 
+- **`scenarios`: tres ejemplos de uso por agente**, en el catálogo y por tanto en
+  todas las vistas generadas. Cada uno responde lo que el contrato técnico no
+  contestaba —qué tienes delante (`situation`), qué le escribes (`ask`) y qué te
+  devuelve (`delivers`)— porque quien lee un catálogo compara situaciones, no
+  capacidades. Sustituye al campo `examples`, que solo llevaba frases sueltas.
+- **Sección «¿Cuál necesito?» en el README**, con un diagrama de decisión que
+  parte del problema del lector y desemboca en uno de los trece agentes.
+- La tabla del catálogo muestra ahora las tres situaciones de cada agente, un
+  ejemplo literal y el enlace directo a sus ejemplos completos.
+- Las tarjetas de la landing abren con un ejemplo visible y despliegan los tres;
+  el buscador indexa también los escenarios, así que se puede buscar por el
+  problema propio y no solo por la categoría del contrato.
+- `test_every_agent_explains_when_it_helps` comprueba que cada agente declara al
+  menos dos escenarios completos, sin ejemplos repetidos, y que cada uno aparece
+  tanto en la ficha humana como en las instrucciones del agente.
+
 - **`professional-profile-agent`** — audita un perfil profesional público alojado en
   un servicio de terceros, lo contrasta con la evidencia real del portafolio y publica
   solo los textos aprobados. Es el primer agente del catálogo cuya superficie de destino
@@ -20,6 +36,9 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 - Conteos de agentes y evaluaciones sincronizados en README, `RECRUITER.md` y
   `evidence/README.md` tras crecer el catálogo a trece.
+- `schema_version` del catálogo a `1.2` por el cambio de `examples` a
+  `scenarios`. El validador rechaza un escenario incompleto, con campos
+  desconocidos o con respuestas de menos de veinte caracteres.
 
 ### Corregido
 

@@ -124,6 +124,14 @@ td.num{text-align:right;font-family:var(--mono);font-weight:700}
 .card__id{margin:.25rem 0 0}
 .card__id code{color:var(--muted);font-size:.78rem}
 .card__mission{margin:0;color:var(--muted);font-size:.93rem;flex:1}
+.card__ask{margin:0;font-size:.88rem;color:var(--text);border-left:2px solid var(--accent);padding-left:.7rem}
+.card__ask q{color:var(--accent-soft);font-style:italic}
+.scn{list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.85rem}
+.scn li{display:grid;gap:.2rem;font-size:.85rem}
+.scn b{color:var(--text);font-size:.88rem}
+.scn__sit{color:var(--muted)}
+.scn__ask{color:var(--accent-soft);font-style:italic}
+.scn__get{color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:0}
 .chip{font-size:.74rem;padding:.22rem .6rem;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 .chip code{color:inherit}
@@ -201,7 +209,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <div class="stats">
     <div class="stat"><b>13</b><span>agentes con contrato</span></div>
     <div class="stat"><b>39</b><span>evaluaciones deterministas</span></div>
-    <div class="stat"><b>33</b><span>pruebas automatizadas</span></div>
+    <div class="stat"><b>34</b><span>pruebas automatizadas</span></div>
     <div class="stat"><b>0</b><span>dependencias runtime</span></div>
   </div>
 </header>
@@ -274,7 +282,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
     <output id="count" for="q">13 agentes</output>
   </div>
   <div class="grid" id="grid">
-        <article class="card" data-search="repository evolution agent repository-evolution-agent repository-engineering analiza un repositorio real, separa hechos de promesas y conduce su evolución incremental con pruebas y evidencia.">
+        <article class="card" data-search="repository evolution agent repository-evolution-agent repository-engineering analiza un repositorio real, separa hechos de promesas y conduce su evolución incremental con pruebas y evidencia. el readme promete más de lo que el código hace retomas un repositorio cuyo readme describe funciones que nadie ha comprobado en meses. no sabes qué parte es real. examina este repositorio y dime qué afirma el readme que el código no sostiene. quieres mejorarlo y no sabes por dónde empezar el proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias. completa lo que falta en este repositorio sin romper lo que ya funciona. vas a enseñarlo y no quieres sorpresas vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar. antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🧭</span>
             <div>
@@ -283,11 +291,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Analiza un repositorio real, separa hechos de promesas y conduce su evolución incremental con pruebas y evidencia.</p>
+          <p class="card__ask">Le escribes: <q>Examina este repositorio y dime qué afirma el README que el código no sostiene.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">repository-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>El README promete más de lo que el código hace</b><span class="scn__sit">Retomas un repositorio cuyo README describe funciones que nadie ha comprobado en meses. No sabes qué parte es real.</span><span class="scn__ask">«Examina este repositorio y dime qué afirma el README que el código no sostiene.»</span><span class="scn__get">→ El inventario del estado real y una matriz que clasifica cada afirmación como implementada, parcial, simulada, planificada u obsoleta, con el archivo o la prueba que lo demuestra.</span></li><li><b>Quieres mejorarlo y no sabes por dónde empezar</b><span class="scn__sit">El proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias.</span><span class="scn__ask">«Completa lo que falta en este repositorio sin romper lo que ya funciona.»</span><span class="scn__get">→ Un plan por fases ordenado por valor y riesgo, con cada paso verificable por separado. Ejecuta solo lo que apruebes y deja verde lo que ya lo estaba.</span></li><li><b>Vas a enseñarlo y no quieres sorpresas</b><span class="scn__sit">Vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar.</span><span class="scn__ask">«Antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.»</span><span class="scn__get">→ La lista de afirmaciones sin respaldo, la corrección propuesta para cada una y los riesgos que siguen abiertos aunque se corrijan.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -301,7 +314,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="legacy modernization agent legacy-modernization-agent software-modernization diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando continuidad, contratos y rollback.">
+        <article class="card" data-search="legacy modernization agent legacy-modernization-agent software-modernization diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando continuidad, contratos y rollback. una versión del lenguaje que ya nadie soporta el sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio. diseña la migración de php 5.4 a php 8.3 sin interrumpir el servicio. cambiar el motor de datos sin romper a quien lo consume quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez. moderniza el acceso a sql server manteniendo compatibilidad durante la transición. nadie se atreve a tocar ese módulo hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona. cubre este módulo con pruebas de caracterización antes de que lo toquemos.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🏗️</span>
             <div>
@@ -310,11 +323,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando continuidad, contratos y rollback.</p>
+          <p class="card__ask">Le escribes: <q>Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-high">riesgo alto</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">software-modernization</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Una versión del lenguaje que ya nadie soporta</b><span class="scn__sit">El sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio.</span><span class="scn__ask">«Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.»</span><span class="scn__get">→ El inventario de lo que hay, pruebas de caracterización que fijan el comportamiento actual como línea base, un plan de migración por etapas y el plan de reversión de cada una.</span></li><li><b>Cambiar el motor de datos sin romper a quien lo consume</b><span class="scn__sit">Quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez.</span><span class="scn__ask">«Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición.»</span><span class="scn__get">→ El contrato actual congelado como línea base, la capa de compatibilidad que sostiene a los consumidores durante la transición y el criterio para retirarla.</span></li><li><b>Nadie se atreve a tocar ese módulo</b><span class="scn__sit">Hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona.</span><span class="scn__ask">«Cubre este módulo con pruebas de caracterización antes de que lo toquemos.»</span><span class="scn__get">→ Pruebas que capturan el comportamiento real, rarezas incluidas, para que cualquier cambio posterior falle de forma visible en vez de silenciosa.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -328,7 +346,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="learning program architect learning-program-architect education-engineering diseña y mantiene programas educativos evolutivos con progresión, laboratorios, evaluaciones y trazabilidad curricular.">
+        <article class="card" data-search="learning program architect learning-program-architect education-engineering diseña y mantiene programas educativos evolutivos con progresión, laboratorios, evaluaciones y trazabilidad curricular. un dominio en la cabeza y ningún curso dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo. crea un programa de agentes de ia desde fundamentos hasta producción. un curso que se lee bien pero no se practica el material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió. amplía este curso con laboratorios reales, evaluaciones y capstones. saber qué falta antes de prometer fechas tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones. revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🎓</span>
             <div>
@@ -337,11 +355,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Diseña y mantiene programas educativos evolutivos con progresión, laboratorios, evaluaciones y trazabilidad curricular.</p>
+          <p class="card__ask">Le escribes: <q>Crea un programa de agentes de IA desde fundamentos hasta producción.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">education-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Un dominio en la cabeza y ningún curso</b><span class="scn__sit">Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.</span><span class="scn__ask">«Crea un programa de agentes de IA desde fundamentos hasta producción.»</span><span class="scn__get">→ El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento.</span></li><li><b>Un curso que se lee bien pero no se practica</b><span class="scn__sit">El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.</span><span class="scn__ask">«Amplía este curso con laboratorios reales, evaluaciones y capstones.»</span><span class="scn__get">→ Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe.</span></li><li><b>Saber qué falta antes de prometer fechas</b><span class="scn__sit">Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.</span><span class="scn__ask">«Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.»</span><span class="scn__get">→ El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -355,7 +378,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="product evolution agent product-evolution-agent product-engineering evalúa productos parciales, alinea producto y arquitectura y convierte brechas en entregas evolutivas verificables.">
+        <article class="card" data-search="product evolution agent product-evolution-agent product-engineering evalúa productos parciales, alinea producto y arquitectura y convierte brechas en entregas evolutivas verificables. diez cosas a medias y ninguna prioridad el producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue. examina este producto parcial y construye el siguiente incremento útil. el roadmap dice una cosa y el código otra el roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó. separa lo implementado de lo planificado y actualiza el roadmap con evidencia. añadir algo sin romper a quien ya lo usa quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada. añade esta función manteniendo compatibilidad con lo que ya está en uso.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🚀</span>
             <div>
@@ -364,11 +387,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Evalúa productos parciales, alinea producto y arquitectura y convierte brechas en entregas evolutivas verificables.</p>
+          <p class="card__ask">Le escribes: <q>Examina este producto parcial y construye el siguiente incremento útil.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">product-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Diez cosas a medias y ninguna prioridad</b><span class="scn__sit">El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.</span><span class="scn__ask">«Examina este producto parcial y construye el siguiente incremento útil.»</span><span class="scn__get">→ El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado.</span></li><li><b>El roadmap dice una cosa y el código otra</b><span class="scn__sit">El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.</span><span class="scn__ask">«Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.»</span><span class="scn__get">→ Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado.</span></li><li><b>Añadir algo sin romper a quien ya lo usa</b><span class="scn__sit">Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.</span><span class="scn__ask">«Añade esta función manteniendo compatibilidad con lo que ya está en uso.»</span><span class="scn__get">→ El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -382,7 +410,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="portfolio curator agent portfolio-curator-agent portfolio-governance clasifica y audita un portafolio de repositorios, detecta solapamientos y produce una narrativa profesional respaldada por evidencia.">
+        <article class="card" data-search="portfolio curator agent portfolio-curator-agent portfolio-governance clasifica y audita un portafolio de repositorios, detecta solapamientos y produce una narrativa profesional respaldada por evidencia. veinte repositorios y ninguna historia tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real. clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos. dos repositorios que hacen lo mismo sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una. detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad. preparar la conversación con un reclutador vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices. prepara un mapa de portafolio para reclutadores con evidencia real.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🗂️</span>
             <div>
@@ -391,11 +419,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Clasifica y audita un portafolio de repositorios, detecta solapamientos y produce una narrativa profesional respaldada por evidencia.</p>
+          <p class="card__ask">Le escribes: <q>Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-low">riesgo bajo</li>
             <li class="chip">permisos <code>plan</code></li>
             <li class="chip">portfolio-governance</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Veinte repositorios y ninguna historia</b><span class="scn__sit">Tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real.</span><span class="scn__ask">«Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.»</span><span class="scn__get">→ Cada repositorio clasificado por su propósito principal, con su madurez honesta y la evidencia que la respalda. No modifica nada: solo lee.</span></li><li><b>Dos repositorios que hacen lo mismo</b><span class="scn__sit">Sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una.</span><span class="scn__ask">«Detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad.»</span><span class="scn__get">→ El mapa de duplicación y la recomendación de fusionar, archivar o renombrar, cada una con su justificación.</span></li><li><b>Preparar la conversación con un reclutador</b><span class="scn__sit">Vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices.</span><span class="scn__ask">«Prepara un mapa de portafolio para reclutadores con evidencia real.»</span><span class="scn__get">→ La narrativa que conecta los repositorios sin exagerar adopción, con el enlace concreto que respalda cada afirmación.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -409,7 +442,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="release governance agent release-governance-agent delivery-governance prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, artefactos y rollback antes de publicar.">
+        <article class="card" data-search="release governance agent release-governance-agent delivery-governance prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, artefactos y rollback antes de publicar. publicar sin saber si está listo hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones. evalúa si el repositorio está listo para release y entrega un go/no-go. dejarlo todo listo y decidir tú cuándo sale quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú. prepara la versión 0.4.0 y detente antes de publicar. un artefacto que compila pero llega vacío el build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga. verifica que los artefactos de este release contienen de verdad lo que prometen.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🏷️</span>
             <div>
@@ -418,11 +451,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, artefactos y rollback antes de publicar.</p>
+          <p class="card__ask">Le escribes: <q>Evalúa si el repositorio está listo para release y entrega un go/no-go.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-high">riesgo alto</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">delivery-governance</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Publicar sin saber si está listo</b><span class="scn__sit">Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.</span><span class="scn__ask">«Evalúa si el repositorio está listo para release y entrega un go/no-go.»</span><span class="scn__get">→ Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos.</span></li><li><b>Dejarlo todo listo y decidir tú cuándo sale</b><span class="scn__sit">Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.</span><span class="scn__ask">«Prepara la versión 0.4.0 y detente antes de publicar.»</span><span class="scn__get">→ La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación.</span></li><li><b>Un artefacto que compila pero llega vacío</b><span class="scn__sit">El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.</span><span class="scn__ask">«Verifica que los artefactos de este release contienen de verdad lo que prometen.»</span><span class="scn__get">→ La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -436,7 +474,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="documentation coherence agent documentation-coherence-agent documentation-engineering reconcilia documentación, arquitectura, ejemplos y métricas con las fuentes de verdad del repositorio.">
+        <article class="card" data-search="documentation coherence agent documentation-coherence-agent documentation-engineering reconcilia documentación, arquitectura, ejemplos y métricas con las fuentes de verdad del repositorio. números que dejaron de ser ciertos el readme dice «49 tests» y hay 62; la guía pide una versión del runtime que el ci ya no usa. nadie mintió: derivó. audita si la documentación coincide con el repositorio y corrige el drift. corregir el presente sin reescribir el pasado los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro. actualiza los conteos del readme desde la fuente de verdad sin tocar el historial. un diagrama que ya no representa el sistema la arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo. revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">📚</span>
             <div>
@@ -445,11 +483,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Reconcilia documentación, arquitectura, ejemplos y métricas con las fuentes de verdad del repositorio.</p>
+          <p class="card__ask">Le escribes: <q>Audita si la documentación coincide con el repositorio y corrige el drift.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">documentation-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Números que dejaron de ser ciertos</b><span class="scn__sit">El README dice «49 tests» y hay 62; la guía pide una versión del runtime que el CI ya no usa. Nadie mintió: derivó.</span><span class="scn__ask">«Audita si la documentación coincide con el repositorio y corrige el drift.»</span><span class="scn__get">→ Cada afirmación contrastada con su fuente verificable, la lista de las que ya no se sostienen y la corrección aplicada solo sobre los marcadores de estado actual.</span></li><li><b>Corregir el presente sin reescribir el pasado</b><span class="scn__sit">Los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro.</span><span class="scn__ask">«Actualiza los conteos del README desde la fuente de verdad sin tocar el historial.»</span><span class="scn__get">→ Los marcadores de estado actual sincronizados y las referencias históricas intactas, con la distinción justificada caso por caso.</span></li><li><b>Un diagrama que ya no representa el sistema</b><span class="scn__sit">La arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo.</span><span class="scn__ask">«Revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.»</span><span class="scn__get">→ El informe de lo que el diagrama afirma frente a lo que el código hace, y lo que quedó sin resolver por falta de fuente fiable.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -463,7 +506,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="incident root cause agent incident-root-cause-agent reliability-engineering investiga incidentes técnicos con línea temporal, hipótesis falsables, evidencia y acciones correctivas sin culpar personas.">
+        <article class="card" data-search="incident root cause agent incident-root-cause-agent reliability-engineering investiga incidentes técnicos con línea temporal, hipótesis falsables, evidencia y acciones correctivas sin culpar personas. un error que aparece y desaparece el servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima. investiga por qué este servicio produce 504 de forma intermitente. el ci falla solo a veces la misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase. construye un rca de esta falla usando logs, métricas y cambios recientes. ya se arregló, pero nadie sabe por qué el incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene. el incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🩺</span>
             <div>
@@ -472,11 +515,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Investiga incidentes técnicos con línea temporal, hipótesis falsables, evidencia y acciones correctivas sin culpar personas.</p>
+          <p class="card__ask">Le escribes: <q>Investiga por qué este servicio produce 504 de forma intermitente.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>plan</code></li>
             <li class="chip">reliability-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Un error que aparece y desaparece</b><span class="scn__sit">El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.</span><span class="scn__ask">«Investiga por qué este servicio produce 504 de forma intermitente.»</span><span class="scn__get">→ La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie.</span></li><li><b>El CI falla solo a veces</b><span class="scn__sit">La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.</span><span class="scn__ask">«Construye un RCA de esta falla usando logs, métricas y cambios recientes.»</span><span class="scn__get">→ El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron.</span></li><li><b>Ya se arregló, pero nadie sabe por qué</b><span class="scn__sit">El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.</span><span class="scn__ask">«El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.»</span><span class="scn__get">→ La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -490,7 +538,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="security remediation agent security-remediation-agent application-security convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y verificadas, con cobertura y riesgo residual explícitos.">
+        <article class="card" data-search="security remediation agent security-remediation-agent application-security convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y verificadas, con cobertura y riesgo residual explícitos. un scan con cincuenta alertas el análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema. remedia estos cve y verifica que el sistema siga funcionando. ¿este hallazgo es real o es ruido? el análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo. analiza este hallazgo sast, confirma si es explotable y corrígelo. «cero vulnerabilidades» que no significa nada el informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas. dime qué parte de este repositorio quedó realmente cubierta por el análisis.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🛡️</span>
             <div>
@@ -499,11 +547,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y verificadas, con cobertura y riesgo residual explícitos.</p>
+          <p class="card__ask">Le escribes: <q>Remedia estos CVE y verifica que el sistema siga funcionando.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-high">riesgo alto</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">application-security</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Un scan con cincuenta alertas</b><span class="scn__sit">El análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema.</span><span class="scn__ask">«Remedia estos CVE y verifica que el sistema siga funcionando.»</span><span class="scn__get">→ Los hallazgos validados uno a uno y priorizados por riesgo real, las correcciones aplicadas y la prueba de que el sistema sigue en pie.</span></li><li><b>¿Este hallazgo es real o es ruido?</b><span class="scn__sit">El análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo.</span><span class="scn__ask">«Analiza este hallazgo SAST, confirma si es explotable y corrígelo.»</span><span class="scn__get">→ El veredicto con la ruta de explotación —o la razón por la que no existe—, la corrección si procede y el riesgo residual declarado.</span></li><li><b>«Cero vulnerabilidades» que no significa nada</b><span class="scn__sit">El informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas.</span><span class="scn__ask">«Dime qué parte de este repositorio quedó realmente cubierta por el análisis.»</span><span class="scn__get">→ La cobertura real en porcentaje, la lista de lo que quedó fuera del alcance y por qué, y el registro de riesgo residual.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -517,7 +570,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="repository maintenance coordinator repository-maintenance-coordinator multi-agent-coordination coordina especialistas para una misión de mantenimiento amplia, conserva decisiones humanas y consolida una entrega verificable.">
+        <article class="card" data-search="repository maintenance coordinator repository-maintenance-coordinator multi-agent-coordination coordina especialistas para una misión de mantenimiento amplia, conserva decisiones humanas y consolida una entrega verificable. una tarea que no cabe en un solo especialista lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano. coordina una revisión integral del repositorio y prepara el próximo release. dos análisis que se contradicen un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. ambos tienen razón dentro de su alcance. resuelve las contradicciones entre estos análisis y dame un plan único. una modernización demasiado grande la migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte. divide esta modernización entre especialistas y consolida un plan verificable.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🎛️</span>
             <div>
@@ -526,11 +579,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Coordina especialistas para una misión de mantenimiento amplia, conserva decisiones humanas y consolida una entrega verificable.</p>
+          <p class="card__ask">Le escribes: <q>Coordina una revisión integral del repositorio y prepara el próximo release.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>plan</code></li>
             <li class="chip">multi-agent-coordination</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Una tarea que no cabe en un solo especialista</b><span class="scn__sit">Lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano.</span><span class="scn__ask">«Coordina una revisión integral del repositorio y prepara el próximo release.»</span><span class="scn__get">→ El mapa de qué se delegó a quién, los hallazgos de cada especialista, los conflictos entre ellos resueltos y un plan integrado con una sola cola de aprobaciones.</span></li><li><b>Dos análisis que se contradicen</b><span class="scn__sit">Un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. Ambos tienen razón dentro de su alcance.</span><span class="scn__ask">«Resuelve las contradicciones entre estos análisis y dame un plan único.»</span><span class="scn__get">→ El conflicto nombrado, el criterio con el que se resolvió y un plan que no diluye la responsabilidad de ninguno de los especialistas.</span></li><li><b>Una modernización demasiado grande</b><span class="scn__sit">La migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte.</span><span class="scn__ask">«Divide esta modernización entre especialistas y consolida un plan verificable.»</span><span class="scn__get">→ La descomposición en misiones acotadas, las dependencias entre ellas y el índice de evidencia que permite comprobar cada parte por separado.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -544,7 +602,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="curriculum evolution agent curriculum-evolution-agent education-engineering mantiene un programa formativo al día con su campo: investiga novedades, verifica fuentes, distingue brecha real de cambio de terminología y republica el material con sus artefactos regenerados.">
+        <article class="card" data-search="curriculum evolution agent curriculum-evolution-agent education-engineering mantiene un programa formativo al día con su campo: investiga novedades, verifica fuentes, distingue brecha real de cambio de terminología y republica el material con sus artefactos regenerados. un curso que envejeció mientras no mirabas el programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido. revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten. incorporar lo nuevo sin reescribir el curso apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados. actualiza el temario con lo aparecido desde la última versión y regenera los artefactos. saber si está desactualizado, sin tocarlo antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece. comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">📡</span>
             <div>
@@ -553,11 +611,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Mantiene un programa formativo al día con su campo: investiga novedades, verifica fuentes, distingue brecha real de cambio de terminología y republica el material con sus artefactos regenerados.</p>
+          <p class="card__ask">Le escribes: <q>Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-medium">riesgo medio</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">education-engineering</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Un curso que envejeció mientras no mirabas</b><span class="scn__sit">El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.</span><span class="scn__ask">«Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.»</span><span class="scn__get">→ Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo.</span></li><li><b>Incorporar lo nuevo sin reescribir el curso</b><span class="scn__sit">Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.</span><span class="scn__ask">«Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.»</span><span class="scn__get">→ Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito.</span></li><li><b>Saber si está desactualizado, sin tocarlo</b><span class="scn__sit">Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.</span><span class="scn__ask">«Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.»</span><span class="scn__get">→ El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -571,7 +634,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="portfolio publication agent portfolio-publication-agent portfolio-governance reconcilia una superficie publicada —sitio, api, documentos generados y perfiles— con el estado real de los repositorios que la alimentan, sin destruir contenido curado a mano.">
+        <article class="card" data-search="portfolio publication agent portfolio-publication-agent portfolio-governance reconcilia una superficie publicada —sitio, api, documentos generados y perfiles— con el estado real de los repositorios que la alimentan, sin destruir contenido curado a mano. la web dice una versión y el release otra el sitio, la api y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos. sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar. hace meses que no actualizas lo publicado publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses. hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable. sin destruir lo que escribiste a mano parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar. actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">🌐</span>
             <div>
@@ -580,11 +643,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Reconcilia una superficie publicada —sitio, API, documentos generados y perfiles— con el estado real de los repositorios que la alimentan, sin destruir contenido curado a mano.</p>
+          <p class="card__ask">Le escribes: <q>Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-high">riesgo alto</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">portfolio-governance</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>La web dice una versión y el release otra</b><span class="scn__sit">El sitio, la API y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos.</span><span class="scn__ask">«Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.»</span><span class="scn__get">→ El inventario de todas las superficies que afirman algo, el informe de divergencias y una pasada en seco completa antes de modificar nada.</span></li><li><b>Hace meses que no actualizas lo publicado</b><span class="scn__sit">Publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses.</span><span class="scn__ask">«Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable.»</span><span class="scn__get">→ Qué cambió en el origen, qué superficie quedó atrás y el plan de actualización, con respaldo de cada artefacto antes de sobrescribirlo.</span></li><li><b>Sin destruir lo que escribiste a mano</b><span class="scn__sit">Parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar.</span><span class="scn__ask">«Actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.»</span><span class="scn__get">→ Los cambios integrados sobre el esquema existente, la comprobación de que lo curado sigue ahí y el trabajo manual que la sincronización no puede cubrir.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -598,7 +666,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
-        <article class="card" data-search="professional profile agent professional-profile-agent portfolio-governance audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.">
+        <article class="card" data-search="professional profile agent professional-profile-agent portfolio-governance audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados. el perfil no cuenta lo que ya construiste publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años. audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada. actualizarlo sin perder tu voz el resumen está bien escrito y es tuyo; solo le faltan cosas. reescribirlo de cero sería un retroceso. actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran. prepararlo antes de postular vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto. prepara mi perfil para postular a este tipo de cargo.">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">👤</span>
             <div>
@@ -607,11 +675,16 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             </div>
           </header>
           <p class="card__mission">Audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.</p>
+          <p class="card__ask">Le escribes: <q>Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.</q></p>
           <ul class="chips">
             <li class="chip chip--risk-high">riesgo alto</li>
             <li class="chip">permisos <code>default</code></li>
             <li class="chip">portfolio-governance</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>El perfil no cuenta lo que ya construiste</b><span class="scn__sit">Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.</span><span class="scn__ask">«Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.»</span><span class="scn__get">→ El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes.</span></li><li><b>Actualizarlo sin perder tu voz</b><span class="scn__sit">El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.</span><span class="scn__ask">«Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.»</span><span class="scn__get">→ El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo.</span></li><li><b>Prepararlo antes de postular</b><span class="scn__sit">Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.</span><span class="scn__ask">«Prepara mi perfil para postular a este tipo de cargo.»</span><span class="scn__get">→ La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos.</span></li></ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>

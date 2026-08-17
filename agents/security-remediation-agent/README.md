@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Reducir riesgo real sin confundir ausencia de hallazgos con ausencia de vulnerab
 
 Úsalo después de un audit, alerta de dependencia, secreto expuesto o hallazgo SAST que requiere análisis y corrección.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Un scan con cincuenta alertas
+
+**Lo que tienes delante —** El análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema.
+
+**Lo que le escribes —**
+
 > Remedia estos CVE y verifica que el sistema siga funcionando.
->
+
+**Lo que te devuelve —** Los hallazgos validados uno a uno y priorizados por riesgo real, las correcciones aplicadas y la prueba de que el sistema sigue en pie.
+
+### 2 · ¿Este hallazgo es real o es ruido?
+
+**Lo que tienes delante —** El análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo.
+
+**Lo que le escribes —**
+
 > Analiza este hallazgo SAST, confirma si es explotable y corrígelo.
+
+**Lo que te devuelve —** El veredicto con la ruta de explotación —o la razón por la que no existe—, la corrección si procede y el riesgo residual declarado.
+
+### 3 · «Cero vulnerabilidades» que no significa nada
+
+**Lo que tienes delante —** El informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas.
+
+**Lo que le escribes —**
+
+> Dime qué parte de este repositorio quedó realmente cubierta por el análisis.
+
+**Lo que te devuelve —** La cobertura real en porcentaje, la lista de lo que quedó fuera del alcance y por qué, y el registro de riesgo residual.
 
 ## Flujo operativo
 

@@ -263,6 +263,29 @@ class RepositoryTests(unittest.TestCase):
             for detail in agent["phase_details"].values():
                 self.assertIn(detail, rendered, agent["id"])
 
+    def test_every_agent_explains_when_it_helps(self):
+        """El contrato dice qué hace un agente; los escenarios, cuándo te sirve.
+
+        Un solo ejemplo no basta: quien lee un catálogo compara situaciones, no
+        capacidades. Cada escenario debe responder las cuatro preguntas y
+        aparecer tanto en la ficha humana como en las instrucciones del agente.
+        """
+        for agent in self.catalog["agents"]:
+            scenarios = agent["scenarios"]
+            self.assertGreaterEqual(len(scenarios), 2, agent["id"])
+            asks = [item["ask"] for item in scenarios]
+            self.assertEqual(len(asks), len(set(asks)), f"{agent['id']} repite un ejemplo")
+            for scenario in scenarios:
+                self.assertEqual({"title", "situation", "ask", "delivers"}, set(scenario))
+                for field, value in scenario.items():
+                    self.assertGreater(len(value.strip()), 20, f"{agent['id']}/{field}")
+            ficha = (ROOT / "agents" / agent["id"] / "README.md").read_text(encoding="utf-8")
+            instrucciones = (ROOT / "agents" / agent["id"] / "instructions.md").read_text(encoding="utf-8")
+            for scenario in scenarios:
+                self.assertIn(scenario["situation"], ficha, agent["id"])
+                self.assertIn(scenario["delivers"], ficha, agent["id"])
+                self.assertIn(scenario["ask"], instrucciones, agent["id"])
+
     def test_documented_agent_counts_are_current(self):
         """Todo «N agentes» que describa el estado ACTUAL debe ser cierto.
 

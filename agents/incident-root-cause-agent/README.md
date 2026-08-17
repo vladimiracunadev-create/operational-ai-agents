@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-plan-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Reducir incertidumbre hasta identificar causas contribuyentes demostrables y pre
 
 Úsalo para errores intermitentes, degradaciones, fallas de CI, incidentes de producción o causas desconocidas.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Un error que aparece y desaparece
+
+**Lo que tienes delante —** El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.
+
+**Lo que le escribes —**
+
 > Investiga por qué este servicio produce 504 de forma intermitente.
->
+
+**Lo que te devuelve —** La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie.
+
+### 2 · El CI falla solo a veces
+
+**Lo que tienes delante —** La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.
+
+**Lo que le escribes —**
+
 > Construye un RCA de esta falla usando logs, métricas y cambios recientes.
+
+**Lo que te devuelve —** El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron.
+
+### 3 · Ya se arregló, pero nadie sabe por qué
+
+**Lo que tienes delante —** El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.
+
+**Lo que le escribes —**
+
+> El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.
+
+**Lo que te devuelve —** La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación.
 
 ## Flujo operativo
 

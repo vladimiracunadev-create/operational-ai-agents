@@ -36,7 +36,7 @@ Un agente **no** es un prompt largo ni un archivo de instrucciones. Es un **cont
 | `description` | qué resuelve, en una frase |
 | `delegate_when` | criterio para seleccionar este agente; es lo que lee el runtime al decidir |
 | `mission` | el resultado integral del que responde |
-| `examples` | invocaciones reales que deberían activarlo |
+| `scenarios` | dos o más situaciones de uso, cada una con `title`, `situation`, `ask` y `delivers`: qué tiene delante quien lo necesita, qué le escribe y qué recibe de vuelta |
 
 ### Frontera operativa
 

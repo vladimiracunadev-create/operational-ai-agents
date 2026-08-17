@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Transformar un dominio en una experiencia formativa completa, verificable y mant
 
 Úsalo para crear o ampliar repositorios de aprendizaje desde nivel inicial hasta avanzado.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Un dominio en la cabeza y ningún curso
+
+**Lo que tienes delante —** Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.
+
+**Lo que le escribes —**
+
 > Crea un programa de agentes de IA desde fundamentos hasta producción.
->
+
+**Lo que te devuelve —** El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento.
+
+### 2 · Un curso que se lee bien pero no se practica
+
+**Lo que tienes delante —** El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.
+
+**Lo que le escribes —**
+
 > Amplía este curso con laboratorios reales, evaluaciones y capstones.
+
+**Lo que te devuelve —** Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe.
+
+### 3 · Saber qué falta antes de prometer fechas
+
+**Lo que tienes delante —** Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.
+
+**Lo que le escribes —**
+
+> Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.
+
+**Lo que te devuelve —** El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas.
 
 ## Flujo operativo
 

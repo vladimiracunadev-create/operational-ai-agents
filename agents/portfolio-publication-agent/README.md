@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,11 +33,39 @@ Hacer que todas las superficies publicadas afirmen lo mismo que demuestran los r
 
 Úsalo cuando lo publicado sobre un conjunto de repositorios dejó de coincidir con su estado real y hay que sincronizarlo sin romper lo que se editó a mano.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · La web dice una versión y el release otra
+
+**Lo que tienes delante —** El sitio, la API y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos.
+
+**Lo que le escribes —**
+
 > Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.
->
-> Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección.
->
+
+**Lo que te devuelve —** El inventario de todas las superficies que afirman algo, el informe de divergencias y una pasada en seco completa antes de modificar nada.
+
+### 2 · Hace meses que no actualizas lo publicado
+
+**Lo que tienes delante —** Publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses.
+
+**Lo que le escribes —**
+
 > Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable.
+
+**Lo que te devuelve —** Qué cambió en el origen, qué superficie quedó atrás y el plan de actualización, con respaldo de cada artefacto antes de sobrescribirlo.
+
+### 3 · Sin destruir lo que escribiste a mano
+
+**Lo que tienes delante —** Parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar.
+
+**Lo que le escribes —**
+
+> Actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.
+
+**Lo que te devuelve —** Los cambios integrados sobre el esquema existente, la comprobación de que lo curado sigue ahí y el trabajo manual que la sincronización no puede cubrir.
 
 ## Flujo operativo
 

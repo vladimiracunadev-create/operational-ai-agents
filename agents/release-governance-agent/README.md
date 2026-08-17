@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Convertir un conjunto de cambios en una decisión de release explícita, reprodu
 
 Úsalo para preparar una versión, revisar readiness o coordinar un release sin publicar automáticamente.
 
-> Prepara la versión 0.4.0 y detente antes de publicar.
->
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Publicar sin saber si está listo
+
+**Lo que tienes delante —** Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.
+
+**Lo que le escribes —**
+
 > Evalúa si el repositorio está listo para release y entrega un go/no-go.
+
+**Lo que te devuelve —** Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos.
+
+### 2 · Dejarlo todo listo y decidir tú cuándo sale
+
+**Lo que tienes delante —** Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.
+
+**Lo que le escribes —**
+
+> Prepara la versión 0.4.0 y detente antes de publicar.
+
+**Lo que te devuelve —** La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación.
+
+### 3 · Un artefacto que compila pero llega vacío
+
+**Lo que tienes delante —** El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.
+
+**Lo que le escribes —**
+
+> Verifica que los artefactos de este release contienen de verdad lo que prometen.
+
+**Lo que te devuelve —** La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado.
 
 ## Flujo operativo
 

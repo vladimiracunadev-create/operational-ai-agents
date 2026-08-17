@@ -87,8 +87,24 @@
     "Copiar contenido sin licencia",
     "Prometer completitud sin validar laboratorios"
   ],
-  "examples": [
-    "Crea un programa de agentes de IA desde fundamentos hasta producción.",
-    "Amplía este curso con laboratorios reales, evaluaciones y capstones."
+  "scenarios": [
+    {
+      "title": "Un dominio en la cabeza y ningún curso",
+      "situation": "Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.",
+      "ask": "Crea un programa de agentes de IA desde fundamentos hasta producción.",
+      "delivers": "El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento."
+    },
+    {
+      "title": "Un curso que se lee bien pero no se practica",
+      "situation": "El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.",
+      "ask": "Amplía este curso con laboratorios reales, evaluaciones y capstones.",
+      "delivers": "Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe."
+    },
+    {
+      "title": "Saber qué falta antes de prometer fechas",
+      "situation": "Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.",
+      "ask": "Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.",
+      "delivers": "El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas."
+    }
   ]
 }

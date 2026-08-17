@@ -92,9 +92,24 @@
     "Publicar sin confirmación humana explícita",
     "Afirmar cifras que no se hayan contado"
   ],
-  "examples": [
-    "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
-    "Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección.",
-    "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable."
+  "scenarios": [
+    {
+      "title": "La web dice una versión y el release otra",
+      "situation": "El sitio, la API y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos.",
+      "ask": "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
+      "delivers": "El inventario de todas las superficies que afirman algo, el informe de divergencias y una pasada en seco completa antes de modificar nada."
+    },
+    {
+      "title": "Hace meses que no actualizas lo publicado",
+      "situation": "Publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses.",
+      "ask": "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable.",
+      "delivers": "Qué cambió en el origen, qué superficie quedó atrás y el plan de actualización, con respaldo de cada artefacto antes de sobrescribirlo."
+    },
+    {
+      "title": "Sin destruir lo que escribiste a mano",
+      "situation": "Parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar.",
+      "ask": "Actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.",
+      "delivers": "Los cambios integrados sobre el esquema existente, la comprobación de que lo curado sigue ahí y el trabajo manual que la sincronización no puede cubrir."
+    }
   ]
 }

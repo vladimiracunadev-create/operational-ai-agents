@@ -82,8 +82,24 @@
     "Cambiar cifras a mano sin fuente",
     "Borrar historia"
   ],
-  "examples": [
-    "Audita si la documentación coincide con el repositorio y corrige el drift.",
-    "Actualiza los conteos del README desde la fuente de verdad."
+  "scenarios": [
+    {
+      "title": "Números que dejaron de ser ciertos",
+      "situation": "El README dice «49 tests» y hay 62; la guía pide una versión del runtime que el CI ya no usa. Nadie mintió: derivó.",
+      "ask": "Audita si la documentación coincide con el repositorio y corrige el drift.",
+      "delivers": "Cada afirmación contrastada con su fuente verificable, la lista de las que ya no se sostienen y la corrección aplicada solo sobre los marcadores de estado actual."
+    },
+    {
+      "title": "Corregir el presente sin reescribir el pasado",
+      "situation": "Los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro.",
+      "ask": "Actualiza los conteos del README desde la fuente de verdad sin tocar el historial.",
+      "delivers": "Los marcadores de estado actual sincronizados y las referencias históricas intactas, con la distinción justificada caso por caso."
+    },
+    {
+      "title": "Un diagrama que ya no representa el sistema",
+      "situation": "La arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo.",
+      "ask": "Revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.",
+      "delivers": "El informe de lo que el diagrama afirma frente a lo que el código hace, y lo que quedó sin resolver por falta de fuente fiable."
+    }
   ]
 }

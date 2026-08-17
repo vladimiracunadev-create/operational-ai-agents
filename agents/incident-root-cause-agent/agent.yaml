@@ -84,8 +84,24 @@
     "Afirmar causalidad por correlación",
     "Modificar producción durante diagnóstico"
   ],
-  "examples": [
-    "Investiga por qué este servicio produce 504 de forma intermitente.",
-    "Construye un RCA de esta falla usando logs, métricas y cambios recientes."
+  "scenarios": [
+    {
+      "title": "Un error que aparece y desaparece",
+      "situation": "El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.",
+      "ask": "Investiga por qué este servicio produce 504 de forma intermitente.",
+      "delivers": "La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie."
+    },
+    {
+      "title": "El CI falla solo a veces",
+      "situation": "La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.",
+      "ask": "Construye un RCA de esta falla usando logs, métricas y cambios recientes.",
+      "delivers": "El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron."
+    },
+    {
+      "title": "Ya se arregló, pero nadie sabe por qué",
+      "situation": "El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.",
+      "ask": "El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.",
+      "delivers": "La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación."
+    }
   ]
 }

@@ -86,8 +86,24 @@
     "Añadir tecnología sin problema",
     "Romper formatos existentes"
   ],
-  "examples": [
-    "Examina este producto parcial y construye el siguiente incremento útil.",
-    "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia."
+  "scenarios": [
+    {
+      "title": "Diez cosas a medias y ninguna prioridad",
+      "situation": "El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.",
+      "ask": "Examina este producto parcial y construye el siguiente incremento útil.",
+      "delivers": "El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado."
+    },
+    {
+      "title": "El roadmap dice una cosa y el código otra",
+      "situation": "El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.",
+      "ask": "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.",
+      "delivers": "Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado."
+    },
+    {
+      "title": "Añadir algo sin romper a quien ya lo usa",
+      "situation": "Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.",
+      "ask": "Añade esta función manteniendo compatibilidad con lo que ya está en uso.",
+      "delivers": "El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado."
+    }
   ]
 }

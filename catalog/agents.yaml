@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "repository_version": "0.2.0",
   "source_of_truth": "catalog/agents.yaml",
   "maturity_model": {
@@ -97,9 +97,25 @@
         "Declarar producción sin evidencia",
         "Publicar o borrar sin aprobación"
       ],
-      "examples": [
-        "Examina este repositorio y completa lo que falta sin romper lo existente.",
-        "Comprueba si el README coincide con el código y propone una evolución por fases."
+      "scenarios": [
+        {
+          "title": "El README promete más de lo que el código hace",
+          "situation": "Retomas un repositorio cuyo README describe funciones que nadie ha comprobado en meses. No sabes qué parte es real.",
+          "ask": "Examina este repositorio y dime qué afirma el README que el código no sostiene.",
+          "delivers": "El inventario del estado real y una matriz que clasifica cada afirmación como implementada, parcial, simulada, planificada u obsoleta, con el archivo o la prueba que lo demuestra."
+        },
+        {
+          "title": "Quieres mejorarlo y no sabes por dónde empezar",
+          "situation": "El proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias.",
+          "ask": "Completa lo que falta en este repositorio sin romper lo que ya funciona.",
+          "delivers": "Un plan por fases ordenado por valor y riesgo, con cada paso verificable por separado. Ejecuta solo lo que apruebes y deja verde lo que ya lo estaba."
+        },
+        {
+          "title": "Vas a enseñarlo y no quieres sorpresas",
+          "situation": "Vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar.",
+          "ask": "Antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.",
+          "delivers": "La lista de afirmaciones sin respaldo, la corrección propuesta para cada una y los riesgos que siguen abiertos aunque se corrijan."
+        }
       ]
     },
     {
@@ -189,9 +205,25 @@
         "Cambiar contratos silenciosamente",
         "Confundir código nuevo con migración terminada"
       ],
-      "examples": [
-        "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
-        "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición."
+      "scenarios": [
+        {
+          "title": "Una versión del lenguaje que ya nadie soporta",
+          "situation": "El sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio.",
+          "ask": "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
+          "delivers": "El inventario de lo que hay, pruebas de caracterización que fijan el comportamiento actual como línea base, un plan de migración por etapas y el plan de reversión de cada una."
+        },
+        {
+          "title": "Cambiar el motor de datos sin romper a quien lo consume",
+          "situation": "Quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez.",
+          "ask": "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición.",
+          "delivers": "El contrato actual congelado como línea base, la capa de compatibilidad que sostiene a los consumidores durante la transición y el criterio para retirarla."
+        },
+        {
+          "title": "Nadie se atreve a tocar ese módulo",
+          "situation": "Hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona.",
+          "ask": "Cubre este módulo con pruebas de caracterización antes de que lo toquemos.",
+          "delivers": "Pruebas que capturan el comportamiento real, rarezas incluidas, para que cualquier cambio posterior falle de forma visible en vez de silenciosa."
+        }
       ]
     },
     {
@@ -283,9 +315,25 @@
         "Copiar contenido sin licencia",
         "Prometer completitud sin validar laboratorios"
       ],
-      "examples": [
-        "Crea un programa de agentes de IA desde fundamentos hasta producción.",
-        "Amplía este curso con laboratorios reales, evaluaciones y capstones."
+      "scenarios": [
+        {
+          "title": "Un dominio en la cabeza y ningún curso",
+          "situation": "Dominas un tema y quieres convertirlo en un programa formativo, pero acabas con carpetas vacías y títulos sin contenido debajo.",
+          "ask": "Crea un programa de agentes de IA desde fundamentos hasta producción.",
+          "delivers": "El currículo con su progresión, las lecciones escritas, laboratorios que se ejecutan de verdad, evaluaciones, proyectos finales y el plan de mantenimiento."
+        },
+        {
+          "title": "Un curso que se lee bien pero no se practica",
+          "situation": "El material está bien escrito, pero quien lo sigue solo lee: no hay nada que ejecutar ni forma de saber si aprendió.",
+          "ask": "Amplía este curso con laboratorios reales, evaluaciones y capstones.",
+          "delivers": "Laboratorios ejecutables con sus criterios de corrección, evaluaciones por nivel y capstones que integran lo aprendido, enganchados al temario que ya existe."
+        },
+        {
+          "title": "Saber qué falta antes de prometer fechas",
+          "situation": "Tienes medio programa y necesitas saber qué falta antes de anunciar un calendario o abrir inscripciones.",
+          "ask": "Revisa este programa y dime qué le falta para estar completo, sin escribir contenido todavía.",
+          "delivers": "El mapa de cobertura del temario, las secciones que solo tienen título y el orden en que conviene llenarlas."
+        }
       ]
     },
     {
@@ -376,9 +424,25 @@
         "Añadir tecnología sin problema",
         "Romper formatos existentes"
       ],
-      "examples": [
-        "Examina este producto parcial y construye el siguiente incremento útil.",
-        "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia."
+      "scenarios": [
+        {
+          "title": "Diez cosas a medias y ninguna prioridad",
+          "situation": "El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.",
+          "ask": "Examina este producto parcial y construye el siguiente incremento útil.",
+          "delivers": "El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado."
+        },
+        {
+          "title": "El roadmap dice una cosa y el código otra",
+          "situation": "El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.",
+          "ask": "Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.",
+          "delivers": "Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado."
+        },
+        {
+          "title": "Añadir algo sin romper a quien ya lo usa",
+          "situation": "Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.",
+          "ask": "Añade esta función manteniendo compatibilidad con lo que ya está en uso.",
+          "delivers": "El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado."
+        }
       ]
     },
     {
@@ -465,9 +529,25 @@
         "Ocultar limitaciones",
         "Equiparar demo con producción"
       ],
-      "examples": [
-        "Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.",
-        "Prepara un mapa de portafolio para reclutadores con evidencia real."
+      "scenarios": [
+        {
+          "title": "Veinte repositorios y ninguna historia",
+          "situation": "Tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real.",
+          "ask": "Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.",
+          "delivers": "Cada repositorio clasificado por su propósito principal, con su madurez honesta y la evidencia que la respalda. No modifica nada: solo lee."
+        },
+        {
+          "title": "Dos repositorios que hacen lo mismo",
+          "situation": "Sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una.",
+          "ask": "Detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad.",
+          "delivers": "El mapa de duplicación y la recomendación de fusionar, archivar o renombrar, cada una con su justificación."
+        },
+        {
+          "title": "Preparar la conversación con un reclutador",
+          "situation": "Vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices.",
+          "ask": "Prepara un mapa de portafolio para reclutadores con evidencia real.",
+          "delivers": "La narrativa que conecta los repositorios sin exagerar adopción, con el enlace concreto que respalda cada afirmación."
+        }
       ]
     },
     {
@@ -557,9 +637,25 @@
         "Saltar checks por presión",
         "Cambiar historia de versiones"
       ],
-      "examples": [
-        "Prepara la versión 0.4.0 y detente antes de publicar.",
-        "Evalúa si el repositorio está listo para release y entrega un go/no-go."
+      "scenarios": [
+        {
+          "title": "Publicar sin saber si está listo",
+          "situation": "Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.",
+          "ask": "Evalúa si el repositorio está listo para release y entrega un go/no-go.",
+          "delivers": "Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos."
+        },
+        {
+          "title": "Dejarlo todo listo y decidir tú cuándo sale",
+          "situation": "Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.",
+          "ask": "Prepara la versión 0.4.0 y detente antes de publicar.",
+          "delivers": "La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación."
+        },
+        {
+          "title": "Un artefacto que compila pero llega vacío",
+          "situation": "El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.",
+          "ask": "Verifica que los artefactos de este release contienen de verdad lo que prometen.",
+          "delivers": "La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado."
+        }
       ]
     },
     {
@@ -646,9 +742,25 @@
         "Cambiar cifras a mano sin fuente",
         "Borrar historia"
       ],
-      "examples": [
-        "Audita si la documentación coincide con el repositorio y corrige el drift.",
-        "Actualiza los conteos del README desde la fuente de verdad."
+      "scenarios": [
+        {
+          "title": "Números que dejaron de ser ciertos",
+          "situation": "El README dice «49 tests» y hay 62; la guía pide una versión del runtime que el CI ya no usa. Nadie mintió: derivó.",
+          "ask": "Audita si la documentación coincide con el repositorio y corrige el drift.",
+          "delivers": "Cada afirmación contrastada con su fuente verificable, la lista de las que ya no se sostienen y la corrección aplicada solo sobre los marcadores de estado actual."
+        },
+        {
+          "title": "Corregir el presente sin reescribir el pasado",
+          "situation": "Los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro.",
+          "ask": "Actualiza los conteos del README desde la fuente de verdad sin tocar el historial.",
+          "delivers": "Los marcadores de estado actual sincronizados y las referencias históricas intactas, con la distinción justificada caso por caso."
+        },
+        {
+          "title": "Un diagrama que ya no representa el sistema",
+          "situation": "La arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo.",
+          "ask": "Revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.",
+          "delivers": "El informe de lo que el diagrama afirma frente a lo que el código hace, y lo que quedó sin resolver por falta de fuente fiable."
+        }
       ]
     },
     {
@@ -737,9 +849,25 @@
         "Afirmar causalidad por correlación",
         "Modificar producción durante diagnóstico"
       ],
-      "examples": [
-        "Investiga por qué este servicio produce 504 de forma intermitente.",
-        "Construye un RCA de esta falla usando logs, métricas y cambios recientes."
+      "scenarios": [
+        {
+          "title": "Un error que aparece y desaparece",
+          "situation": "El servicio devuelve 504 de vez en cuando, sin patrón evidente, y reiniciarlo parece arreglarlo hasta la próxima.",
+          "ask": "Investiga por qué este servicio produce 504 de forma intermitente.",
+          "delivers": "La línea temporal de lo ocurrido, las hipótesis planteadas como falsables con la evidencia que las descarta o las sostiene, y las causas contribuyentes que quedan en pie."
+        },
+        {
+          "title": "El CI falla solo a veces",
+          "situation": "La misma prueba pasa y falla sin que el código cambie, y el equipo ya normalizó reintentar hasta que pase.",
+          "ask": "Construye un RCA de esta falla usando logs, métricas y cambios recientes.",
+          "delivers": "El registro de evidencia, la causa demostrada —no la más plausible— y acciones correctivas con la forma de verificar que funcionaron."
+        },
+        {
+          "title": "Ya se arregló, pero nadie sabe por qué",
+          "situation": "El incidente terminó y el servicio volvió, pero nada impide que ocurra otra vez la semana que viene.",
+          "ask": "El incidente ya pasó: reconstruye qué ocurrió y qué evita que se repita.",
+          "delivers": "La reconstrucción sin culpar a personas, la declaración de causa raíz y el plan de prevención con su verificación."
+        }
       ]
     },
     {
@@ -831,9 +959,25 @@
         "Ocultar falsos negativos",
         "Rotar secretos o desplegar sin aprobación"
       ],
-      "examples": [
-        "Remedia estos CVE y verifica que el sistema siga funcionando.",
-        "Analiza este hallazgo SAST, confirma si es explotable y corrígelo."
+      "scenarios": [
+        {
+          "title": "Un scan con cincuenta alertas",
+          "situation": "El análisis devolvió una lista larga, no todas son explotables en tu contexto y actualizar a ciegas puede romper el sistema.",
+          "ask": "Remedia estos CVE y verifica que el sistema siga funcionando.",
+          "delivers": "Los hallazgos validados uno a uno y priorizados por riesgo real, las correcciones aplicadas y la prueba de que el sistema sigue en pie."
+        },
+        {
+          "title": "¿Este hallazgo es real o es ruido?",
+          "situation": "El análisis estático marca una línea como vulnerable y no sabes si es explotable de verdad o un falso positivo.",
+          "ask": "Analiza este hallazgo SAST, confirma si es explotable y corrígelo.",
+          "delivers": "El veredicto con la ruta de explotación —o la razón por la que no existe—, la corrección si procede y el riesgo residual declarado."
+        },
+        {
+          "title": "«Cero vulnerabilidades» que no significa nada",
+          "situation": "El informe dice cero hallazgos, pero buena parte de las dependencias no está fijada a una versión concreta, así que el scanner no pudo pronunciarse sobre ellas.",
+          "ask": "Dime qué parte de este repositorio quedó realmente cubierta por el análisis.",
+          "delivers": "La cobertura real en porcentaje, la lista de lo que quedó fuera del alcance y por qué, y el registro de riesgo residual."
+        }
       ]
     },
     {
@@ -922,9 +1066,25 @@
         "Permitir publicaciones autónomas",
         "Ocultar desacuerdos entre especialistas"
       ],
-      "examples": [
-        "Coordina una revisión integral del repositorio y prepara el próximo release.",
-        "Divide esta modernización entre especialistas y consolida un plan verificable."
+      "scenarios": [
+        {
+          "title": "Una tarea que no cabe en un solo especialista",
+          "situation": "Lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano.",
+          "ask": "Coordina una revisión integral del repositorio y prepara el próximo release.",
+          "delivers": "El mapa de qué se delegó a quién, los hallazgos de cada especialista, los conflictos entre ellos resueltos y un plan integrado con una sola cola de aprobaciones."
+        },
+        {
+          "title": "Dos análisis que se contradicen",
+          "situation": "Un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. Ambos tienen razón dentro de su alcance.",
+          "ask": "Resuelve las contradicciones entre estos análisis y dame un plan único.",
+          "delivers": "El conflicto nombrado, el criterio con el que se resolvió y un plan que no diluye la responsabilidad de ninguno de los especialistas."
+        },
+        {
+          "title": "Una modernización demasiado grande",
+          "situation": "La migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte.",
+          "ask": "Divide esta modernización entre especialistas y consolida un plan verificable.",
+          "delivers": "La descomposición en misiones acotadas, las dependencias entre ellas y el índice de evidencia que permite comprobar cada parte por separado."
+        }
       ]
     },
     {
@@ -1023,10 +1183,25 @@
         "Reescribir el historial de versiones",
         "Publicar o etiquetar una versión sin aprobación"
       ],
-      "examples": [
-        "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
-        "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
-        "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes."
+      "scenarios": [
+        {
+          "title": "Un curso que envejeció mientras no mirabas",
+          "situation": "El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.",
+          "ask": "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
+          "delivers": "Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo."
+        },
+        {
+          "title": "Incorporar lo nuevo sin reescribir el curso",
+          "situation": "Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.",
+          "ask": "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
+          "delivers": "Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito."
+        },
+        {
+          "title": "Saber si está desactualizado, sin tocarlo",
+          "situation": "Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.",
+          "ask": "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.",
+          "delivers": "El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología."
+        }
       ]
     },
     {
@@ -1123,10 +1298,25 @@
         "Publicar sin confirmación humana explícita",
         "Afirmar cifras que no se hayan contado"
       ],
-      "examples": [
-        "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
-        "Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección.",
-        "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable."
+      "scenarios": [
+        {
+          "title": "La web dice una versión y el release otra",
+          "situation": "El sitio, la API y los documentos generados salieron en momentos distintos y cada superficie afirma algo diferente sobre los mismos proyectos.",
+          "ask": "Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.",
+          "delivers": "El inventario de todas las superficies que afirman algo, el informe de divergencias y una pasada en seco completa antes de modificar nada."
+        },
+        {
+          "title": "Hace meses que no actualizas lo publicado",
+          "situation": "Publicaste releases nuevos y la superficie pública sigue mostrando el estado de hace tres meses.",
+          "ask": "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable.",
+          "delivers": "Qué cambió en el origen, qué superficie quedó atrás y el plan de actualización, con respaldo de cada artefacto antes de sobrescribirlo."
+        },
+        {
+          "title": "Sin destruir lo que escribiste a mano",
+          "situation": "Parte del contenido publicado se curó a mano y una regeneración automática lo borraría sin avisar.",
+          "ask": "Actualiza lo que esté desfasado sin tocar el contenido que escribí a mano.",
+          "delivers": "Los cambios integrados sobre el esquema existente, la comprobación de que lo curado sigue ahí y el trabajo manual que la sincronización no puede cubrir."
+        }
       ]
     },
     {
@@ -1223,9 +1413,25 @@
         "Actuar ante terceros en nombre de la persona",
         "Decidir por ella qué datos personales expone"
       ],
-      "examples": [
-        "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
-        "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran."
+      "scenarios": [
+        {
+          "title": "El perfil no cuenta lo que ya construiste",
+          "situation": "Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.",
+          "ask": "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
+          "delivers": "El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes."
+        },
+        {
+          "title": "Actualizarlo sin perder tu voz",
+          "situation": "El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.",
+          "ask": "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.",
+          "delivers": "El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo."
+        },
+        {
+          "title": "Prepararlo antes de postular",
+          "situation": "Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.",
+          "ask": "Prepara mi perfil para postular a este tipo de cargo.",
+          "delivers": "La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos."
+        }
       ]
     }
   ]

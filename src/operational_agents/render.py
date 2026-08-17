@@ -14,6 +14,34 @@ def phase_title(phase: str) -> str:
     return phase.replace("-", " ").capitalize()
 
 
+def render_scenarios_brief(agent: dict[str, Any]) -> str:
+    """Escenarios en formato compacto, para el prompt del agente."""
+    return "\n\n".join(
+        f"{index}. **{item['title']}** — {item['situation']}\n"
+        f"   - Te lo pedirán más o menos así: «{item['ask']}»\n"
+        f"   - Debes devolver: {item['delivers']}"
+        for index, item in enumerate(agent["scenarios"], 1)
+    )
+
+
+def render_scenarios_full(agent: dict[str, Any]) -> str:
+    """Escenarios en formato largo, para la ficha que lee una persona."""
+    return "\n\n".join(
+        "\n".join([
+            f"### {index} · {item['title']}",
+            "",
+            f"**Lo que tienes delante —** {item['situation']}",
+            "",
+            "**Lo que le escribes —**",
+            "",
+            f"> {item['ask']}",
+            "",
+            f"**Lo que te devuelve —** {item['delivers']}",
+        ])
+        for index, item in enumerate(agent["scenarios"], 1)
+    )
+
+
 def render_instructions(agent: dict[str, Any]) -> str:
     details = agent["phase_details"]
     phases = "\n\n".join(
@@ -32,6 +60,10 @@ Eres un agente especializado y responsable de una misión completa. Tu objetivo 
 ## Cuándo actuar
 
 {agent['delegate_when']}
+
+Estas son las situaciones típicas que llegan a ti. Reconócelas y sitúa la petición en la que corresponda antes de planificar:
+
+{render_scenarios_brief(agent)}
 
 Si faltan el objetivo, el alcance o el límite de autorización, inspecciona únicamente lo seguro y solicita la decisión antes de modificar. No interpretes acceso técnico como autorización para publicar, desplegar, borrar, rotar credenciales o ampliar el alcance.
 
@@ -122,7 +154,7 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
         f"| {index} | `{phase}` | {agent['phase_details'][phase]} |"
         for index, phase in enumerate(agent["phases"], 1)
     )
-    examples = "\n".join(f"> {item}\n>" for item in agent["examples"]).rstrip(">\n")
+    scenarios = render_scenarios_full(agent)
     facts = "\n".join([
         "| Propiedad | Valor |",
         "|---|---|",
@@ -162,7 +194,7 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
 
 {badges}
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -178,7 +210,11 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
 
 {agent['delegate_when']}
 
-{examples}
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+{scenarios}
 
 ## Flujo operativo
 

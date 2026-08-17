@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Reducir riesgo y deuda técnica mediante una migración gradual respaldada por p
 
 Úsalo para migraciones de lenguaje, framework, base de datos, infraestructura o arquitectura con continuidad operativa.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Una versión del lenguaje que ya nadie soporta
+
+**Lo que tienes delante —** El sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio.
+
+**Lo que le escribes —**
+
 > Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.
->
+
+**Lo que te devuelve —** El inventario de lo que hay, pruebas de caracterización que fijan el comportamiento actual como línea base, un plan de migración por etapas y el plan de reversión de cada una.
+
+### 2 · Cambiar el motor de datos sin romper a quien lo consume
+
+**Lo que tienes delante —** Quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez.
+
+**Lo que le escribes —**
+
 > Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición.
+
+**Lo que te devuelve —** El contrato actual congelado como línea base, la capa de compatibilidad que sostiene a los consumidores durante la transición y el criterio para retirarla.
+
+### 3 · Nadie se atreve a tocar ese módulo
+
+**Lo que tienes delante —** Hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona.
+
+**Lo que le escribes —**
+
+> Cubre este módulo con pruebas de caracterización antes de que lo toquemos.
+
+**Lo que te devuelve —** Pruebas que capturan el comportamiento real, rarezas incluidas, para que cualquier cambio posterior falle de forma visible en vez de silenciosa.
 
 ## Flujo operativo
 

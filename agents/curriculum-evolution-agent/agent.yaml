@@ -94,9 +94,24 @@
     "Reescribir el historial de versiones",
     "Publicar o etiquetar una versión sin aprobación"
   ],
-  "examples": [
-    "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
-    "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
-    "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes."
+  "scenarios": [
+    {
+      "title": "Un curso que envejeció mientras no mirabas",
+      "situation": "El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.",
+      "ask": "Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.",
+      "delivers": "Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo."
+    },
+    {
+      "title": "Incorporar lo nuevo sin reescribir el curso",
+      "situation": "Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.",
+      "ask": "Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.",
+      "delivers": "Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito."
+    },
+    {
+      "title": "Saber si está desactualizado, sin tocarlo",
+      "situation": "Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.",
+      "ask": "Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.",
+      "delivers": "El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología."
+    }
   ]
 }

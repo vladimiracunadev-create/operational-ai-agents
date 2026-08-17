@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-high-da3633)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Hacer que un perfil público afirme exactamente lo que la evidencia sostiene, in
 
 Úsalo cuando un perfil profesional público dejó de reflejar lo que el trabajo real demuestra y hay que corregirlo sin destruir lo que la persona escribió a mano.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · El perfil no cuenta lo que ya construiste
+
+**Lo que tienes delante —** Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.
+
+**Lo que le escribes —**
+
 > Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.
->
+
+**Lo que te devuelve —** El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes.
+
+### 2 · Actualizarlo sin perder tu voz
+
+**Lo que tienes delante —** El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.
+
+**Lo que le escribes —**
+
 > Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.
+
+**Lo que te devuelve —** El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo.
+
+### 3 · Prepararlo antes de postular
+
+**Lo que tienes delante —** Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.
+
+**Lo que le escribes —**
+
+> Prepara mi perfil para postular a este tipo de cargo.
+
+**Lo que te devuelve —** La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos.
 
 ## Flujo operativo
 

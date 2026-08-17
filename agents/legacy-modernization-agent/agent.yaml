@@ -85,8 +85,24 @@
     "Cambiar contratos silenciosamente",
     "Confundir código nuevo con migración terminada"
   ],
-  "examples": [
-    "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
-    "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición."
+  "scenarios": [
+    {
+      "title": "Una versión del lenguaje que ya nadie soporta",
+      "situation": "El sistema corre sobre una versión que dejó de recibir parches y migrarlo de golpe significa apagar el servicio.",
+      "ask": "Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.",
+      "delivers": "El inventario de lo que hay, pruebas de caracterización que fijan el comportamiento actual como línea base, un plan de migración por etapas y el plan de reversión de cada una."
+    },
+    {
+      "title": "Cambiar el motor de datos sin romper a quien lo consume",
+      "situation": "Quieres mover el acceso a datos a otro motor, pero hay aplicaciones que consumen esas tablas y no puedes coordinarlas todas a la vez.",
+      "ask": "Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición.",
+      "delivers": "El contrato actual congelado como línea base, la capa de compatibilidad que sostiene a los consumidores durante la transición y el criterio para retirarla."
+    },
+    {
+      "title": "Nadie se atreve a tocar ese módulo",
+      "situation": "Hay una parte del sistema que todos evitan porque no tiene pruebas y nadie recuerda por qué funciona.",
+      "ask": "Cubre este módulo con pruebas de caracterización antes de que lo toquemos.",
+      "delivers": "Pruebas que capturan el comportamiento real, rarezas incluidas, para que cualquier cambio posterior falle de forma visible en vez de silenciosa."
+    }
   ]
 }

@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Convertir una intención amplia de mejora en cambios acotados, verificables y co
 
 Úsalo para examinar, completar, mejorar o evolucionar un repositorio sin romper lo que ya funciona.
 
-> Examina este repositorio y completa lo que falta sin romper lo existente.
->
-> Comprueba si el README coincide con el código y propone una evolución por fases.
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · El README promete más de lo que el código hace
+
+**Lo que tienes delante —** Retomas un repositorio cuyo README describe funciones que nadie ha comprobado en meses. No sabes qué parte es real.
+
+**Lo que le escribes —**
+
+> Examina este repositorio y dime qué afirma el README que el código no sostiene.
+
+**Lo que te devuelve —** El inventario del estado real y una matriz que clasifica cada afirmación como implementada, parcial, simulada, planificada u obsoleta, con el archivo o la prueba que lo demuestra.
+
+### 2 · Quieres mejorarlo y no sabes por dónde empezar
+
+**Lo que tienes delante —** El proyecto funciona, intuyes que le falta mucho, y cada vez que empiezas a tocarlo acabas perdido entre cosas a medias.
+
+**Lo que le escribes —**
+
+> Completa lo que falta en este repositorio sin romper lo que ya funciona.
+
+**Lo que te devuelve —** Un plan por fases ordenado por valor y riesgo, con cada paso verificable por separado. Ejecuta solo lo que apruebes y deja verde lo que ya lo estaba.
+
+### 3 · Vas a enseñarlo y no quieres sorpresas
+
+**Lo que tienes delante —** Vas a mostrar el repositorio en una entrevista o a un cliente y quieres que diga exactamente lo que puede demostrar.
+
+**Lo que le escribes —**
+
+> Antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.
+
+**Lo que te devuelve —** La lista de afirmaciones sin respaldo, la corrección propuesta para cada una y los riesgos que siguen abiertos aunque se corrijan.
 
 ## Flujo operativo
 

@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,11 +33,39 @@ Incorporar a un programa formativo existente solo las novedades que superen el u
 
 Úsalo cuando un curso o programa formativo ya existe y hay que incorporar novedades de su campo sin reescribirlo entero ni publicar contenido sin verificar.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Un curso que envejeció mientras no mirabas
+
+**Lo que tienes delante —** El programa se escribió hace meses, el campo se movió, y no sabes si lo que cambió afecta al temario o es solo ruido.
+
+**Lo que le escribes —**
+
 > Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.
->
+
+**Lo que te devuelve —** Las fuentes verificadas una a una, el informe de cobertura frente al temario actual y solo los cambios que superan el umbral. «Sin cambios sustantivos» es un resultado legítimo.
+
+### 2 · Incorporar lo nuevo sin reescribir el curso
+
+**Lo que tienes delante —** Apareció algo que sí importa y quieres incorporarlo sin rehacer el programa entero ni romper los materiales ya publicados.
+
+**Lo que le escribes —**
+
 > Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos.
->
+
+**Lo que te devuelve —** Las lecciones tocadas y solo esas, los artefactos regenerados y comprobados, y la lista de lo que quedó igual a propósito.
+
+### 3 · Saber si está desactualizado, sin tocarlo
+
+**Lo que tienes delante —** Antes de invertir tiempo quieres saber si el programa está de verdad desfasado o solo lo parece.
+
+**Lo que le escribes —**
+
 > Comprueba si este programa formativo quedó desactualizado y entrega el informe con fuentes.
+
+**Lo que te devuelve —** El diagnóstico con la fuente que respalda cada novedad, distinguiendo brecha de contenido real de simple cambio de terminología.
 
 ## Flujo operativo
 

@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-plan-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Descomponer una misión transversal, delegar solo lo necesario, resolver depende
 
 Úsalo cuando una tarea cruza coherencia documental, seguridad, evolución, modernización o release y necesita varios especialistas.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Una tarea que no cabe en un solo especialista
+
+**Lo que tienes delante —** Lo que hay que hacer cruza documentación, seguridad, evolución y release, y encargárselo todo a un único agente produce un resultado plano.
+
+**Lo que le escribes —**
+
 > Coordina una revisión integral del repositorio y prepara el próximo release.
->
+
+**Lo que te devuelve —** El mapa de qué se delegó a quién, los hallazgos de cada especialista, los conflictos entre ellos resueltos y un plan integrado con una sola cola de aprobaciones.
+
+### 2 · Dos análisis que se contradicen
+
+**Lo que tienes delante —** Un análisis pide actualizar una dependencia y otro advierte que ese cambio rompe compatibilidad. Ambos tienen razón dentro de su alcance.
+
+**Lo que le escribes —**
+
+> Resuelve las contradicciones entre estos análisis y dame un plan único.
+
+**Lo que te devuelve —** El conflicto nombrado, el criterio con el que se resolvió y un plan que no diluye la responsabilidad de ninguno de los especialistas.
+
+### 3 · Una modernización demasiado grande
+
+**Lo que tienes delante —** La migración toca base de datos, pruebas, documentación y despliegue, y no sabes en qué orden atacarla sin bloquearte.
+
+**Lo que le escribes —**
+
 > Divide esta modernización entre especialistas y consolida un plan verificable.
+
+**Lo que te devuelve —** La descomposición en misiones acotadas, las dependencias entre ellas y el índice de evidencia que permite comprobar cada parte por separado.
 
 ## Flujo operativo
 

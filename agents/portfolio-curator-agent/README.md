@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-low-2ea043)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-plan-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Mantener una visión coherente del portafolio distinguiendo aprendizaje, skills,
 
 Úsalo para revisar varios repositorios, ordenar el portafolio o preparar evidencia para reclutadores y colaboradores.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Veinte repositorios y ninguna historia
+
+**Lo que tienes delante —** Tienes muchos repositorios acumulados y, puestos juntos, no cuentan nada: no se distingue el ejercicio de aprendizaje del producto real.
+
+**Lo que le escribes —**
+
 > Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.
->
+
+**Lo que te devuelve —** Cada repositorio clasificado por su propósito principal, con su madurez honesta y la evidencia que la respalda. No modifica nada: solo lee.
+
+### 2 · Dos repositorios que hacen lo mismo
+
+**Lo que tienes delante —** Sospechas que hay capacidades duplicadas repartidas entre varios repositorios y no sabes cuál debería quedarse con cada una.
+
+**Lo que le escribes —**
+
+> Detecta solapamientos entre mis repositorios y dime cuál es el hogar natural de cada capacidad.
+
+**Lo que te devuelve —** El mapa de duplicación y la recomendación de fusionar, archivar o renombrar, cada una con su justificación.
+
+### 3 · Preparar la conversación con un reclutador
+
+**Lo que tienes delante —** Vas a postular y necesitas explicar tu trabajo en cinco minutos con enlaces que sostengan lo que dices.
+
+**Lo que le escribes —**
+
 > Prepara un mapa de portafolio para reclutadores con evidencia real.
+
+**Lo que te devuelve —** La narrativa que conecta los repositorios sin exagerar adopción, con el enlace concreto que respalda cada afirmación.
 
 ## Flujo operativo
 

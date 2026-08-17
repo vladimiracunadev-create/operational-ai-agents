@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Llevar un producto desde su estado comprobable hacia el siguiente incremento de 
 
 Úsalo cuando un producto ya existe parcialmente y necesita prioridades, fases y mejoras sin perder compatibilidad.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Diez cosas a medias y ninguna prioridad
+
+**Lo que tienes delante —** El producto existe y se usa, hay muchos frentes abiertos y ninguna forma clara de decidir cuál sigue.
+
+**Lo que le escribes —**
+
 > Examina este producto parcial y construye el siguiente incremento útil.
->
+
+**Lo que te devuelve —** El mapa de lo que hoy funciona de verdad, las brechas del recorrido del usuario, un backlog priorizado y el primer incremento implementado y verificado.
+
+### 2 · El roadmap dice una cosa y el código otra
+
+**Lo que tienes delante —** El roadmap lleva meses sin tocarse: marca como hecho cosas que no lo están y no menciona lo que sí se construyó.
+
+**Lo que le escribes —**
+
 > Separa lo implementado de lo planificado y actualiza el roadmap con evidencia.
+
+**Lo que te devuelve —** Cada punto del roadmap contrastado con el código, el roadmap corregido y la lista de lo que se construyó sin haberse planificado.
+
+### 3 · Añadir algo sin romper a quien ya lo usa
+
+**Lo que tienes delante —** Quieres una función nueva, pero hay gente sobre la versión actual a la que no puedes romperle nada.
+
+**Lo que le escribes —**
+
+> Añade esta función manteniendo compatibilidad con lo que ya está en uso.
+
+**Lo que te devuelve —** El incremento implementado, la comprobación de que los recorridos existentes siguen funcionando y el riesgo residual declarado.
 
 ## Flujo operativo
 

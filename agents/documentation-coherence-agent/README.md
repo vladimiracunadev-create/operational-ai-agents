@@ -6,7 +6,7 @@
 
 [![estado](https://img.shields.io/badge/estado-IMPLEMENTED-1f6feb)](../../docs/MATURITY_MODEL.md) [![riesgo](https://img.shields.io/badge/riesgo-medium-d29922)](../../docs/SECURITY_MODEL.md) [![version](https://img.shields.io/badge/version-0.1.0-8957e5)](../../CHANGELOG.md) [![permisos](https://img.shields.io/badge/permisos-default-0969da)](../../docs/SECURITY_MODEL.md)
 
-[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
+[Ficha](#ficha-técnica) · [Delegación](#cuándo-delegarle-trabajo) · [Ejemplos](#ejemplos-de-uso) · [Flujo](#flujo-operativo) · [Contrato](#contrato-de-entrega) · [Permisos](#permisos-y-aprobaciones) · [Instalación](#instalación)
 
 ---
 
@@ -33,9 +33,39 @@ Hacer que la documentación sea una interfaz fiable del sistema, preservando el 
 
 Úsalo cuando README, docs, conteos, diagramas o ejemplos pueden haberse desalineado del código.
 
+## Ejemplos de uso
+
+Tres situaciones concretas en las que este agente es la elección correcta. Cada una parte de lo que tienes delante, no de lo que el agente sabe hacer.
+
+### 1 · Números que dejaron de ser ciertos
+
+**Lo que tienes delante —** El README dice «49 tests» y hay 62; la guía pide una versión del runtime que el CI ya no usa. Nadie mintió: derivó.
+
+**Lo que le escribes —**
+
 > Audita si la documentación coincide con el repositorio y corrige el drift.
->
-> Actualiza los conteos del README desde la fuente de verdad.
+
+**Lo que te devuelve —** Cada afirmación contrastada con su fuente verificable, la lista de las que ya no se sostienen y la corrección aplicada solo sobre los marcadores de estado actual.
+
+### 2 · Corregir el presente sin reescribir el pasado
+
+**Lo que tienes delante —** Los conteos y las versiones también aparecen en el changelog y en notas históricas, y un reemplazo global falsificaría el registro.
+
+**Lo que le escribes —**
+
+> Actualiza los conteos del README desde la fuente de verdad sin tocar el historial.
+
+**Lo que te devuelve —** Los marcadores de estado actual sincronizados y las referencias históricas intactas, con la distinción justificada caso por caso.
+
+### 3 · Un diagrama que ya no representa el sistema
+
+**Lo que tienes delante —** La arquitectura cambió y el diagrama sigue mostrando componentes que se retiraron hace tiempo.
+
+**Lo que le escribes —**
+
+> Revisa si los diagramas y los ejemplos de la documentación siguen siendo ciertos.
+
+**Lo que te devuelve —** El informe de lo que el diagrama afirma frente a lo que el código hace, y lo que quedó sin resolver por falta de fuente fiable.
 
 ## Flujo operativo
 

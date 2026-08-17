@@ -92,8 +92,24 @@
     "Actuar ante terceros en nombre de la persona",
     "Decidir por ella qué datos personales expone"
   ],
-  "examples": [
-    "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
-    "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran."
+  "scenarios": [
+    {
+      "title": "El perfil no cuenta lo que ya construiste",
+      "situation": "Publicaste proyectos con evidencia real y el perfil sigue describiendo lo que hacías hace dos años.",
+      "ask": "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
+      "delivers": "El inventario verificado sección por sección, las brechas priorizadas y los textos propuestos. No escribe nada hasta que lo apruebes."
+    },
+    {
+      "title": "Actualizarlo sin perder tu voz",
+      "situation": "El resumen está bien escrito y es tuyo; solo le faltan cosas. Reescribirlo de cero sería un retroceso.",
+      "ask": "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran.",
+      "delivers": "El texto nuevo integrado sobre el que ya existía, con el diff a la vista y dentro del límite de caracteres del campo."
+    },
+    {
+      "title": "Prepararlo antes de postular",
+      "situation": "Vas a postular esta semana y quieres que lo primero que lea quien te evalúe diga lo correcto.",
+      "ask": "Prepara mi perfil para postular a este tipo de cargo.",
+      "delivers": "La evaluación con la mirada del lector objetivo, los cambios ordenados por impacto y la comprobación de cada uno en el perfil recargado tras aplicarlos."
+    }
   ]
 }

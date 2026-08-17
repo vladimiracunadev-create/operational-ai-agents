@@ -46,7 +46,20 @@ def _agent_card(agent: dict[str, Any]) -> str:
         f"<li>{_e(phase.replace('-', ' '))}</li>" for phase in agent["phases"]
     )
     tools = "".join(f"<code>{_e(tool)}</code>" for tool in agent["tools"])
-    return f"""        <article class="card" data-search="{_e((agent['name'] + ' ' + agent['id'] + ' ' + agent['category'] + ' ' + agent['description']).lower())}">
+    scenarios = "".join(
+        f"<li><b>{_e(item['title'])}</b>"
+        f"<span class=\"scn__sit\">{_e(item['situation'])}</span>"
+        f"<span class=\"scn__ask\">«{_e(item['ask'])}»</span>"
+        f"<span class=\"scn__get\">→ {_e(item['delivers'])}</span></li>"
+        for item in agent["scenarios"]
+    )
+    # El buscador indexa también los escenarios: la gente busca su problema
+    # («el README no coincide»), no la categoría del contrato.
+    haystack = " ".join([
+        agent["name"], agent["id"], agent["category"], agent["description"],
+        *(f"{s['title']} {s['situation']} {s['ask']}" for s in agent["scenarios"]),
+    ]).lower()
+    return f"""        <article class="card" data-search="{_e(haystack)}">
           <header class="card__head">
             <span class="card__icon" aria-hidden="true">{_e(agent['icon'])}</span>
             <div>
@@ -55,11 +68,16 @@ def _agent_card(agent: dict[str, Any]) -> str:
             </div>
           </header>
           <p class="card__mission">{_e(agent['description'])}</p>
+          <p class="card__ask">Le escribes: <q>{_e(agent['scenarios'][0]['ask'])}</q></p>
           <ul class="chips">
             <li class="chip chip--risk-{_e(agent['risk'])}">{_e(RISK_LABEL.get(agent['risk'], agent['risk']))}</li>
             <li class="chip">permisos <code>{_e(agent['permission_mode'])}</code></li>
             <li class="chip">{_e(agent['category'])}</li>
           </ul>
+          <details>
+            <summary>Cuándo lo necesitas · {len(agent['scenarios'])} ejemplos</summary>
+            <ul class="scn">{scenarios}</ul>
+          </details>
           <details>
             <summary>Flujo y capacidades</summary>
             <p class="detail-title">Fases</p>
@@ -209,6 +227,14 @@ td.num{{text-align:right;font-family:var(--mono);font-weight:700}}
 .card__id{{margin:.25rem 0 0}}
 .card__id code{{color:var(--muted);font-size:.78rem}}
 .card__mission{{margin:0;color:var(--muted);font-size:.93rem;flex:1}}
+.card__ask{{margin:0;font-size:.88rem;color:var(--text);border-left:2px solid var(--accent);padding-left:.7rem}}
+.card__ask q{{color:var(--accent-soft);font-style:italic}}
+.scn{{list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.85rem}}
+.scn li{{display:grid;gap:.2rem;font-size:.85rem}}
+.scn b{{color:var(--text);font-size:.88rem}}
+.scn__sit{{color:var(--muted)}}
+.scn__ask{{color:var(--accent-soft);font-style:italic}}
+.scn__get{{color:var(--muted)}}
 .chips{{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:0}}
 .chip{{font-size:.74rem;padding:.22rem .6rem;border-radius:999px;border:1px solid var(--line);color:var(--muted)}}
 .chip code{{color:inherit}}

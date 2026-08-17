@@ -85,8 +85,24 @@
     "Saltar checks por presión",
     "Cambiar historia de versiones"
   ],
-  "examples": [
-    "Prepara la versión 0.4.0 y detente antes de publicar.",
-    "Evalúa si el repositorio está listo para release y entrega un go/no-go."
+  "scenarios": [
+    {
+      "title": "Publicar sin saber si está listo",
+      "situation": "Hay cambios acumulados, alguien pregunta cuándo sale la versión y nadie ha comprobado si el conjunto está en condiciones.",
+      "ask": "Evalúa si el repositorio está listo para release y entrega un go/no-go.",
+      "delivers": "Un informe de preparación con versión, pruebas, seguridad y artefactos comprobados, y una recomendación explícita de publicar o no, con sus motivos."
+    },
+    {
+      "title": "Dejarlo todo listo y decidir tú cuándo sale",
+      "situation": "Quieres versión, changelog y artefactos preparados, pero el momento de publicar lo eliges tú.",
+      "ask": "Prepara la versión 0.4.0 y detente antes de publicar.",
+      "delivers": "La versión subida en todos sus marcadores, el changelog redactado y los artefactos construidos y verificados, con el proceso detenido en el gate de publicación."
+    },
+    {
+      "title": "Un artefacto que compila pero llega vacío",
+      "situation": "El build pasa en verde y aun así el instalador o el paquete llega incompleto a quien lo descarga.",
+      "ask": "Verifica que los artefactos de este release contienen de verdad lo que prometen.",
+      "delivers": "La comprobación hecha dentro del artefacto y no en el log del build, con el contenido contado, más el plan de reversión si algo ya salió publicado."
+    }
   ]
 }

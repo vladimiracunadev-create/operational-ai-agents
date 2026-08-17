@@ -14,7 +14,7 @@ Trabajadores digitales que reciben una **misión completa** — 🧭 evolución 
 [![Platforms](https://img.shields.io/badge/platforms-linux%20%7C%20macOS%20%7C%20windows-555?logo=linux&logoColor=white)](#-instalación)
 [![CI](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml)
-[![Tests](https://img.shields.io/badge/tests-33-brightgreen?logo=pytest&logoColor=white)](tests/test_repository.py)
+[![Tests](https://img.shields.io/badge/tests-34-brightgreen?logo=pytest&logoColor=white)](tests/test_repository.py)
 [![Evals](https://img.shields.io/badge/evals_deterministas-39-2da44e)](docs/EVALUATION.md)
 [![Maturity](https://img.shields.io/badge/madurez-IMPLEMENTED-1f6feb)](docs/MATURITY_MODEL.md)
 [![Supply chain](https://img.shields.io/badge/supply%20chain-0%20deps%20%C2%B7%20SHA%20pinned-2da44e?logo=shieldsdotio&logoColor=white)](SECURITY.md)
@@ -81,6 +81,47 @@ flowchart LR
 
 **13 agentes transversales**, agrupados por el tipo de trabajo del que responden. La fuente canónica es **[`catalog/agents.yaml`](catalog/agents.yaml)**: los manifiestos, las instrucciones, las definiciones de Claude Code, las fichas y la landing page se generan desde ahí, y CI rechaza cualquier divergencia.
 
+### ¿Cuál necesito?
+
+Empieza por lo que tienes delante, no por lo que el agente sabe hacer. Cada ficha abre con **tres ejemplos de uso** completos: qué tienes, qué le escribes y qué te devuelve.
+
+```mermaid
+flowchart LR
+    S(["¿Qué tienes delante?"]) --> C["💻 código que ya existe"]
+    S --> D["📤 algo que se publica"]
+    S --> F["🎓 formación"]
+    S --> I["🚨 algo que falló"]
+    S --> M["🎛️ una misión que cruza todo"]
+
+    C --> C1["no sé si dice la verdad<br/>repository-evolution"]
+    C --> C2["corre sobre tecnología muerta<br/>legacy-modernization"]
+    C --> C3["es un producto a medias<br/>product-evolution"]
+    C --> C4["la doc no cuadra con el código<br/>documentation-coherence"]
+
+    D --> D1["una versión por publicar<br/>release-governance"]
+    D --> D2["muchos repos sin orden<br/>portfolio-curator"]
+    D --> D3["un sitio desactualizado<br/>portfolio-publication"]
+    D --> D4["un perfil profesional<br/>professional-profile"]
+
+    F --> F1["todavía no existe<br/>learning-program-architect"]
+    F --> F2["existe y envejeció<br/>curriculum-evolution"]
+
+    I --> I1["un incidente sin causa clara<br/>incident-root-cause"]
+    I --> I2["hallazgos de seguridad<br/>security-remediation"]
+
+    M --> M1["varios especialistas a la vez<br/>repository-maintenance-coordinator"]
+
+    style S fill:#1f6feb,color:#fff
+    style C fill:#21262d,color:#fff
+    style D fill:#21262d,color:#fff
+    style F fill:#21262d,color:#fff
+    style I fill:#21262d,color:#fff
+    style M fill:#21262d,color:#fff
+```
+
+> [!TIP]
+> Si dudas entre dos, elige el que describa tu **situación**, no el que suene más potente. Un agente que no encaja te devuelve `NO_CHANGE` con el motivo, que también es información.
+
 ### Repositorios y sistemas
 
 Trabajan sobre código que ya existe y no puede dejar de funcionar.
@@ -89,8 +130,8 @@ Trabajan sobre código que ya existe y no puede dejar de funcionar.
 <thead>
 <tr>
 <th width="24%">Agente</th>
-<th width="38%">Qué resuelve</th>
-<th width="20%">Cuándo delegarle</th>
+<th width="36%">Qué resuelve</th>
+<th width="22%">Cuándo lo necesitas</th>
 <th width="18%">Se detiene ante</th>
 </tr>
 </thead>
@@ -114,7 +155,7 @@ Analiza un repositorio real, separa hechos de promesas y conduce su evolución i
 </td>
 <td>
 
-💬 «Examina este repositorio y completa lo que falta sin romper lo existente»<br><br>💬 «Comprueba si el README coincide con el código y propone una evolución por fases»
+🎯 El README promete más de lo que el código hace<br>🎯 Quieres mejorarlo y no sabes por dónde empezar<br>🎯 Vas a enseñarlo y no quieres sorpresas<br><br>💬 «Examina este repositorio y dime qué afirma el README que el código no sostiene.»<br><br>[Los 3 ejemplos completos →](agents/repository-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -142,7 +183,7 @@ Diseña y ejecuta modernizaciones incrementales de sistemas legacy preservando c
 </td>
 <td>
 
-💬 «Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio»<br><br>💬 «Moderniza el acceso a SQL Server manteniendo compatibilidad durante la transición»
+🎯 Una versión del lenguaje que ya nadie soporta<br>🎯 Cambiar el motor de datos sin romper a quien lo consume<br>🎯 Nadie se atreve a tocar ese módulo<br><br>💬 «Diseña la migración de PHP 5.4 a PHP 8.3 sin interrumpir el servicio.»<br><br>[Los 3 ejemplos completos →](agents/legacy-modernization-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -170,7 +211,7 @@ Coordina especialistas para una misión de mantenimiento amplia, conserva decisi
 </td>
 <td>
 
-💬 «Coordina una revisión integral del repositorio y prepara el próximo release»<br><br>💬 «Divide esta modernización entre especialistas y consolida un plan verificable»
+🎯 Una tarea que no cabe en un solo especialista<br>🎯 Dos análisis que se contradicen<br>🎯 Una modernización demasiado grande<br><br>💬 «Coordina una revisión integral del repositorio y prepara el próximo release.»<br><br>[Los 3 ejemplos completos →](agents/repository-maintenance-coordinator/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -190,8 +231,8 @@ Llevan algo parcial hacia su siguiente incremento verificable.
 <thead>
 <tr>
 <th width="24%">Agente</th>
-<th width="38%">Qué resuelve</th>
-<th width="20%">Cuándo delegarle</th>
+<th width="36%">Qué resuelve</th>
+<th width="22%">Cuándo lo necesitas</th>
 <th width="18%">Se detiene ante</th>
 </tr>
 </thead>
@@ -215,7 +256,7 @@ Evalúa productos parciales, alinea producto y arquitectura y convierte brechas 
 </td>
 <td>
 
-💬 «Examina este producto parcial y construye el siguiente incremento útil»<br><br>💬 «Separa lo implementado de lo planificado y actualiza el roadmap con evidencia»
+🎯 Diez cosas a medias y ninguna prioridad<br>🎯 El roadmap dice una cosa y el código otra<br>🎯 Añadir algo sin romper a quien ya lo usa<br><br>💬 «Examina este producto parcial y construye el siguiente incremento útil.»<br><br>[Los 3 ejemplos completos →](agents/product-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -243,7 +284,7 @@ Diseña y mantiene programas educativos evolutivos con progresión, laboratorios
 </td>
 <td>
 
-💬 «Crea un programa de agentes de IA desde fundamentos hasta producción»<br><br>💬 «Amplía este curso con laboratorios reales, evaluaciones y capstones»
+🎯 Un dominio en la cabeza y ningún curso<br>🎯 Un curso que se lee bien pero no se practica<br>🎯 Saber qué falta antes de prometer fechas<br><br>💬 «Crea un programa de agentes de IA desde fundamentos hasta producción.»<br><br>[Los 3 ejemplos completos →](agents/learning-program-architect/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -271,7 +312,7 @@ Mantiene un programa formativo al día con su campo: investiga novedades, verifi
 </td>
 <td>
 
-💬 «Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten»<br><br>💬 «Actualiza el temario con lo aparecido desde la última versión y regenera los artefactos»
+🎯 Un curso que envejeció mientras no mirabas<br>🎯 Incorporar lo nuevo sin reescribir el curso<br>🎯 Saber si está desactualizado, sin tocarlo<br><br>💬 «Revisa si hubo novedades en el campo de este curso e incorpora solo las que lo ameriten.»<br><br>[Los 3 ejemplos completos →](agents/curriculum-evolution-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -291,8 +332,8 @@ Deciden qué se publica y hacen que lo publicado diga la verdad.
 <thead>
 <tr>
 <th width="24%">Agente</th>
-<th width="38%">Qué resuelve</th>
-<th width="20%">Cuándo delegarle</th>
+<th width="36%">Qué resuelve</th>
+<th width="22%">Cuándo lo necesitas</th>
 <th width="18%">Se detiene ante</th>
 </tr>
 </thead>
@@ -316,7 +357,7 @@ Prepara releases coherentes y auditables, valida versiones, pruebas, seguridad, 
 </td>
 <td>
 
-💬 «Prepara la versión 0.4.0 y detente antes de publicar»<br><br>💬 «Evalúa si el repositorio está listo para release y entrega un go/no-go»
+🎯 Publicar sin saber si está listo<br>🎯 Dejarlo todo listo y decidir tú cuándo sale<br>🎯 Un artefacto que compila pero llega vacío<br><br>💬 «Evalúa si el repositorio está listo para release y entrega un go/no-go.»<br><br>[Los 3 ejemplos completos →](agents/release-governance-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -344,7 +385,7 @@ Reconcilia documentación, arquitectura, ejemplos y métricas con las fuentes de
 </td>
 <td>
 
-💬 «Audita si la documentación coincide con el repositorio y corrige el drift»<br><br>💬 «Actualiza los conteos del README desde la fuente de verdad»
+🎯 Números que dejaron de ser ciertos<br>🎯 Corregir el presente sin reescribir el pasado<br>🎯 Un diagrama que ya no representa el sistema<br><br>💬 «Audita si la documentación coincide con el repositorio y corrige el drift.»<br><br>[Los 3 ejemplos completos →](agents/documentation-coherence-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -364,8 +405,8 @@ Clasifican un conjunto de repositorios y sincronizan lo que se afirma sobre ello
 <thead>
 <tr>
 <th width="24%">Agente</th>
-<th width="38%">Qué resuelve</th>
-<th width="20%">Cuándo delegarle</th>
+<th width="36%">Qué resuelve</th>
+<th width="22%">Cuándo lo necesitas</th>
 <th width="18%">Se detiene ante</th>
 </tr>
 </thead>
@@ -389,7 +430,7 @@ Clasifica y audita un portafolio de repositorios, detecta solapamientos y produc
 </td>
 <td>
 
-💬 «Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos»<br><br>💬 «Prepara un mapa de portafolio para reclutadores con evidencia real»
+🎯 Veinte repositorios y ninguna historia<br>🎯 Dos repositorios que hacen lo mismo<br>🎯 Preparar la conversación con un reclutador<br><br>💬 «Clasifica mis repositorios en aprendizaje, skills, agentes, casos y productos.»<br><br>[Los 3 ejemplos completos →](agents/portfolio-curator-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -417,7 +458,7 @@ Reconcilia una superficie publicada —sitio, API, documentos generados y perfil
 </td>
 <td>
 
-💬 «Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar»<br><br>💬 «Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección»
+🎯 La web dice una versión y el release otra<br>🎯 Hace meses que no actualizas lo publicado<br>🎯 Sin destruir lo que escribiste a mano<br><br>💬 «Sincroniza el sitio publicado con el estado real de estos repositorios y muéstrame las brechas antes de aplicar.»<br><br>[Los 3 ejemplos completos →](agents/portfolio-publication-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -445,7 +486,7 @@ Audita y mejora un perfil profesional público alojado en un servicio de tercero
 </td>
 <td>
 
-💬 «Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada»<br><br>💬 «Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran»
+🎯 El perfil no cuenta lo que ya construiste<br>🎯 Actualizarlo sin perder tu voz<br>🎯 Prepararlo antes de postular<br><br>💬 «Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.»<br><br>[Los 3 ejemplos completos →](agents/professional-profile-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -465,8 +506,8 @@ Reducen incertidumbre y riesgo real, sin confundir ausencia de señal con ausenc
 <thead>
 <tr>
 <th width="24%">Agente</th>
-<th width="38%">Qué resuelve</th>
-<th width="20%">Cuándo delegarle</th>
+<th width="36%">Qué resuelve</th>
+<th width="22%">Cuándo lo necesitas</th>
 <th width="18%">Se detiene ante</th>
 </tr>
 </thead>
@@ -490,7 +531,7 @@ Investiga incidentes técnicos con línea temporal, hipótesis falsables, eviden
 </td>
 <td>
 
-💬 «Investiga por qué este servicio produce 504 de forma intermitente»<br><br>💬 «Construye un RCA de esta falla usando logs, métricas y cambios recientes»
+🎯 Un error que aparece y desaparece<br>🎯 El CI falla solo a veces<br>🎯 Ya se arregló, pero nadie sabe por qué<br><br>💬 «Investiga por qué este servicio produce 504 de forma intermitente.»<br><br>[Los 3 ejemplos completos →](agents/incident-root-cause-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
@@ -518,7 +559,7 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 </td>
 <td>
 
-💬 «Remedia estos CVE y verifica que el sistema siga funcionando»<br><br>💬 «Analiza este hallazgo SAST, confirma si es explotable y corrígelo»
+🎯 Un scan con cincuenta alertas<br>🎯 ¿Este hallazgo es real o es ruido?<br>🎯 «Cero vulnerabilidades» que no significa nada<br><br>💬 «Remedia estos CVE y verifica que el sistema siga funcionando.»<br><br>[Los 3 ejemplos completos →](agents/security-remediation-agent/README.md#ejemplos-de-uso)
 
 </td>
 <td>
