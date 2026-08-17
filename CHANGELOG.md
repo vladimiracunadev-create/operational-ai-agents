@@ -2,6 +2,28 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [versionado semántico](https://semver.org/lang/es/).
 
+## [No publicado]
+
+### Añadido
+
+- **`professional-profile-agent`** — audita un perfil profesional público alojado en
+  un servicio de terceros, lo contrasta con la evidencia real del portafolio y publica
+  solo los textos aprobados. Es el primer agente del catálogo cuya superficie de destino
+  es de **autoría humana y sin control de versiones**: no hay `git checkout` que revierta
+  un campo sobrescrito, así que el contrato exige comprobar cada sección por su formulario
+  de edición antes de declararla vacía, integrar sobre el texto existente mostrando el
+  diff, y verificar cada guardado sobre la superficie recargada en vez de sobre la
+  ausencia de error.
+- Tres evaluaciones deterministas nuevas (39 en total).
+
+### Cambiado
+
+- Conteos de agentes y evaluaciones sincronizados en README, `RECRUITER.md` y
+  `evidence/README.md` tras crecer el catálogo a trece.
+
+> La versión del repositorio sigue en `0.2.0`: publicar un release es una decisión
+> humana, no una consecuencia de que la build esté verde.
+
 ## [0.2.0] - 2026-08-13
 
 Dos agentes nuevos, fases que por fin explican qué hacen, y una revisión completa

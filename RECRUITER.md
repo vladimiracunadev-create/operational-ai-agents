@@ -13,8 +13,8 @@
 | Distinguir agente, skill, workflow y caso de negocio | [`docs/AGENT_CONTRACT.md`](docs/AGENT_CONTRACT.md) y la tabla comparativa del README |
 | Diseño por contrato con una sola fuente de verdad | `catalog/agents.yaml` y las cinco vistas que se generan de él |
 | Modelado de permisos y autorización | tool allowlists, `permission_mode`, `isolation` y gates humanos |
-| Human-in-the-loop real | `approval_points` en los doce agentes, con pruebas que verifican que existen |
-| Evaluación automatizada de contratos | 36 evaluaciones deterministas que fallan si alguien retira un gate |
+| Human-in-the-loop real | `approval_points` en los trece agentes, con pruebas que verifican que existen |
+| Evaluación automatizada de contratos | 39 evaluaciones deterministas que fallan si alguien retira un gate |
 | Honestidad de estado | un modelo de madurez de cinco niveles que hoy sitúa todo en `IMPLEMENTED` |
 | Ingeniería de entrega | CI multiplataforma, CodeQL, build de wheel, imagen Docker verificada en vivo y Pages |
 | Prevención de drift documental | pruebas que verifican enlaces, anclas, conteos y coherencia de versión |
@@ -29,7 +29,7 @@ Eso convierte una promesa habitual —«la documentación está actualizada»—
 
 Esto es parte del trabajo, no una carencia que ocultar:
 
-- **No afirma uso productivo.** Los doce agentes declaran `IMPLEMENTED`: contrato completo y validado. Ninguno ha registrado todavía una misión real con evidencia.
+- **No afirma uso productivo.** Los trece agentes declaran `IMPLEMENTED`: contrato completo y validado. Ninguno ha registrado todavía una misión real con evidencia.
 - **No afirma métricas de adopción**, costo ni retrabajo, porque no existen aún.
 - **No afirma equivalencia entre runtimes.** Está adaptado a uno, y la portabilidad del núcleo es un diseño, no una demostración.
 
@@ -37,7 +37,7 @@ El mecanismo para incorporar evidencia real sin exagerar está construido: [`doc
 
 ## Por dónde mirar en cinco minutos
 
-1. **[`catalog/agents.yaml`](catalog/agents.yaml)** — el contrato canónico de los doce agentes.
+1. **[`catalog/agents.yaml`](catalog/agents.yaml)** — el contrato canónico de los trece agentes.
 2. **La ficha de un agente**, por ejemplo [`security-remediation-agent`](agents/security-remediation-agent/README.md) — misión, fase por fase, permisos y gates.
 3. **[`docs/SECURITY_MODEL.md`](docs/SECURITY_MODEL.md)** — la tabla de garantías, cada una con el nombre de la prueba que la respalda.
 4. **[`tests/test_repository.py`](tests/test_repository.py)** — las pruebas que convierten esas garantías en propiedades verificadas.

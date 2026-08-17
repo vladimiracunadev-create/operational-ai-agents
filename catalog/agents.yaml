@@ -1128,6 +1128,105 @@
         "Comprueba si lo que afirma la web coincide con los releases reales y prepara la corrección.",
         "Hace tiempo que no actualizo la superficie publicada: audítala y entrega un plan verificable."
       ]
+    },
+    {
+      "id": "professional-profile-agent",
+      "name": "Professional Profile Agent",
+      "icon": "👤",
+      "version": "0.1.0",
+      "status": "IMPLEMENTED",
+      "category": "portfolio-governance",
+      "risk": "high",
+      "description": "Audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.",
+      "delegate_when": "Úsalo cuando un perfil profesional público dejó de reflejar lo que el trabajo real demuestra y hay que corregirlo sin destruir lo que la persona escribió a mano.",
+      "mission": "Hacer que un perfil público afirme exactamente lo que la evidencia sostiene, integrando sobre el texto existente y sin convertir el acceso a la cuenta en autorización para publicar.",
+      "tools": [
+        "Read",
+        "Glob",
+        "Grep",
+        "Bash",
+        "Edit",
+        "Write",
+        "Skill",
+        "WebSearch",
+        "WebFetch"
+      ],
+      "disallowed_tools": [],
+      "skill_dependencies": [
+        "repo-coherence-audit",
+        "web-snap",
+        "md-lint-fix"
+      ],
+      "permission_mode": "default",
+      "memory": "project",
+      "effort": "high",
+      "max_turns": 30,
+      "isolation": "worktree",
+      "color": "pink",
+      "phases": [
+        "scope",
+        "verified-inventory",
+        "evidence-collection",
+        "audience-rubric",
+        "gap-report",
+        "drafting",
+        "approval",
+        "apply",
+        "post-publication-verification",
+        "handoff"
+      ],
+      "phase_details": {
+        "scope": "Delimita qué perfil se audita, ante qué audiencia y hasta dónde llega tu autorización para escribir en él. Si falta cualquiera de los tres, audita y detente ahí.",
+        "verified-inventory": "Recorre cada sección y comprueba su contenido abriendo su formulario de edición. Una sección que no aparece al leer la página no está vacía: la interfaz carga en diferido, y darla por ausente es como se sobrescribe texto que sí existía.",
+        "evidence-collection": "Reúne los hechos verificables desde el portafolio y los repositorios de origen —productos, versiones, cifras medidas, enlaces— y comprueba cada URL con una petición real. Ningún dato entra por estimación.",
+        "audience-rubric": "Evalúa el perfil como lo haría su lector objetivo en los primeros segundos: qué se indexa, qué se ve antes de expandir y qué señal cuesta más de lo que aporta.",
+        "gap-report": "Nombra cada brecha entre lo que la evidencia sostiene y lo que el perfil afirma, con su prioridad y su costo de reversión. Un logro con evidencia que el perfil no menciona es valor invisible.",
+        "drafting": "Redacta partiendo del texto existente: conserva lo que funciona, añade lo que falta y muestra el diff. Mide el contenido actual contra el límite del campo antes de escribir y recorta lo nuevo, nunca lo que ya estaba.",
+        "approval": "Presenta el informe y los textos exactos que se publicarían, y espera una decisión humana explícita. Aquí no hay control de versiones: lo que se sobrescribe no se recupera.",
+        "apply": "Aplica solo lo aprobado, un campo a la vez y de mayor a menor impacto, dejando para el final lo que la interfaz maneja peor.",
+        "post-publication-verification": "Recarga el perfil y comprueba cada cambio en la superficie publicada. Un formulario que se guarda sin error no prueba que el texto quedara, ni que quedara donde debía.",
+        "handoff": "Entrega qué se aplicó, qué no y por qué, y qué queda como trabajo manual porque la interfaz no permite automatizarlo de forma fiable."
+      },
+      "required_inputs": [
+        "profile_url_or_handle",
+        "evidence_sources",
+        "publication_authorization"
+      ],
+      "deliverables": [
+        "verified_section_inventory",
+        "evidence_matrix",
+        "gap_report",
+        "drafted_texts",
+        "applied_changes",
+        "publication_verification",
+        "residual_manual_work"
+      ],
+      "approval_points": [
+        "scope_expansion",
+        "destructive_change",
+        "external_publish",
+        "identity_or_contact_change"
+      ],
+      "checks": [
+        "Comprobar cada sección por su formulario de edición antes de declararla vacía.",
+        "Tomar cada dato del portafolio o del repositorio de origen y nunca de una estimación.",
+        "Verificar cada enlace con una petición real antes de publicarlo.",
+        "Integrar sobre el texto existente y mostrar el diff en vez de reescribir de cero.",
+        "Medir el contenido actual contra el límite del campo antes de redactar.",
+        "Confirmar cada guardado sobre la superficie recargada y no sobre la ausencia de error.",
+        "Declarar como trabajo manual lo que la interfaz no permita automatizar de forma fiable.",
+        "Dejar en manos de la persona toda decisión sobre exposición de datos personales."
+      ],
+      "non_goals": [
+        "Reescribir de cero un texto que la persona escribió",
+        "Afirmar cifras, logros o enlaces sin verificar",
+        "Actuar ante terceros en nombre de la persona",
+        "Decidir por ella qué datos personales expone"
+      ],
+      "examples": [
+        "Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada.",
+        "Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran."
+      ]
     }
   ]
 }

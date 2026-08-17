@@ -99,7 +99,7 @@ class RepositoryTests(unittest.TestCase):
         cls.agents = agents_by_id(cls.catalog)
 
     def test_catalog_size_is_declared(self):
-        self.assertEqual(12, len(self.catalog["agents"]))
+        self.assertEqual(13, len(self.catalog["agents"]))
 
     def test_ids_unique_and_valid(self):
         ids = list(self.agents)
@@ -164,13 +164,13 @@ class RepositoryTests(unittest.TestCase):
 
     def test_all_deterministic_evals_pass(self):
         results = [case for agent in self.catalog["agents"] for case in evaluate_agent(ROOT, agent)]
-        self.assertEqual(36, len(results))
+        self.assertEqual(39, len(results))
         self.assertTrue(all(item["passed"] for item in results))
 
     def test_export_writes_every_agent(self):
         with tempfile.TemporaryDirectory() as temp:
             paths = export_claude(self.catalog["agents"], Path(temp), preload_skills=True)
-            self.assertEqual(12, len(paths))
+            self.assertEqual(13, len(paths))
             self.assertTrue(all(path.is_file() for path in paths))
             self.assertIn("skills:", paths[0].read_text(encoding="utf-8"))
 
@@ -312,7 +312,7 @@ class RepositoryTests(unittest.TestCase):
             self.assertIn(agent["name"], actual, f"{agent['id']} ausente de la landing")
             self.assertIn(f"agents/{agent['id']}/README.md", actual)
         self.assertEqual(len(self.catalog["agents"]), stats["agentes"])
-        self.assertEqual(36, stats["evaluaciones"])
+        self.assertEqual(39, stats["evaluaciones"])
 
     def test_readme_badges_match_reality(self):
         """Los badges numéricos del README son afirmaciones: deben ser ciertas."""

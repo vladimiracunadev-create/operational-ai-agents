@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>Operational AI Agents · agentes operativos con evidencia verificable</title>
-<meta name="description" content="Colección de 12 agentes operativos reutilizables: reciben una misión completa, respetan gates humanos y entregan evidencia verificable. Contratos versionados y adaptador para Claude Code.">
+<meta name="description" content="Colección de 13 agentes operativos reutilizables: reciben una misión completa, respetan gates humanos y entregan evidencia verificable. Contratos versionados y adaptador para Claude Code.">
 <link rel="canonical" href="https://vladimiracunadev-create.github.io/operational-ai-agents/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Crect x='8' y='11' width='16' height='12' rx='3' fill='%23fff'/%3E%3Ccircle cx='13' cy='17' r='1.8' fill='%238b5cf6'/%3E%3Ccircle cx='19' cy='17' r='1.8' fill='%238b5cf6'/%3E%3Crect x='15' y='6' width='2' height='5' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Operational AI Agents">
-<meta property="og:description" content="12 agentes operativos que reciben una misión completa, respetan gates humanos y entregan evidencia verificable.">
+<meta property="og:description" content="13 agentes operativos que reciben una misión completa, respetan gates humanos y entregan evidencia verificable.">
 <meta property="og:url" content="https://vladimiracunadev-create.github.io/operational-ai-agents/">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Página generada por `operational-agents sync` desde catalog/agents.yaml. No editar a mano. -->
@@ -189,18 +189,18 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <p class="eyebrow">Catálogo contractual · v0.2.0</p>
   <h1>Agentes que responden por un resultado, no por un prompt.</h1>
   <p class="hero__lead">
-    12 agentes operativos reutilizables. Cada uno recibe una <strong>misión completa</strong>,
+    13 agentes operativos reutilizables. Cada uno recibe una <strong>misión completa</strong>,
     decide su propia secuencia de trabajo, usa capacidades dentro de límites declarados,
     <strong>se detiene en gates humanos</strong> y entrega <strong>evidencia verificable</strong>.
   </p>
   <div class="cta">
     <a class="btn btn--primary" href="#instalacion">Instalar en 4 líneas</a>
-    <a class="btn btn--ghost" href="#catalogo">Ver los 12 agentes</a>
+    <a class="btn btn--ghost" href="#catalogo">Ver los 13 agentes</a>
     <a class="btn btn--ghost" href="https://github.com/vladimiracunadev-create/operational-ai-agents">Código en GitHub ↗</a>
   </div>
   <div class="stats">
-    <div class="stat"><b>12</b><span>agentes con contrato</span></div>
-    <div class="stat"><b>36</b><span>evaluaciones deterministas</span></div>
+    <div class="stat"><b>13</b><span>agentes con contrato</span></div>
+    <div class="stat"><b>39</b><span>evaluaciones deterministas</span></div>
     <div class="stat"><b>33</b><span>pruebas automatizadas</span></div>
     <div class="stat"><b>0</b><span>dependencias runtime</span></div>
   </div>
@@ -250,7 +250,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
 <pre id="install-code"><span class="p">$</span> git clone https://github.com/vladimiracunadev-create/operational-ai-agents.git
 <span class="p">$</span> cd operational-ai-agents
 <span class="p">$</span> python -m pip install -e .
-<span class="p">$</span> operational-agents validate <span class="c"># OK: 12 agentes válidos</span></pre>
+<span class="p">$</span> operational-agents validate <span class="c"># OK: 13 agentes válidos</span></pre>
     </div>
   </div>
   <div class="flow-legend">
@@ -271,7 +271,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <div class="filter">
     <label class="skip" for="q">Filtrar agentes</label>
     <input id="q" type="search" placeholder="Filtrar por nombre, categoría o misión…" autocomplete="off">
-    <output id="count" for="q">12 agentes</output>
+    <output id="count" for="q">13 agentes</output>
   </div>
   <div class="grid" id="grid">
         <article class="card" data-search="repository evolution agent repository-evolution-agent repository-engineering analiza un repositorio real, separa hechos de promesas y conduce su evolución incremental con pruebas y evidencia.">
@@ -598,6 +598,33 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
+        <article class="card" data-search="professional profile agent professional-profile-agent portfolio-governance audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">👤</span>
+            <div>
+              <h3>Professional Profile Agent</h3>
+              <p class="card__id"><code>professional-profile-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.</p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>default</code></li>
+            <li class="chip">portfolio-governance</li>
+          </ul>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>verified inventory</li><li>evidence collection</li><li>audience rubric</li><li>gap report</li><li>drafting</li><li>approval</li><li>apply</li><li>post publication verification</li><li>handoff</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>Bash</code><code>Edit</code><code>Write</code><code>Skill</code><code>WebSearch</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>destructive_change</li><li>external_publish</li><li>identity_or_contact_change</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/professional-profile-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
   </div>
 </section>
 
@@ -706,7 +733,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
       <thead><tr><th>Estado</th><th>Requisito mínimo</th><th>Hoy</th></tr></thead>
       <tbody>
           <tr><td><code>DRAFT</code></td><td>Definición incompleta; no debe instalarse.</td><td class="num">0</td></tr>
-          <tr><td><code>IMPLEMENTED</code></td><td>Contrato, instrucciones, schemas y evaluaciones deterministas disponibles.</td><td class="num">12</td></tr>
+          <tr><td><code>IMPLEMENTED</code></td><td>Contrato, instrucciones, schemas y evaluaciones deterministas disponibles.</td><td class="num">13</td></tr>
           <tr><td><code>OPERATIONAL_LOCAL</code></td><td>El propietario lo usó en una tarea real local con evidencia sanitizada.</td><td class="num">0</td></tr>
           <tr><td><code>INTEGRATED</code></td><td>Conectado a herramientas o servicios reales y probado de extremo a extremo.</td><td class="num">0</td></tr>
           <tr><td><code>PRODUCTION_OBSERVED</code></td><td>Uso recurrente con métricas, trazas y revisión humana.</td><td class="num">0</td></tr>
@@ -714,7 +741,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
     </table>
   </div>
   <p class="note">
-    <b>Qué significa esto.</b> Los 12 agentes declaran <code>IMPLEMENTED</code>: contrato,
+    <b>Qué significa esto.</b> Los 13 agentes declaran <code>IMPLEMENTED</code>: contrato,
     instrucciones, schemas y evaluaciones validados localmente. Eso demuestra integridad del paquete,
     <b>no</b> adopción productiva. La promoción de estado exige evidencia real y revisada.
   </p>

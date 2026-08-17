@@ -8,7 +8,7 @@
 
 ## v0.1 — base implementada ✅
 
-- [x] Doce agentes transversales con contrato completo.
+- [x] Trece agentes transversales con contrato completo.
 - [x] Catálogo como fuente única de verdad, con vistas generadas y sin drift.
 - [x] Exportación a Claude Code que preserva los agentes del usuario.
 - [x] Planificador determinista, panel local, validación y evaluaciones.

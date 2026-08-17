@@ -10,12 +10,12 @@ Trabajadores digitales que reciben una **misión completa** — 🧭 evolución 
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.2.0-8957e5?logo=github)](CHANGELOG.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)](pyproject.toml)
-[![Agents](https://img.shields.io/badge/agentes-12-1f6feb)](#-catálogo)
+[![Agents](https://img.shields.io/badge/agentes-13-1f6feb)](#-catálogo)
 [![Platforms](https://img.shields.io/badge/platforms-linux%20%7C%20macOS%20%7C%20windows-555?logo=linux&logoColor=white)](#-instalación)
 [![CI](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml)
 [![Tests](https://img.shields.io/badge/tests-33-brightgreen?logo=pytest&logoColor=white)](tests/test_repository.py)
-[![Evals](https://img.shields.io/badge/evals_deterministas-36-2da44e)](docs/EVALUATION.md)
+[![Evals](https://img.shields.io/badge/evals_deterministas-39-2da44e)](docs/EVALUATION.md)
 [![Maturity](https://img.shields.io/badge/madurez-IMPLEMENTED-1f6feb)](docs/MATURITY_MODEL.md)
 [![Supply chain](https://img.shields.io/badge/supply%20chain-0%20deps%20%C2%B7%20SHA%20pinned-2da44e?logo=shieldsdotio&logoColor=white)](SECURITY.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?logo=github)](CONTRIBUTING.md)
@@ -79,7 +79,7 @@ flowchart LR
 
 ## 📚 Catálogo
 
-**12 agentes transversales**, agrupados por el tipo de trabajo del que responden. La fuente canónica es **[`catalog/agents.yaml`](catalog/agents.yaml)**: los manifiestos, las instrucciones, las definiciones de Claude Code, las fichas y la landing page se generan desde ahí, y CI rechaza cualquier divergencia.
+**13 agentes transversales**, agrupados por el tipo de trabajo del que responden. La fuente canónica es **[`catalog/agents.yaml`](catalog/agents.yaml)**: los manifiestos, las instrucciones, las definiciones de Claude Code, las fichas y la landing page se generan desde ahí, y CI rechaza cualquier divergencia.
 
 ### Repositorios y sistemas
 
@@ -426,6 +426,34 @@ Reconcilia una superficie publicada —sitio, API, documentos generados y perfil
 
 </td>
 </tr>
+<tr>
+<td>
+
+### 👤 [professional-profile-agent](agents/professional-profile-agent/README.md)
+
+<sub>10 fases · default · worktree</sub>
+
+![riesgo](https://img.shields.io/badge/riesgo-alto-cf222e)
+
+</td>
+<td>
+
+Audita y mejora un perfil profesional público alojado en un servicio de terceros, contrastándolo con la evidencia real del portafolio y publicando solo los textos aprobados.
+
+**Misión —** Hacer que un perfil público afirme exactamente lo que la evidencia sostiene, integrando sobre el texto existente y sin convertir el acceso a la cuenta en autorización para publicar.
+
+</td>
+<td>
+
+💬 «Audita mi perfil profesional contra mi portafolio y muéstrame las brechas antes de tocar nada»<br><br>💬 «Actualiza el resumen y los proyectos del perfil con lo que mis repositorios ya demuestran»
+
+</td>
+<td>
+
+🚦 `scope_expansion`<br>🚦 `destructive_change`<br>🚦 `external_publish`<br>🚦 `identity_or_contact_change`
+
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -503,7 +531,7 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 </table>
 
 > [!NOTE]
-> Los 12 agentes declaran `IMPLEMENTED`: contrato completo y validado, **no** adopción productiva. Ver [Madurez](#-madurez).
+> Los 13 agentes declaran `IMPLEMENTED`: contrato completo y validado, **no** adopción productiva. Ver [Madurez](#-madurez).
 
 ---
 
@@ -517,7 +545,7 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 git clone https://github.com/vladimiracunadev-create/operational-ai-agents.git
 cd operational-ai-agents
 python -m pip install -e .
-operational-agents validate     # OK: 12 agentes válidos
+operational-agents validate     # OK: 13 agentes válidos
 ```
 
 ### 🔌 Instalar los agentes en Claude Code
@@ -723,7 +751,7 @@ Ningún agente se presenta como productivo solo porque su Markdown sea válido:
 | `PRODUCTION_OBSERVED` | uso recurrente con trazas, métricas y revisión humana | 0 |
 
 > [!NOTE]
-> Los doce agentes declaran `IMPLEMENTED`. Eso demuestra **integridad del paquete**, no adopción productiva. Los criterios de promoción están en **[docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md)** y el formato de evidencia en **[docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md)**.
+> Los trece agentes declaran `IMPLEMENTED`. Eso demuestra **integridad del paquete**, no adopción productiva. Los criterios de promoción están en **[docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md)** y el formato de evidencia en **[docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md)**.
 
 ---
 
@@ -741,7 +769,7 @@ O paso a paso:
 ruff check .
 operational-agents sync --check     # sin drift respecto del catálogo
 operational-agents validate         # integridad de los paquetes
-operational-agents eval --all       # 36 evaluaciones deterministas
+operational-agents eval --all       # 39 evaluaciones deterministas
 python -m unittest discover -s tests -v
 ```
 
@@ -810,9 +838,10 @@ Resumen — versión completa con no-objetivos en [ROADMAP.md](ROADMAP.md).
 
 - [x] 📡 `curriculum-evolution-agent` — mantiene un programa formativo al día con su campo, verificando cada fuente
 - [x] 🌐 `portfolio-publication-agent` — reconcilia una superficie publicada con el estado real de sus repositorios
+- [x] 👤 `professional-profile-agent` — audita un perfil profesional público contra la evidencia y publica solo lo aprobado
 - [x] 📖 `phase_details` — cada fase declara qué ocurre en ella; el validador rechaza una fase sin explicar
 - [x] 🔗 Validación de anclas Markdown con el algoritmo de slug de GitHub
-- [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/12)*
+- [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/13)*
 - [ ] 📂 Incorporar casos sanitizados y promover solo los que cumplan `OPERATIONAL_LOCAL`
 - [ ] 📊 Métricas de éxito, duración, costo, intervención humana y retrabajo
 - [ ] 🎯 Evaluaciones model-graded versionadas por runtime y modelo
