@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "agent_id": "timeline-agent",
+  "risk": "high",
+  "permission_mode": "plan",
+  "read_first": true,
+  "write_allowed": false,
+  "financial_action_allowed": false,
+  "private_key_access_allowed": false,
+  "production_mutation_allowed": false,
+  "publish_allowed_without_human": false,
+  "approval_points": [
+    "scope_expansion",
+    "sensitive_data_export",
+    "production_mutation",
+    "financial_action"
+  ],
+  "evidence_required": true,
+  "secret_logging": "forbidden"
+}

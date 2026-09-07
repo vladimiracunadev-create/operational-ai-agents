@@ -41,6 +41,17 @@ El salto que de verdad importa: hoy ningún agente ha demostrado resolver una mi
 > [!NOTE]
 > Este hito no se cierra escribiendo documentación. Se cierra con casos revisados en `evidence/case-studies/`, uno por agente promovido.
 
+## Control financiero — contratos implementados ✅
+
+- [x] Diez especialistas de conciliación, IAM, wallets, blockchain, trading, evidencia, timeline, causa raíz, cumplimiento y reporte ejecutivo.
+- [x] Tools de solo lectura y denegación verificable de claves privadas, acciones financieras y mutación productiva.
+- [x] Mensajes estructurados para hallazgos, evidencia y decisión humana.
+- [x] Eventos de observabilidad con duración, confianza, evidencia y decisión.
+- [x] Escenarios deterministas de operación normal, error, ausencia, operación no autorizada, duplicado y falso positivo.
+
+> [!NOTE]
+> `IMPLEMENTED` acredita integridad del contrato y sus evaluaciones, no operación financiera real ni cumplimiento regulatorio observado.
+
 ## v0.5 — integraciones
 
 - [ ] Segundo runtime autónomo real (Codex CLI o Gemini CLI) con sus evaluaciones por runtime.

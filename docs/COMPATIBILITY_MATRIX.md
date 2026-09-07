@@ -37,6 +37,16 @@
 | [`curriculum-evolution-agent`](../agents/curriculum-evolution-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
 | [`portfolio-publication-agent`](../agents/portfolio-publication-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
 | [`professional-profile-agent`](../agents/professional-profile-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`reconciliation-agent`](../agents/reconciliation-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`iam-audit-agent`](../agents/iam-audit-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`wallet-risk-agent`](../agents/wallet-risk-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`blockchain-monitoring-agent`](../agents/blockchain-monitoring-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`trading-risk-agent`](../agents/trading-risk-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`evidence-agent`](../agents/evidence-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`timeline-agent`](../agents/timeline-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`compliance-evidence-agent`](../agents/compliance-evidence-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`executive-reporting-agent`](../agents/executive-reporting-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
+| [`financial-root-cause-agent`](../agents/financial-root-cause-agent/README.md) | ✅ SUPPORTED | ⚠️ DEGRADED |
 
 ## Runtimes
 
@@ -94,7 +104,7 @@ Prepara el paquete portable y las verificaciones; la ejecución la realiza una p
 
 Un `DEGRADED` no es un fallo: es una capacidad disponible con condiciones que el adaptador declara por escrito.
 
-- `manual` — 13 de 13 agentes, por: `filesystem.find`, `filesystem.read`, `filesystem.search`, `filesystem.write`, `network.fetch`, `orchestration.delegate`, `shell.execute`
+- `manual` — 23 de 23 agentes, por: `filesystem.find`, `filesystem.read`, `filesystem.search`, `filesystem.write`, `network.fetch`, `orchestration.delegate`, `shell.execute`
 
 ## Capacidades ofrecidas y denegadas por contrato
 
@@ -115,6 +125,16 @@ Acceso no es autorización: estas capacidades existen en el runtime y el agente 
 | `curriculum-evolution-agent` | `orchestration.delegate` | `orchestration.delegate` |
 | `portfolio-publication-agent` | `orchestration.delegate` | `orchestration.delegate` |
 | `professional-profile-agent` | `orchestration.delegate` | `orchestration.delegate` |
+| `reconciliation-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `iam-audit-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `wallet-risk-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `blockchain-monitoring-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `trading-risk-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `evidence-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `timeline-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `compliance-evidence-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `executive-reporting-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
+| `financial-root-cause-agent` | `filesystem.write`, `knowledge.skill`, `orchestration.delegate`, `shell.execute` | `filesystem.write`, `orchestration.delegate`, `shell.execute` |
 
 ## Reproducirlo
 

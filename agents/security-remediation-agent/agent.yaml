@@ -124,5 +124,20 @@
       "returns": "- **Cobertura real del scan: 31%** — 7 de 22 dependencias resolvían a una versión concreta.\n- **Fuera del análisis (15)** — `requests`, `flask`, `sqlalchemy`, `celery`… todas declaradas con rango abierto.\n- **Qué significa** — «cero vulnerabilidades» aquí significa «cero en el 31% que se pudo mirar».\n- **Receta** — generar el lockfile del gestor detectado y repetir el análisis sobre la resolución completa.",
       "status": "`COMPLETED` — 0 vulnerabilidades encontradas y un hallazgo mayor: el informe anterior tranquilizaba sin haber mirado casi nada."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

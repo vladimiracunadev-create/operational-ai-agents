@@ -31,6 +31,12 @@ MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)\)")
 INDENTED_HEADING = re.compile(r"^\s{4,}#{1,6}\s")
 INDENTED_TABLE_RULE = re.compile(r"^\s{4,}\|[\s:-]+\|\s*$")
 FENCE = re.compile(r"^\s*(```|~~~)")
+FINANCIAL_AGENT_IDS = {
+    "reconciliation-agent", "iam-audit-agent", "wallet-risk-agent",
+    "blockchain-monitoring-agent", "trading-risk-agent", "evidence-agent",
+    "timeline-agent", "financial-root-cause-agent", "compliance-evidence-agent",
+    "executive-reporting-agent",
+}
 
 
 def markdown_files() -> list[Path]:
@@ -99,7 +105,36 @@ class RepositoryTests(unittest.TestCase):
         cls.agents = agents_by_id(cls.catalog)
 
     def test_catalog_size_is_declared(self):
-        self.assertEqual(13, len(self.catalog["agents"]))
+        self.assertEqual(23, len(self.catalog["agents"]))
+
+    def test_financial_agent_family_is_complete(self):
+        self.assertTrue(FINANCIAL_AGENT_IDS.issubset(self.agents))
+        self.assertEqual(10, len(FINANCIAL_AGENT_IDS))
+
+    def test_financial_agents_are_strictly_read_only(self):
+        for aid in FINANCIAL_AGENT_IDS:
+            agent = self.agents[aid]
+            self.assertNotIn("Write", agent["tools"], aid)
+            self.assertNotIn("Edit", agent["tools"], aid)
+            self.assertNotIn("Bash", agent["tools"], aid)
+            self.assertIn("Write", agent["disallowed_tools"], aid)
+            self.assertIn("Edit", agent["disallowed_tools"], aid)
+
+    def test_financial_policies_forbid_asset_authority(self):
+        for aid in FINANCIAL_AGENT_IDS:
+            policy = json.loads((ROOT / "agents" / aid / "policies" / "policy.yaml").read_text(encoding="utf-8"))
+            self.assertIs(policy["financial_action_allowed"], False, aid)
+            self.assertIs(policy["private_key_access_allowed"], False, aid)
+            self.assertIs(policy["production_mutation_allowed"], False, aid)
+
+    def test_financial_messages_and_observability_are_structured(self):
+        for aid in FINANCIAL_AGENT_IDS:
+            schema = json.loads((ROOT / "agents" / aid / "schemas" / "output.schema.json").read_text(encoding="utf-8"))
+            self.assertIn("findings", schema["required"], aid)
+            self.assertIn("human_review", schema["required"], aid)
+        event = json.loads((ROOT / "shared" / "observability" / "event.schema.json").read_text(encoding="utf-8"))
+        required = {"agent_id", "tool", "input_refs", "output", "duration_ms", "confidence", "evidence_refs", "human_decision"}
+        self.assertTrue(required.issubset(event["required"]))
 
     def test_ids_unique_and_valid(self):
         ids = list(self.agents)
@@ -164,13 +199,13 @@ class RepositoryTests(unittest.TestCase):
 
     def test_all_deterministic_evals_pass(self):
         results = [case for agent in self.catalog["agents"] for case in evaluate_agent(ROOT, agent)]
-        self.assertEqual(39, len(results))
+        self.assertEqual(69, len(results))
         self.assertTrue(all(item["passed"] for item in results))
 
     def test_export_writes_every_agent(self):
         with tempfile.TemporaryDirectory() as temp:
             paths = export_claude(self.catalog["agents"], Path(temp), preload_skills=True)
-            self.assertEqual(13, len(paths))
+            self.assertEqual(23, len(paths))
             self.assertTrue(all(path.is_file() for path in paths))
             self.assertIn("skills:", paths[0].read_text(encoding="utf-8"))
 
@@ -296,7 +331,7 @@ class RepositoryTests(unittest.TestCase):
         era verdad cuando se escribió. Solo se sincroniza el marcador de estado
         actual. Confundir ambos reescribe el pasado para cuadrar el presente.
         """
-        palabras = {"diez": 10, "once": 11, "doce": 12, "trece": 13, "catorce": 14}
+        palabras = {"diez": 10, "once": 11, "doce": 12, "trece": 13, "catorce": 14, "veintitrés": 23}
         total = len(self.catalog["agents"])
         actual = self.catalog["repository_version"]
         patron = re.compile(r"\b(\d{1,3}|" + "|".join(palabras) + r")\s+agentes\b", re.IGNORECASE)
@@ -338,7 +373,7 @@ class RepositoryTests(unittest.TestCase):
             self.assertIn(agent["name"], actual, f"{agent['id']} ausente de la landing")
             self.assertIn(f"agents/{agent['id']}/README.md", actual)
         self.assertEqual(len(self.catalog["agents"]), stats["agentes"])
-        self.assertEqual(39, stats["evaluaciones"])
+        self.assertEqual(69, stats["evaluaciones"])
 
     def test_readme_badges_match_reality(self):
         """Los badges numéricos del README son afirmaciones: deben ser ciertas."""

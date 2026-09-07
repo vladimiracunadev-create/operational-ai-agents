@@ -219,6 +219,24 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 - Actuar ante terceros en nombre de la persona
 - Decidir por ella qué datos personales expone
 
+**Limitaciones**
+
+- Depende de la cobertura y actualidad de las fuentes autorizadas.
+- No sustituye la revisión humana experta ni amplía el alcance aprobado.
+
+**Modos de fallo controlados**
+
+- Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.
+- Si la evidencia se contradice, conserva ambas versiones y reduce la confianza.
+
+**Eventos de auditoría**
+
+- `analysis_started`
+- `tool_completed`
+- `evidence_linked`
+- `human_decision_recorded`
+- `analysis_completed`
+
 ## Permisos y aprobaciones
 
 | Superficie | Valor |

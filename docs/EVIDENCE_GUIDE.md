@@ -23,6 +23,8 @@ Registra lo mínimo que demuestre una decisión o un resultado. Prefiere **hashe
 | limitaciones | qué quedó sin comprobar |
 | fecha | absoluta, nunca «hoy» ni «la semana pasada» |
 
+Los eventos operacionales usan [`shared/observability/event.schema.json`](../shared/observability/event.schema.json): además de agente y ejecución, registran herramienta, referencias de entrada, salida acotada, duración, confianza, referencias de evidencia y decisión humana. En control financiero se referencian los originales por hash e identificador; nunca se copian claves privadas, material de firma ni instrucciones ejecutables dentro del hallazgo.
+
 La plantilla está en `evidence/templates/case-study.md`.
 
 ## Qué no se guarda nunca

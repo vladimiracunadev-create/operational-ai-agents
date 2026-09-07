@@ -30,6 +30,8 @@ flowchart TD
 
 Entre el paquete y el runtime hay dos capas nuevas desde v0.3.0, y ninguna cambia el contrato: la **capa de runtime** decide *quién* ejecuta, la **capa de capacidades** decide *qué está autorizado a hacer*. Detalle en [RUNTIME_CONTRACT.md](RUNTIME_CONTRACT.md) y [CAPABILITY_MODEL.md](CAPABILITY_MODEL.md).
 
+El dominio de control financiero añade una composición concreta —fuentes, herramientas de solo lectura, especialistas, correlación, hallazgos, revisión humana y acción externa autorizada— sin introducir un motor autónomo. El diseño completo y sus mensajes están en [FINANCIAL_CONTROL_AGENTS.md](FINANCIAL_CONTROL_AGENTS.md).
+
 ## Límites de cada pieza
 
 | Ruta | Responsabilidad | Frontera |
@@ -44,6 +46,8 @@ Entre el paquete y el runtime hay dos capas nuevas desde v0.3.0, y ninguna cambi
 | `src/operational_agents/capabilities.py` | capacidades, efectos y resolución | vendor-neutral; no conoce runtimes |
 | `docs/COMPATIBILITY_MATRIX.md` | qué agente opera bajo qué runtime (generado) | resolución, no ejecución observada |
 | `shared/` | contratos y formatos comunes | reutilizable entre agentes |
+| `shared/contracts/finding.schema.json` | hallazgo interoperable con severidad, confianza y evidencia | no contiene instrucciones ejecutables |
+| `shared/observability/event.schema.json` | evento auditable por agente y herramienta | decisión humana explícita |
 | `control-center/` | API y panel local de solo lectura | loopback |
 | `site/` | landing page (generada) | solo publicación |
 | `evidence/` | artefactos sanitizados y consentidos | nunca secretos |

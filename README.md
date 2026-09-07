@@ -4,19 +4,19 @@
 
 ### ⚡ Agentes operativos con contrato, gates humanos y evidencia verificable para [Claude Code](https://claude.com/claude-code) y runtimes compatibles
 
-Trabajadores digitales que reciben una **misión completa** — 🧭 evolución de repositorios, 🏗️ modernización de legacy, 🎓 diseño curricular, 📡 actualización de programas formativos, 🚀 evolución de producto, 🗂️ curaduría de portafolio, 🌐 publicación sincronizada, 🏷️ gobernanza de releases, 📚 coherencia documental, 🩺 análisis de incidentes, 🛡️ remediación de seguridad y 🎛️ coordinación multiagente.
+Trabajadores digitales que reciben una **misión completa** — ingeniería, producto, formación, publicación, seguridad y control financiero sin autoridad autónoma sobre activos.
 **Cero dependencias de runtime** — la CLI usa solo Python stdlib.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.3.0-8957e5?logo=github)](CHANGELOG.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)](pyproject.toml)
-[![Agents](https://img.shields.io/badge/agentes-13-1f6feb)](#-catálogo)
+[![Agents](https://img.shields.io/badge/agentes-23-1f6feb)](#-catálogo)
 [![Runtimes](https://img.shields.io/badge/runtimes-claude%20%7C%20manual-8957e5)](docs/COMPATIBILITY_MATRIX.md)
 [![Platforms](https://img.shields.io/badge/platforms-linux%20%7C%20macOS%20%7C%20windows-555?logo=linux&logoColor=white)](#-instalación)
 [![CI](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/vladimiracunadev-create/operational-ai-agents/actions/workflows/codeql.yml)
-[![Tests](https://img.shields.io/badge/tests-78-brightgreen?logo=pytest&logoColor=white)](tests/)
-[![Evals](https://img.shields.io/badge/evals_deterministas-39-2da44e)](docs/EVALUATION.md)
+[![Tests](https://img.shields.io/badge/tests-82-brightgreen?logo=pytest&logoColor=white)](tests/)
+[![Evals](https://img.shields.io/badge/evals_deterministas-69-2da44e)](docs/EVALUATION.md)
 [![Maturity](https://img.shields.io/badge/madurez-IMPLEMENTED-1f6feb)](docs/MATURITY_MODEL.md)
 [![Supply chain](https://img.shields.io/badge/supply%20chain-0%20deps%20%C2%B7%20SHA%20pinned-2da44e?logo=shieldsdotio&logoColor=white)](SECURITY.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?logo=github)](CONTRIBUTING.md)
@@ -80,7 +80,7 @@ flowchart LR
 
 ## 📚 Catálogo
 
-**13 agentes transversales**, agrupados por el tipo de trabajo del que responden. La fuente canónica es **[`catalog/agents.yaml`](catalog/agents.yaml)**: los manifiestos, las instrucciones, las definiciones de Claude Code, las fichas y la landing page se generan desde ahí, y CI rechaza cualquier divergencia.
+**23 agentes operacionales**, agrupados por el tipo de trabajo del que responden. La fuente canónica es **[`catalog/agents.yaml`](catalog/agents.yaml)**: los manifiestos, las instrucciones, las definiciones de Claude Code, las fichas y la landing page se generan desde ahí, y CI rechaza cualquier divergencia.
 
 ### ¿Cuál necesito?
 
@@ -93,6 +93,7 @@ flowchart LR
     S --> F["🎓 formación"]
     S --> I["🚨 algo que falló"]
     S --> M["🎛️ una misión que cruza todo"]
+    S --> R["💰 supervisión financiera"]
 
     C --> C1["no sé si dice la verdad<br/>repository-evolution-agent"]
     C --> C2["corre sobre tecnología muerta<br/>legacy-modernization-agent"]
@@ -111,6 +112,10 @@ flowchart LR
     I --> I2["hallazgos de seguridad<br/>security-remediation-agent"]
 
     M --> M1["varios especialistas a la vez<br/>repository-maintenance-coordinator"]
+
+    R --> R1["conciliación · IAM · wallets · chain"]
+    R --> R2["trading · evidencia · timeline · RCA"]
+    R --> R3["cumplimiento · reporte ejecutivo"]
 
     style S fill:#1f6feb,color:#fff
     style C fill:#21262d,color:#fff
@@ -572,8 +577,37 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 </tbody>
 </table>
 
+### Control, auditoría y reconciliación financiera
+
+Supervisan sistemas financieros con herramientas de solo lectura. No tienen shell, claves privadas, firma, permisos de retiro, permisos de trading ni capacidad de mutación productiva. Sus hallazgos usan mensajes estructurados y terminan en revisión humana. Ver la [arquitectura y los contratos de interoperabilidad](docs/FINANCIAL_CONTROL_AGENTS.md).
+
+```mermaid
+flowchart LR
+    D["ledger · exchange · blockchain · IAM"] --> A["10 agentes especializados"]
+    A --> C["correlación estructurada"]
+    C --> F["riesgo y hallazgos"]
+    F --> H{{"revisión humana"}}
+    H --> X["acción autorizada externa"]
+    style A fill:#8957e5,color:#fff
+    style H fill:#bf8700,color:#fff
+    style X fill:#2da44e,color:#fff
+```
+
+| Agente | Qué responde | Entrega |
+|---|---|---|
+| ⚖️ [reconciliation-agent](agents/reconciliation-agent/README.md) | ledger ↔ exchange ↔ blockchain | conciliación y excepciones |
+| 🔐 [iam-audit-agent](agents/iam-audit-agent/README.md) | permisos, cuentas stale, escalada y SoD | hallazgos IAM |
+| 👛 [wallet-risk-agent](agents/wallet-risk-agent/README.md) | dirección, importe, velocidad y conducta | riesgo de wallet |
+| ⛓️ [blockchain-monitoring-agent](agents/blockchain-monitoring-agent/README.md) | estado y confirmaciones on-chain | verificación de transacciones |
+| 📉 [trading-risk-agent](agents/trading-risk-agent/README.md) | exposición, PnL y límites | reporte de riesgo de trading |
+| 🗃️ [evidence-agent](agents/evidence-agent/README.md) | integridad y procedencia | manifiesto de evidencia |
+| 🕒 [timeline-agent](agents/timeline-agent/README.md) | orden temporal y precisión | línea temporal normalizada |
+| 🔬 [financial-root-cause-agent](agents/financial-root-cause-agent/README.md) | mecanismo causal y factores | análisis de causa raíz |
+| 📋 [compliance-evidence-agent](agents/compliance-evidence-agent/README.md) | cobertura control-evidencia | matriz de cumplimiento |
+| 📊 [executive-reporting-agent](agents/executive-reporting-agent/README.md) | impacto, confianza y decisión | resumen ejecutivo trazable |
+
 > [!NOTE]
-> Los 13 agentes declaran `IMPLEMENTED`: contrato completo y validado, **no** adopción productiva. Ver [Madurez](#-madurez).
+> Los 23 agentes declaran `IMPLEMENTED`: contrato completo y validado, **no** adopción productiva. Ver [Madurez](#-madurez).
 
 ---
 
@@ -587,7 +621,7 @@ Convierte hallazgos de seguridad en remediaciones priorizadas, compatibles y ver
 git clone https://github.com/vladimiracunadev-create/operational-ai-agents.git
 cd operational-ai-agents
 python -m pip install -e .
-operational-agents validate     # OK: 13 agentes válidos
+operational-agents validate     # OK: 23 agentes válidos
 ```
 
 ### 🔌 Instalar los agentes en Claude Code
@@ -829,13 +863,13 @@ Ningún agente se presenta como productivo solo porque su Markdown sea válido:
 | Estado | Requisito mínimo | Hoy |
 |---|---|:-:|
 | `DRAFT` | diseño incompleto; no instalable | — |
-| `IMPLEMENTED` | contrato, instrucciones, schemas y evals disponibles | **13** |
+| `IMPLEMENTED` | contrato, instrucciones, schemas y evals disponibles | **23** |
 | `OPERATIONAL_LOCAL` | usado en una tarea real con evidencia sanitizada | 0 |
 | `INTEGRATED` | conectado a servicios reales y probado end-to-end | 0 |
 | `PRODUCTION_OBSERVED` | uso recurrente con trazas, métricas y revisión humana | 0 |
 
 > [!NOTE]
-> Los trece agentes declaran `IMPLEMENTED`. Eso demuestra **integridad del paquete**, no adopción productiva. Los criterios de promoción están en **[docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md)** y el formato de evidencia en **[docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md)**.
+> Los 23 agentes declaran `IMPLEMENTED`. Eso demuestra **integridad del paquete**, no adopción productiva. Los criterios de promoción están en **[docs/MATURITY_MODEL.md](docs/MATURITY_MODEL.md)** y el formato de evidencia en **[docs/EVIDENCE_GUIDE.md](docs/EVIDENCE_GUIDE.md)**.
 
 ---
 
@@ -853,7 +887,7 @@ O paso a paso:
 ruff check .
 operational-agents sync --check     # sin drift respecto del catálogo
 operational-agents validate         # integridad de los paquetes
-operational-agents eval --all       # 39 evaluaciones deterministas
+operational-agents eval --all       # 69 evaluaciones deterministas
 operational-agents capabilities     # resolución de capacidades por runtime
 python -m unittest discover -s tests -v
 ```
@@ -935,7 +969,7 @@ Resumen — versión completa con no-objetivos en [ROADMAP.md](ROADMAP.md).
 
 **v0.4.0 · uso real y evidencia:**
 
-- [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/13)*
+- [ ] 🧪 Ejecutar cada agente sobre una tarea real controlada *(progreso: 0/23)*
 - [ ] 📂 Incorporar casos sanitizados y promover solo los que cumplan `OPERATIONAL_LOCAL`
 - [ ] 📊 Métricas de éxito, duración, costo, intervención humana y retrabajo
 - [ ] 🎯 Evaluaciones model-graded versionadas por runtime y modelo

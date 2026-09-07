@@ -129,5 +129,20 @@
       "returns": "- **P0** — el título del puesto actual: el matiz de la transición va en la descripción, donde se lee, no en el campo que se indexa.\n- **P0** — las 3 aptitudes visibles no tienen relación con el cargo objetivo.\n- **P1** — dos proyectos que sí encajan con el cargo no están destacados.\n- **No automatizable** — reordenar aptitudes exige arrastre manual y su diálogo guarda cada movimiento por separado: se explica cómo hacerlo en treinta segundos en vez de dejarlo a medias.",
       "status": "`PARTIAL` — 3 cambios aplicados tras tu confirmación y 1 devuelto como trabajo manual, con el motivo técnico y las instrucciones."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

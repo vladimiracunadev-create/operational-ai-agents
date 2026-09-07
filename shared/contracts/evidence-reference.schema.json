@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/operational-ai-agents/evidence-reference.schema.json",
+  "title": "Immutable evidence reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "input_ref",
+    "source_kind",
+    "digest",
+    "collected_at",
+    "integrity"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string"
+    },
+    "input_ref": {
+      "type": "string"
+    },
+    "source_kind": {
+      "type": "string"
+    },
+    "digest": {
+      "type": "string"
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "integrity": {
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "QUESTIONED"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

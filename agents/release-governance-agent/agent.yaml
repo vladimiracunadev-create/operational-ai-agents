@@ -122,5 +122,20 @@
       "returns": "- **Build**: en verde. **Checksum**: correcto. **Versión**: correcta. **Contenido**: 0 de 48.\n- Causa: el patrón de inclusión solo tomaba `*.py`, y el contenido son `.md` dentro de `data/`.\n- Comprobación añadida al proceso: contar unidades dentro del artefacto y fallar si son menos que en el origen.",
       "status": "`COMPLETED` — el release anterior queda marcado para retirar. Un build en verde nunca fue prueba de un artefacto correcto."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

@@ -26,6 +26,7 @@ Que un agente pueda leer un repositorio, listar credenciales o alcanzar un endpo
 | Panel local expuesto a la red | bind en loopback; salir de ahí exige una variable de entorno explícita |
 | Sobrescritura de agentes que el usuario escribió | el exportador se niega si el destino no lleva su marca de gestión |
 | Superficie de supply chain | cero dependencias runtime y acciones de CI fijadas por SHA |
+| Movimiento financiero autónomo | familia financiera sin `Write`, `Edit` ni `Bash`; políticas niegan claves, trading, retiros y mutación productiva |
 
 ## Garantías verificadas
 
@@ -48,6 +49,8 @@ Cada fila está cubierta por una prueba automatizada que corre en cada push. No 
 | El exportador preserva agentes que no administra | `test_export_preserves_unmanaged_agent` |
 | La desinstalación no toca agentes ajenos | `test_uninstall_preserves_unmanaged_agent` |
 | El catálogo público no contiene datos personales ni rutas locales | `test_agents_carry_no_personal_data` |
+| Todo agente financiero es de solo lectura y carece de shell | `test_financial_agents_are_strictly_read_only` |
+| Sus políticas niegan claves privadas y acciones financieras | `test_financial_policies_forbid_asset_authority` |
 
 ## Gates humanos
 

@@ -15,6 +15,8 @@ Un agente **no** es un prompt largo ni un archivo de instrucciones. Es un **cont
 3. ¿Qué puede tocar? → `tools`, `disallowed_tools`, `permission_mode`, `isolation`
 4. ¿Dónde se detiene a preguntar? → `approval_points`
 5. ¿Qué debe entregar para considerarse terminado? → `deliverables`, `checks`
+6. ¿Qué reconoce como límite o fallo? → `limitations`, `failure_modes`
+7. ¿Qué deja en la traza? → `audit_events`
 
 ## Anatomía
 
@@ -66,6 +68,9 @@ Los dos últimos campos son opcionales y ningún agente del catálogo los declar
 | `checks` | controles de calidad obligatorios |
 | `non_goals` | lo que explícitamente no hará |
 | `status` | madurez respaldada por evidencia, nunca por validez de Markdown |
+| `limitations` | límites epistemológicos, operativos o de cobertura que el resultado debe conservar |
+| `failure_modes` | fallos previsibles y la forma controlada de cerrar ante ellos |
+| `audit_events` | eventos mínimos que deben quedar en el sobre de observabilidad |
 
 > [!IMPORTANT]
 > `phase_details` no es documentación decorativa. Una fase sin descripción produce instrucciones que no dicen nada —«completa esta etapa y avanza»— y un agente que no sabe qué se espera de él. El validador rechaza cualquier fase sin explicar y cualquier explicación sin fase.
@@ -84,6 +89,8 @@ Se cumplen siempre, en todos los agentes, y varias están cubiertas por pruebas 
 8. **Un agente de solo lectura deniega la escritura explícitamente**, no solo por omisión.
 9. **La allowlist es exhaustiva.** Una capacidad que el contrato no autoriza se marca `BLOCKED` aunque el runtime la ofrezca, y nunca entra en el conjunto ejecutable.
 10. **El contrato no nombra proveedor.** Ni modelo, ni API, ni servidor MCP: esas decisiones viven en el runtime y en las integraciones.
+11. **Un agente financiero no mueve activos.** Claves privadas, firma, retiros, transferencias, trading y mutación productiva quedan fuera de su allowlist.
+12. **Los agentes interoperan con mensajes estructurados.** El texto puede explicar, pero la correlación usa IDs y referencias validadas por schema.
 
 ## Vistas derivadas
 

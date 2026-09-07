@@ -119,5 +119,20 @@
       "returns": "- **Diagrama** — 1 componente que ya no existe y 1 servicio que aparece como uno cuando son dos. Corregido.\n- **Ejemplos** — 11 ejecutados, 3 fallaban, 3 corregidos y vueltos a ejecutar.\n- **Sin resolver** — el diagrama muestra una cola de mensajes que no aparece en el código ni en la infraestructura declarada. No se borra sin preguntar: puede vivir fuera de este repositorio.",
       "status": "`PARTIAL` — 2 de 3 frentes cerrados y 1 afirmación pendiente, marcada como tal en vez de resuelta a la ligera."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

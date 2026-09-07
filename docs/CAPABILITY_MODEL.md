@@ -42,7 +42,7 @@ El campo `effects` agrupa lo autorizado por consecuencia: qué puede leer, qué 
 
 ## De tools a capacidades
 
-Los trece agentes del catálogo **no** declaran capacidades: se derivan de sus tools. Eso es deliberado — la capa nueva no obliga a reescribir ningún contrato existente.
+Los 23 agentes del catálogo **no** declaran capacidades: se derivan de sus tools. Eso es deliberado — la capa nueva no obliga a reescribir ningún contrato existente.
 
 | Tool | Capacidad |
 |---|---|
@@ -139,7 +139,7 @@ Las integraciones concretas siguen siendo opt-in y se documentan en [`integratio
 
 Un agente declara qué modalidades de entrada necesita; un runtime, cuáles acepta. Si falta una requerida, la resolución es `UNSUPPORTED` y lo dice — no se degrada en silencio a texto.
 
-Hoy los trece agentes trabajan con texto, y los dos runtimes lo soportan. El contrato existe para que incorporar un agente que reciba imágenes, PDF o audio no exija rediseñar nada.
+Hoy los 23 agentes trabajan con texto, y los dos runtimes lo soportan. El contrato existe para que incorporar un agente que reciba imágenes, PDF o audio no exija rediseñar nada.
 
 ## Presupuestos
 

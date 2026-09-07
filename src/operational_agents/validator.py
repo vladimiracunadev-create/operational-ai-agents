@@ -19,6 +19,7 @@ REQUIRED = {
     "delegate_when", "mission", "tools", "disallowed_tools", "skill_dependencies",
     "permission_mode", "memory", "effort", "max_turns", "phases", "phase_details",
     "required_inputs", "deliverables", "approval_points", "checks", "non_goals", "scenarios",
+    "limitations", "failure_modes", "audit_events",
 }
 
 # Un escenario incompleto vuelve a ser una definición reformulada. Exigimos el
@@ -57,6 +58,9 @@ def validate(root: Path) -> list[dict[str, str]]:
             issues.append(_issue("error", aid, f"Descripciones sin fase: {', '.join(huerfanos)}"))
         if not agent["approval_points"]:
             issues.append(_issue("error", aid, "Sin gates de aprobación"))
+        for field in ("limitations", "failure_modes", "audit_events"):
+            if not isinstance(agent[field], list) or not agent[field]:
+                issues.append(_issue("error", aid, f"{field} debe ser una lista no vacía"))
         _check_scenarios(agent, issues)
         write_capable = "Edit" in agent["tools"] or "Write" in agent["tools"]
         if write_capable and agent["permission_mode"] in {"bypassPermissions", "acceptEdits"}:

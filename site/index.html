@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>Operational AI Agents · agentes operativos con evidencia verificable</title>
-<meta name="description" content="Colección de 13 agentes operativos reutilizables: reciben una misión completa, respetan gates humanos y entregan evidencia verificable. Contratos versionados y adaptador para Claude Code.">
+<meta name="description" content="Colección de 23 agentes operativos reutilizables: reciben una misión completa, respetan gates humanos y entregan evidencia verificable. Contratos versionados y adaptador para Claude Code.">
 <link rel="canonical" href="https://vladimiracunadev-create.github.io/operational-ai-agents/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Crect x='8' y='11' width='16' height='12' rx='3' fill='%23fff'/%3E%3Ccircle cx='13' cy='17' r='1.8' fill='%238b5cf6'/%3E%3Ccircle cx='19' cy='17' r='1.8' fill='%238b5cf6'/%3E%3Crect x='15' y='6' width='2' height='5' rx='1' fill='%23fff'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Operational AI Agents">
-<meta property="og:description" content="13 agentes operativos que reciben una misión completa, respetan gates humanos y entregan evidencia verificable.">
+<meta property="og:description" content="23 agentes operativos que reciben una misión completa, respetan gates humanos y entregan evidencia verificable.">
 <meta property="og:url" content="https://vladimiracunadev-create.github.io/operational-ai-agents/">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Página generada por `operational-agents sync` desde catalog/agents.yaml. No editar a mano. -->
@@ -197,19 +197,19 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <p class="eyebrow">Catálogo contractual · v0.3.0</p>
   <h1>Agentes que responden por un resultado, no por un prompt.</h1>
   <p class="hero__lead">
-    13 agentes operativos reutilizables. Cada uno recibe una <strong>misión completa</strong>,
+    23 agentes operativos reutilizables. Cada uno recibe una <strong>misión completa</strong>,
     decide su propia secuencia de trabajo, usa capacidades dentro de límites declarados,
     <strong>se detiene en gates humanos</strong> y entrega <strong>evidencia verificable</strong>.
   </p>
   <div class="cta">
     <a class="btn btn--primary" href="#instalacion">Instalar en 4 líneas</a>
-    <a class="btn btn--ghost" href="#catalogo">Ver los 13 agentes</a>
+    <a class="btn btn--ghost" href="#catalogo">Ver los 23 agentes</a>
     <a class="btn btn--ghost" href="https://github.com/vladimiracunadev-create/operational-ai-agents">Código en GitHub ↗</a>
   </div>
   <div class="stats">
-    <div class="stat"><b>13</b><span>agentes con contrato</span></div>
-    <div class="stat"><b>39</b><span>evaluaciones deterministas</span></div>
-    <div class="stat"><b>78</b><span>pruebas automatizadas</span></div>
+    <div class="stat"><b>23</b><span>agentes con contrato</span></div>
+    <div class="stat"><b>69</b><span>evaluaciones deterministas</span></div>
+    <div class="stat"><b>82</b><span>pruebas automatizadas</span></div>
     <div class="stat"><b>2</b><span>runtimes con adaptador</span></div>
     <div class="stat"><b>0</b><span>dependencias externas</span></div>
   </div>
@@ -262,7 +262,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
 <pre id="install-code"><span class="p">$</span> git clone https://github.com/vladimiracunadev-create/operational-ai-agents.git
 <span class="p">$</span> cd operational-ai-agents
 <span class="p">$</span> python -m pip install -e .
-<span class="p">$</span> operational-agents validate <span class="c"># OK: 13 agentes válidos</span></pre>
+<span class="p">$</span> operational-agents validate <span class="c"># OK: 23 agentes válidos</span></pre>
     </div>
   </div>
   <div class="flow-legend">
@@ -283,7 +283,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
   <div class="filter">
     <label class="skip" for="q">Filtrar agentes</label>
     <input id="q" type="search" placeholder="Filtrar por nombre, categoría o misión…" autocomplete="off">
-    <output id="count" for="q">13 agentes</output>
+    <output id="count" for="q">23 agentes</output>
   </div>
   <div class="grid" id="grid">
         <article class="card" data-search="repository evolution agent repository-evolution-agent repository-engineering analiza un repositorio real, separa hechos de promesas y conduce su evolución incremental con pruebas y evidencia. el readme promete más de lo que el código hace `pagos-api` — 3.400 líneas de python, 12 tests, sin releases publicados. el readme anuncia autenticación oauth2, rate limiting y webhooks. nadie ha comprobado esas tres afirmaciones en ocho meses. examina este repositorio y dime qué afirma el readme que el código no sostiene. quieres mejorarlo y no sabes por dónde empezar un proyecto propio que funciona: api en flask con 6 endpoints, sin ci, sin pruebas de integración y con tres `todo` de hace un año. quieres avanzarlo sin romperlo. completa lo que falta en este repositorio sin romper lo que ya funciona. vas a enseñarlo mañana y no quieres sorpresas muestras el repositorio en una entrevista técnica. tiene un badge de cobertura, una sección «arquitectura» con diagrama y un roadmap con seis puntos marcados como hechos. antes de enseñar este repositorio, comprueba que todo lo que afirma se sostiene.">
@@ -702,6 +702,326 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
             Ver contrato completo <span aria-hidden="true">→</span>
           </a>
         </article>
+        <article class="card" data-search="reconciliation agent reconciliation-agent financial-control concilia ledger, exchange y blockchain mediante claves estructuradas y explica cada diferencia sin corregir saldos. caso financiero — conciliación normal el cierre diario contiene 1.248 asientos, 612 operaciones del exchange y 609 transacciones on-chain confirmadas. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. concilia el cierre diario entre ledger, exchange y blockchain y entrega las excepciones. caso financiero — conciliación con excepción un retiro aparece confirmado on-chain y debitado por el exchange, pero no existe en el ledger interno. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. localiza la transacción faltante y explica exactamente qué fuentes no coinciden. caso financiero — conciliación con falso positivo una transferencia interna se registró dos veces por usar hash y referencia de lote como claves distintas. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. revisa este posible duplicado y determina si es un doble registro o dos operaciones reales.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">⚖️</span>
+            <div>
+              <h3>Reconciliation Agent</h3>
+              <p class="card__id"><code>reconciliation-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Concilia ledger, exchange y blockchain mediante claves estructuradas y explica cada diferencia sin corregir saldos.</p>
+          <p class="card__ask">Le escribes: <q>Concilia el cierre diario entre ledger, exchange y blockchain y entrega las excepciones.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Conciliación normal</b><span class="scn__sit">El cierre diario contiene 1.248 asientos, 612 operaciones del exchange y 609 transacciones on-chain confirmadas. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Concilia el cierre diario entre ledger, exchange y blockchain y entrega las excepciones.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Conciliación con excepción</b><span class="scn__sit">Un retiro aparece confirmado on-chain y debitado por el exchange, pero no existe en el ledger interno. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Localiza la transacción faltante y explica exactamente qué fuentes no coinciden.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Conciliación con falso positivo</b><span class="scn__sit">Una transferencia interna se registró dos veces por usar hash y referencia de lote como claves distintas. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Revisa este posible duplicado y determina si es un doble registro o dos operaciones reales.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/reconciliation-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="iam audit agent iam-audit-agent financial-control detecta permisos excesivos, cuentas obsoletas, escaladas de privilegio y conflictos de segregación de funciones. caso financiero — auditoría iam normal el inventario tiene 286 identidades, 34 roles y registros de uso de noventa días para entornos financieros. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. audita permisos, cuentas inactivas y segregación de funciones en este inventario iam. caso financiero — auditoría iam con excepción una cuenta de operaciones heredó permisos de aprobación y ejecución después de un cambio de grupo. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. comprueba esta posible escalada de privilegio y el conflicto de segregación de funciones. caso financiero — auditoría iam con falso positivo una cuenta break-glass parece inactiva, pero su excepción está documentada y revisada cada mes. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. determina si esta cuenta stale es un hallazgo real o una excepción de emergencia vigente.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">🔐</span>
+            <div>
+              <h3>IAM Audit Agent</h3>
+              <p class="card__id"><code>iam-audit-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Detecta permisos excesivos, cuentas obsoletas, escaladas de privilegio y conflictos de segregación de funciones.</p>
+          <p class="card__ask">Le escribes: <q>Audita permisos, cuentas inactivas y segregación de funciones en este inventario IAM.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Auditoría IAM normal</b><span class="scn__sit">El inventario tiene 286 identidades, 34 roles y registros de uso de noventa días para entornos financieros. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Audita permisos, cuentas inactivas y segregación de funciones en este inventario IAM.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Auditoría IAM con excepción</b><span class="scn__sit">Una cuenta de operaciones heredó permisos de aprobación y ejecución después de un cambio de grupo. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Comprueba esta posible escalada de privilegio y el conflicto de segregación de funciones.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Auditoría IAM con falso positivo</b><span class="scn__sit">Una cuenta break-glass parece inactiva, pero su excepción está documentada y revisada cada mes. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Determina si esta cuenta stale es un hallazgo real o una excepción de emergencia vigente.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/iam-audit-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="wallet risk agent wallet-risk-agent financial-control analiza direcciones nuevas, retiros grandes, velocidad y conducta inusual sin controlar wallets ni firmar transacciones. caso financiero — riesgo de wallet normal la muestra contiene seis meses de retiros, perfiles históricos por wallet y etiquetas autorizadas de contraparte. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. evalúa direcciones nuevas, importes, velocidad y comportamiento inusual de estas wallets. caso financiero — riesgo de wallet con excepción una dirección nueva recibe cinco retiros grandes en doce minutos y no tiene historial de contraparte. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. analiza esta secuencia de retiros y prioriza el riesgo sin bloquear ni mover fondos. caso financiero — riesgo de wallet con falso positivo una wallet de tesorería rota por política dispara la regla de dirección nueva durante una migración aprobada. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. revisa esta alerta de dirección nueva considerando la rotación de tesorería documentada.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">👛</span>
+            <div>
+              <h3>Wallet Risk Agent</h3>
+              <p class="card__id"><code>wallet-risk-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Analiza direcciones nuevas, retiros grandes, velocidad y conducta inusual sin controlar wallets ni firmar transacciones.</p>
+          <p class="card__ask">Le escribes: <q>Evalúa direcciones nuevas, importes, velocidad y comportamiento inusual de estas wallets.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Riesgo de wallet normal</b><span class="scn__sit">La muestra contiene seis meses de retiros, perfiles históricos por wallet y etiquetas autorizadas de contraparte. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Evalúa direcciones nuevas, importes, velocidad y comportamiento inusual de estas wallets.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Riesgo de wallet con excepción</b><span class="scn__sit">Una dirección nueva recibe cinco retiros grandes en doce minutos y no tiene historial de contraparte. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Analiza esta secuencia de retiros y prioriza el riesgo sin bloquear ni mover fondos.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Riesgo de wallet con falso positivo</b><span class="scn__sit">Una wallet de tesorería rota por política dispara la regla de dirección nueva durante una migración aprobada. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Revisa esta alerta de dirección nueva considerando la rotación de tesorería documentada.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/wallet-risk-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="blockchain monitoring agent blockchain-monitoring-agent financial-control verifica estado, confirmaciones, importes y contrapartes de transacciones on-chain mediante fuentes de solo lectura. caso financiero — monitoreo on-chain normal un lote de 420 hashes debe verificarse contra dos endpoints de lectura y la política de confirmaciones de cada red. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. comprueba el estado y las confirmaciones de este lote de transacciones on-chain. caso financiero — monitoreo on-chain con excepción el exchange marca un retiro como completado, pero el hash informado no aparece en el explorador autorizado. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. verifica este hash ausente y documenta qué puede y qué no puede concluirse. caso financiero — monitoreo on-chain con falso positivo una reorganización breve redujo confirmaciones y disparó una alerta que se resolvió en el bloque siguiente. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. determina si esta caída de confirmaciones sigue siendo un riesgo o fue una reorganización resuelta.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">⛓️</span>
+            <div>
+              <h3>Blockchain Monitoring Agent</h3>
+              <p class="card__id"><code>blockchain-monitoring-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Verifica estado, confirmaciones, importes y contrapartes de transacciones on-chain mediante fuentes de solo lectura.</p>
+          <p class="card__ask">Le escribes: <q>Comprueba el estado y las confirmaciones de este lote de transacciones on-chain.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Monitoreo on-chain normal</b><span class="scn__sit">Un lote de 420 hashes debe verificarse contra dos endpoints de lectura y la política de confirmaciones de cada red. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Comprueba el estado y las confirmaciones de este lote de transacciones on-chain.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Monitoreo on-chain con excepción</b><span class="scn__sit">El exchange marca un retiro como completado, pero el hash informado no aparece en el explorador autorizado. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Verifica este hash ausente y documenta qué puede y qué no puede concluirse.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Monitoreo on-chain con falso positivo</b><span class="scn__sit">Una reorganización breve redujo confirmaciones y disparó una alerta que se resolvió en el bloque siguiente. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Determina si esta caída de confirmaciones sigue siendo un riesgo o fue una reorganización resuelta.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/blockchain-monitoring-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="trading risk agent trading-risk-agent financial-control calcula exposición y resultados operacionales desde posiciones y fills de lectura, sin enviar, cancelar ni modificar órdenes. caso financiero — riesgo de trading normal el libro contiene posiciones spot y derivados, fills del día, precios de referencia y límites aprobados por estrategia. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. calcula exposición, pnl y concentración de estas posiciones y compara contra sus límites. caso financiero — riesgo de trading con excepción la exposición neta supera el límite intradía después de varios fills, aunque el sistema muestra pnl positivo. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. explica el exceso de exposición y reconstruye qué operaciones contribuyeron al resultado. caso financiero — riesgo de trading con falso positivo un precio de referencia obsoleto infla la pérdida no realizada y hace parecer incumplido un límite. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. recalcula esta alerta con fuentes temporales consistentes y documenta el posible falso positivo.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">📉</span>
+            <div>
+              <h3>Trading Risk Agent</h3>
+              <p class="card__id"><code>trading-risk-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Calcula exposición y resultados operacionales desde posiciones y fills de lectura, sin enviar, cancelar ni modificar órdenes.</p>
+          <p class="card__ask">Le escribes: <q>Calcula exposición, PnL y concentración de estas posiciones y compara contra sus límites.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Riesgo de trading normal</b><span class="scn__sit">El libro contiene posiciones spot y derivados, fills del día, precios de referencia y límites aprobados por estrategia. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Calcula exposición, PnL y concentración de estas posiciones y compara contra sus límites.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Riesgo de trading con excepción</b><span class="scn__sit">La exposición neta supera el límite intradía después de varios fills, aunque el sistema muestra PnL positivo. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Explica el exceso de exposición y reconstruye qué operaciones contribuyeron al resultado.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Riesgo de trading con falso positivo</b><span class="scn__sit">Un precio de referencia obsoleto infla la pérdida no realizada y hace parecer incumplido un límite. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Recalcula esta alerta con fuentes temporales consistentes y documenta el posible falso positivo.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/trading-risk-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="evidence agent evidence-agent financial-control organiza evidencia, hashes y cadena de custodia mediante referencias inmutables, sin modificar los originales. caso financiero — custodia de evidencia normal el caso incluye exportes de ledger, registros iam, respuestas de apis y capturas con distintas zonas horarias. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. organiza esta evidencia y crea un manifiesto sin alterar ninguno de los originales. caso financiero — custodia de evidencia con excepción un archivo entregado carece de hash previo y su marca temporal no coincide con el registro de adquisición. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. incorpora este archivo como evidencia cuestionada sin presentar su integridad como demostrada. caso financiero — custodia de evidencia con falso positivo dos archivos con nombres distintos tienen el mismo hash porque son copias autorizadas del mismo exporte. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. revisa este aparente duplicado de evidencia y conserva correctamente su procedencia.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">🗃️</span>
+            <div>
+              <h3>Evidence Agent</h3>
+              <p class="card__id"><code>evidence-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Organiza evidencia, hashes y cadena de custodia mediante referencias inmutables, sin modificar los originales.</p>
+          <p class="card__ask">Le escribes: <q>Organiza esta evidencia y crea un manifiesto sin alterar ninguno de los originales.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Custodia de evidencia normal</b><span class="scn__sit">El caso incluye exportes de ledger, registros IAM, respuestas de APIs y capturas con distintas zonas horarias. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Organiza esta evidencia y crea un manifiesto sin alterar ninguno de los originales.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Custodia de evidencia con excepción</b><span class="scn__sit">Un archivo entregado carece de hash previo y su marca temporal no coincide con el registro de adquisición. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Incorpora este archivo como evidencia cuestionada sin presentar su integridad como demostrada.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Custodia de evidencia con falso positivo</b><span class="scn__sit">Dos archivos con nombres distintos tienen el mismo hash porque son copias autorizadas del mismo exporte. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Revisa este aparente duplicado de evidencia y conserva correctamente su procedencia.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/evidence-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="timeline agent timeline-agent financial-control construye líneas temporales normalizadas y trazables desde eventos heterogéneos sin inventar orden causal. caso financiero — línea temporal normal los eventos provienen de ledger, exchange, nodo, iam y tickets, usando utc, hora local y precisión desigual. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. construye una línea temporal única de este caso y conserva la fuente de cada marca de tiempo. caso financiero — línea temporal con excepción un evento iam parece posterior al retiro porque un sistema registró hora local sin zona y otro usó utc. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. normaliza estas marcas de tiempo y determina qué orden puede sostener la evidencia. caso financiero — línea temporal con falso positivo dos eventos comparten el mismo segundo, pero una interfaz redondeó milisegundos y sugiere causalidad inexistente. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. revisa esta secuencia aparentemente causal y expresa la incertidumbre temporal correctamente.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">🕒</span>
+            <div>
+              <h3>Timeline Agent</h3>
+              <p class="card__id"><code>timeline-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Construye líneas temporales normalizadas y trazables desde eventos heterogéneos sin inventar orden causal.</p>
+          <p class="card__ask">Le escribes: <q>Construye una línea temporal única de este caso y conserva la fuente de cada marca de tiempo.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Línea temporal normal</b><span class="scn__sit">Los eventos provienen de ledger, exchange, nodo, IAM y tickets, usando UTC, hora local y precisión desigual. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Construye una línea temporal única de este caso y conserva la fuente de cada marca de tiempo.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Línea temporal con excepción</b><span class="scn__sit">Un evento IAM parece posterior al retiro porque un sistema registró hora local sin zona y otro usó UTC. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Normaliza estas marcas de tiempo y determina qué orden puede sostener la evidencia.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Línea temporal con falso positivo</b><span class="scn__sit">Dos eventos comparten el mismo segundo, pero una interfaz redondeó milisegundos y sugiere causalidad inexistente. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Revisa esta secuencia aparentemente causal y expresa la incertidumbre temporal correctamente.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/timeline-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="compliance evidence agent compliance-evidence-agent financial-control mapea evidencia a controles y períodos de auditoría, identifica lagunas y evita afirmar cumplimiento sin respaldo. caso financiero — evidencia de cumplimiento normal la revisión trimestral cubre 18 controles, 54 artefactos y responsables distintos para iam, wallets y conciliación. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. mapea esta evidencia a los controles del período y señala cobertura, vigencia y lagunas. caso financiero — evidencia de cumplimiento con excepción un control exige revisión mensual, pero solo existen dos aprobaciones para un trimestre de tres meses. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. documenta esta evidencia faltante sin convertir ausencia de prueba en prueba de incumplimiento. caso financiero — evidencia de cumplimiento con falso positivo el mismo reporte respalda dos controles relacionados y fue marcado erróneamente como reutilización inválida. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. comprueba si esta evidencia puede soportar ambos controles y deja claro su alcance exacto.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">📋</span>
+            <div>
+              <h3>Compliance Evidence Agent</h3>
+              <p class="card__id"><code>compliance-evidence-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Mapea evidencia a controles y períodos de auditoría, identifica lagunas y evita afirmar cumplimiento sin respaldo.</p>
+          <p class="card__ask">Le escribes: <q>Mapea esta evidencia a los controles del período y señala cobertura, vigencia y lagunas.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Evidencia de cumplimiento normal</b><span class="scn__sit">La revisión trimestral cubre 18 controles, 54 artefactos y responsables distintos para IAM, wallets y conciliación. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Mapea esta evidencia a los controles del período y señala cobertura, vigencia y lagunas.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Evidencia de cumplimiento con excepción</b><span class="scn__sit">Un control exige revisión mensual, pero solo existen dos aprobaciones para un trimestre de tres meses. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Documenta esta evidencia faltante sin convertir ausencia de prueba en prueba de incumplimiento.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Evidencia de cumplimiento con falso positivo</b><span class="scn__sit">El mismo reporte respalda dos controles relacionados y fue marcado erróneamente como reutilización inválida. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Comprueba si esta evidencia puede soportar ambos controles y deja claro su alcance exacto.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/compliance-evidence-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="executive reporting agent executive-reporting-agent financial-control sintetiza hallazgos financieros para decisión ejecutiva conservando severidad, confianza, evidencia y límites. caso financiero — reporte ejecutivo normal el comité recibirá hallazgos de conciliación, iam, wallets y trading con escalas y niveles de confianza diferentes. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. prepara un reporte ejecutivo trazable de estos hallazgos para el comité de riesgo. caso financiero — reporte ejecutivo con excepción existe un hallazgo crítico con evidencia parcial y alto impacto potencial, pero aún sin pérdida confirmada. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. resume este hallazgo crítico sin presentar impacto potencial como pérdida observada. caso financiero — reporte ejecutivo con falso positivo tres alertas técnicas se refieren al mismo evento y contarlas por separado exageraría el riesgo agregado. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. consolida estas alertas correlacionadas y evita duplicar su impacto en el reporte.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">📊</span>
+            <div>
+              <h3>Executive Reporting Agent</h3>
+              <p class="card__id"><code>executive-reporting-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Sintetiza hallazgos financieros para decisión ejecutiva conservando severidad, confianza, evidencia y límites.</p>
+          <p class="card__ask">Le escribes: <q>Prepara un reporte ejecutivo trazable de estos hallazgos para el comité de riesgo.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Reporte ejecutivo normal</b><span class="scn__sit">El comité recibirá hallazgos de conciliación, IAM, wallets y trading con escalas y niveles de confianza diferentes. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Prepara un reporte ejecutivo trazable de estos hallazgos para el comité de riesgo.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Reporte ejecutivo con excepción</b><span class="scn__sit">Existe un hallazgo crítico con evidencia parcial y alto impacto potencial, pero aún sin pérdida confirmada. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Resume este hallazgo crítico sin presentar impacto potencial como pérdida observada.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Reporte ejecutivo con falso positivo</b><span class="scn__sit">Tres alertas técnicas se refieren al mismo evento y contarlas por separado exageraría el riesgo agregado. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Consolida estas alertas correlacionadas y evita duplicar su impacto en el reporte.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/executive-reporting-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
+        <article class="card" data-search="financial root cause agent financial-root-cause-agent financial-control investiga causas raíz de incidentes financieros mediante hipótesis contrastadas sin ejecutar remediaciones ni acciones sobre activos. caso financiero — causa raíz financiera normal el caso reúne una cronología validada, hallazgos de conciliación e iam y evidencia con procedencia comprobada. los identificadores están completos y el período abarca veinticuatro horas de operación autorizada. construye el análisis de causa raíz de este incidente financiero usando solo la evidencia disponible. caso financiero — causa raíz financiera con excepción un retiro no autorizado coincide con una elevación temporal de permisos y una excepción de conciliación posterior. la discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo. contrasta hipótesis para esta operación no autorizada sin atribuir intención ni ejecutar remediaciones. caso financiero — causa raíz financiera con falso positivo un cambio iam ocurrió cerca del incidente, pero los registros muestran que la identidad no participó en la operación. el analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla. revisa esta correlación temporal y descarta causas que no estén respaldadas por un mecanismo verificable.">
+          <header class="card__head">
+            <span class="card__icon" aria-hidden="true">🔬</span>
+            <div>
+              <h3>Financial Root Cause Agent</h3>
+              <p class="card__id"><code>financial-root-cause-agent</code></p>
+            </div>
+          </header>
+          <p class="card__mission">Investiga causas raíz de incidentes financieros mediante hipótesis contrastadas sin ejecutar remediaciones ni acciones sobre activos.</p>
+          <p class="card__ask">Le escribes: <q>Construye el análisis de causa raíz de este incidente financiero usando solo la evidencia disponible.</q></p>
+          <ul class="chips">
+            <li class="chip chip--risk-high">riesgo alto</li>
+            <li class="chip">permisos <code>plan</code></li>
+            <li class="chip">financial-control</li>
+          </ul>
+          <details>
+            <summary>Cuándo lo necesitas · 3 ejemplos</summary>
+            <ul class="scn"><li><b>Caso financiero — Causa raíz financiera normal</b><span class="scn__sit">El caso reúne una cronología validada, hallazgos de conciliación e IAM y evidencia con procedencia comprobada. Los identificadores están completos y el período abarca veinticuatro horas de operación autorizada.</span><span class="scn__ask">«Construye el análisis de causa raíz de este incidente financiero usando solo la evidencia disponible.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Causa raíz financiera con excepción</b><span class="scn__sit">Un retiro no autorizado coincide con una elevación temporal de permisos y una excepción de conciliación posterior. La discrepancia debe conservar su rastro hasta el registro de origen sin corregirlo.</span><span class="scn__ask">«Contrasta hipótesis para esta operación no autorizada sin atribuir intención ni ejecutar remediaciones.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li><li><b>Caso financiero — Causa raíz financiera con falso positivo</b><span class="scn__sit">Un cambio IAM ocurrió cerca del incidente, pero los registros muestran que la identidad no participó en la operación. El analista necesita saber por qué saltó la regla y qué evidencia permite cerrarla.</span><span class="scn__ask">«Revisa esta correlación temporal y descarta causas que no estén respaldadas por un mecanismo verificable.»</span><span class="scn__get">→ `COMPLETED` — análisis reproducible emitido para revisión humana; no se ejecutó ninguna acción financiera.</span></li></ul>
+          </details>
+          <details>
+            <summary>Flujo y capacidades</summary>
+            <p class="detail-title">Fases</p>
+            <ol class="phases"><li>scope</li><li>ingest</li><li>analysis</li><li>correlation</li><li>quality check</li><li>human review</li></ol>
+            <p class="detail-title">Tools</p>
+            <p class="tools"><code>Read</code><code>Glob</code><code>Grep</code><code>WebFetch</code></p>
+            <p class="detail-title">Se detiene y pregunta antes de</p>
+            <ul class="gates"><li>scope_expansion</li><li>sensitive_data_export</li><li>production_mutation</li><li>financial_action</li></ul>
+          </details>
+          <a class="card__link" href="https://github.com/vladimiracunadev-create/operational-ai-agents/blob/main/agents/financial-root-cause-agent/README.md">
+            Ver contrato completo <span aria-hidden="true">→</span>
+          </a>
+        </article>
   </div>
 </section>
 
@@ -810,7 +1130,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
       <thead><tr><th>Estado</th><th>Requisito mínimo</th><th>Hoy</th></tr></thead>
       <tbody>
           <tr><td><code>DRAFT</code></td><td>Definición incompleta; no debe instalarse.</td><td class="num">0</td></tr>
-          <tr><td><code>IMPLEMENTED</code></td><td>Contrato, instrucciones, schemas y evaluaciones deterministas disponibles.</td><td class="num">13</td></tr>
+          <tr><td><code>IMPLEMENTED</code></td><td>Contrato, instrucciones, schemas y evaluaciones deterministas disponibles.</td><td class="num">23</td></tr>
           <tr><td><code>OPERATIONAL_LOCAL</code></td><td>El propietario lo usó en una tarea real local con evidencia sanitizada.</td><td class="num">0</td></tr>
           <tr><td><code>INTEGRATED</code></td><td>Conectado a herramientas o servicios reales y probado de extremo a extremo.</td><td class="num">0</td></tr>
           <tr><td><code>PRODUCTION_OBSERVED</code></td><td>Uso recurrente con métricas, trazas y revisión humana.</td><td class="num">0</td></tr>
@@ -818,7 +1138,7 @@ footer{border-top:1px solid var(--line);padding:2.5rem 0 3.5rem;color:var(--mute
     </table>
   </div>
   <p class="note">
-    <b>Qué significa esto.</b> Los 13 agentes declaran <code>IMPLEMENTED</code>: contrato,
+    <b>Qué significa esto.</b> Los 23 agentes declaran <code>IMPLEMENTED</code>: contrato,
     instrucciones, schemas y evaluaciones validados localmente. Eso demuestra integridad del paquete,
     <b>no</b> adopción productiva. La promoción de estado exige evidencia real y revisada.
   </p>

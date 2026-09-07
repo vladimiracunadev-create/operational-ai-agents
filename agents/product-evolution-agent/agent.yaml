@@ -123,5 +123,20 @@
       "returns": "- Filtros guardados operativos, con 7 pruebas nuevas.\n- Los 4 recorridos anteriores verificados uno a uno tras el cambio.\n- Contrato de la API sin modificar: los campos nuevos van en una clave opcional, así que un cliente antiguo los ignora.\n- **Riesgo residual** — una de las integraciones valida el esquema de forma estricta; se avisó al equipo antes de desplegar.",
       "status": "`COMPLETED` con un riesgo declarado que depende de un tercero, no del código."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

@@ -401,7 +401,7 @@ class ControlCenterTests(unittest.TestCase):
 
     def test_agents_endpoint_is_unchanged(self):
         agents = self._get("/api/agents")["agents"]
-        self.assertEqual(13, len(agents))
+        self.assertEqual(23, len(agents))
         self.assertEqual({"id", "name", "description", "status", "category", "risk"}, set(agents[0]))
 
     def test_runtimes_endpoint_reports_availability(self):

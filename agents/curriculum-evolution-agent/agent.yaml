@@ -131,5 +131,20 @@
       "returns": "- **Vigente** — 33 de 40 lecciones; los fundamentos no se movieron.\n- **Desfasado de forma cosmética** — 5 lecciones con nombres de API antiguos; el concepto sigue siendo correcto.\n- **Brecha real** — 2 temas que hoy se esperan de un curso así y no aparecen en ninguna lección.\n- **Fuentes** — 11 verificadas con petición real, cada hallazgo con su enlace.",
       "status": "`NO_CHANGE` — resultado legítimo: el programa no necesita reescritura, necesita dos lecciones y un repaso de nombres."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

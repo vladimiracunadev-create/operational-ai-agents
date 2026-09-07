@@ -124,5 +124,20 @@
       "returns": "| Módulo | Estado | Qué falta |\n|---|---|---|\n| 1-4 | completo | nada; los laboratorios corren |\n| 5 | esqueleto | 6 lecciones con título y sin cuerpo |\n| 6 | parcial | falta la evaluación y el laboratorio |\n| 7-8 | no existe | dependen del módulo 5, que va primero |",
       "status": "`COMPLETED` en modo diagnóstico — 0 archivos escritos. El orden de llenado es 5 → 6 → 7 → 8, no el numérico."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/operational-ai-agents/executive-reporting-agent/input.schema.json",
+  "title": "executive-reporting-agent input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "message_id",
+    "case_id",
+    "task",
+    "data_sources",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "message_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task": {
+      "type": "string",
+      "minLength": 8
+    },
+    "analysis_window": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "data_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "kind",
+          "input_ref"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "input_ref": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read",
+        "write",
+        "publish",
+        "financial_action"
+      ],
+      "properties": {
+        "read": {
+          "const": true
+        },
+        "write": {
+          "const": false
+        },
+        "publish": {
+          "const": false
+        },
+        "financial_action": {
+          "const": false
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

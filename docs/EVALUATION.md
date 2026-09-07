@@ -20,6 +20,8 @@
 > [!NOTE]
 > Las capas 5 y 6 no están en CI a propósito. Meter ejecuciones de modelo en cada push introduciría costo y no determinismo sin aumentar la garantía: lo que CI protege es que **el contrato no pierda controles al evolucionar**.
 
+Para los agentes de control financiero, las capas deterministas también comprueban la ausencia de autoridad sobre activos y el uso de mensajes estructurados. Sus escenarios cubren operación normal, error contable, transacción faltante, operación no autorizada, duplicado y falso positivo; las variantes se distribuyen entre especialistas para probar el límite adecuado en contexto.
+
 ## Ejecutar
 
 ```bash

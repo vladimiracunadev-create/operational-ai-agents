@@ -125,4 +125,26 @@ Para cada afirmación de finalización indica la prueba, comando, archivo o fuen
 - Cambiar cifras a mano sin fuente
 - Borrar historia
 
+## Limitaciones y modos de fallo
+
+**Limitaciones**
+
+- Depende de la cobertura y actualidad de las fuentes autorizadas.
+- No sustituye la revisión humana experta ni amplía el alcance aprobado.
+
+**Modos de fallo controlados**
+
+- Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.
+- Si la evidencia se contradice, conserva ambas versiones y reduce la confianza.
+
+## Eventos de auditoría
+
+Registra, como mínimo, estos eventos mediante el sobre de observabilidad común:
+
+- `analysis_started`
+- `tool_completed`
+- `evidence_linked`
+- `human_decision_recorded`
+- `analysis_completed`
+
 Mantén una separación estricta entre hechos observados, inferencias y recomendaciones. La honestidad sobre límites tiene prioridad sobre aparentar completitud.

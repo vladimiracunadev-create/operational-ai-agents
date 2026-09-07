@@ -13,6 +13,7 @@
 | instalar y usar los agentes | [INSTALL.md](../INSTALL.md) y luego [CLI.md](CLI.md) |
 | entender qué es un agente aquí | [AGENT_CONTRACT.md](AGENT_CONTRACT.md) |
 | saber cómo encaja todo | [ARCHITECTURE.md](ARCHITECTURE.md) |
+| supervisar sistemas financieros sin autoridad sobre activos | [FINANCIAL_CONTROL_AGENTS.md](FINANCIAL_CONTROL_AGENTS.md) |
 | ejecutar un agente fuera de Claude Code | [RUNTIME_CONTRACT.md](RUNTIME_CONTRACT.md) |
 | conocer los límites de seguridad | [SECURITY_MODEL.md](SECURITY_MODEL.md) |
 | proponer un agente nuevo | [CONTRIBUTING.md](../CONTRIBUTING.md) |
@@ -51,6 +52,7 @@
 | [SECURITY_MODEL.md](SECURITY_MODEL.md) | amenazas, controles, permisos y gates humanos |
 | [EVALUATION.md](EVALUATION.md) | las seis capas de evaluación y qué demuestra cada una |
 | [EVIDENCE_GUIDE.md](EVIDENCE_GUIDE.md) | qué evidencia se registra, cómo se sanitiza y qué nunca se guarda |
+| [FINANCIAL_CONTROL_AGENTS.md](FINANCIAL_CONTROL_AGENTS.md) | arquitectura, especialistas, mensajes y límites del control financiero |
 
 ---
 

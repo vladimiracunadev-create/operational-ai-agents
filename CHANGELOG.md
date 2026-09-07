@@ -2,6 +2,20 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [versionado semántico](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+### Añadido
+
+- Familia de diez agentes de control financiero para conciliación, IAM, wallets, blockchain, trading, evidencia, cronología, causa raíz, cumplimiento y reporte ejecutivo.
+- Contratos estructurados compartidos para hallazgos y referencias inmutables de evidencia.
+- Observabilidad ampliada con herramienta, referencias de entrada, salida, duración, confianza, evidencia y decisión humana.
+- Escenarios deterministas para operación normal, errores, transacciones faltantes, operaciones no autorizadas, duplicados y falsos positivos.
+
+### Seguridad
+
+- Todos los agentes financieros son de solo lectura: deniegan `Write`, `Edit`, `Bash`, claves privadas, acciones financieras y mutación productiva.
+- Los campos `limitations`, `failure_modes` y `audit_events` pasan a ser obligatorios para todos los contratos del catálogo.
+
 ## [0.3.0] - 2026-08-17
 
 El contrato deja de estar atado a un único ejecutor. Un agente ya podía describir su

@@ -119,5 +119,20 @@
       "returns": "- **Hilo propuesto** — de automatizar tareas propias, a empaquetarlas como herramientas reutilizables, a publicarlas con contrato y pruebas.\n- **Tres piezas que sostienen el hilo**, cada una con enlace directo al release, a la suite de pruebas y al workflow de CI.\n- **Lo que conviene no afirmar** — «usado en producción» no es defendible en ninguno de los 23: no hay usuarios fuera de ti y el reclutador puede comprobarlo.",
       "status": "`COMPLETED` — la narrativa incluye explícitamente lo que **no** se puede afirmar, que es lo que evita la pregunta incómoda."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

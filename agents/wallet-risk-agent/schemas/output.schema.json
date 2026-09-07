@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/operational-ai-agents/wallet-risk-agent/output.schema.json",
+  "title": "wallet-risk-agent output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "message_id",
+    "case_id",
+    "agent_id",
+    "status",
+    "summary",
+    "findings",
+    "evidence",
+    "verifications",
+    "residual_risks",
+    "human_review"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "agent_id": {
+      "const": "wallet-risk-agent"
+    },
+    "status": {
+      "enum": [
+        "COMPLETED",
+        "PARTIAL",
+        "BLOCKED",
+        "NO_CHANGE"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/contracts/finding.schema.json"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "../../../shared/contracts/evidence-reference.schema.json"
+      }
+    },
+    "verifications": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "required": [
+        "required",
+        "decision"
+      ],
+      "properties": {
+        "required": {
+          "const": true
+        },
+        "decision": {
+          "enum": [
+            "PENDING",
+            "ACCEPTED",
+            "REJECTED",
+            "ESCALATED"
+          ]
+        }
+      }
+    }
+  }
+}

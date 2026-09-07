@@ -17,7 +17,7 @@
 
 ## Estado actual
 
-Ningún caso registrado. Los trece agentes declaran `IMPLEMENTED`, que significa **contrato completo y validado**, no adopción productiva.
+Ningún caso registrado. Los 23 agentes declaran `IMPLEMENTED`, que significa **contrato completo y validado**, no adopción productiva.
 
 Pasar las pruebas mantiene ese estado; no lo sube.
 

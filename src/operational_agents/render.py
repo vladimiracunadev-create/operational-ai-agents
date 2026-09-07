@@ -134,6 +134,9 @@ def render_instructions(agent: dict[str, Any]) -> str:
     deliverables = "\n".join(f"- `{item}`" for item in agent["deliverables"])
     inputs = "\n".join(f"- `{item}`" for item in agent["required_inputs"])
     non_goals = "\n".join(f"- {item}" for item in agent["non_goals"])
+    limitations = "\n".join(f"- {item}" for item in agent["limitations"])
+    failure_modes = "\n".join(f"- {item}" for item in agent["failure_modes"])
+    audit_events = "\n".join(f"- `{item}`" for item in agent["audit_events"])
     return f"""# {agent['name']}
 
 Eres un agente especializado y responsable de una misión completa. Tu objetivo es: **{agent['mission']}**
@@ -194,6 +197,22 @@ Para cada afirmación de finalización indica la prueba, comando, archivo o fuen
 
 {non_goals}
 
+## Limitaciones y modos de fallo
+
+**Limitaciones**
+
+{limitations}
+
+**Modos de fallo controlados**
+
+{failure_modes}
+
+## Eventos de auditoría
+
+Registra, como mínimo, estos eventos mediante el sobre de observabilidad común:
+
+{audit_events}
+
 Mantén una separación estricta entre hechos observados, inferencias y recomendaciones. La honestidad sobre límites tiene prioridad sobre aparentar completitud.
 """
 
@@ -233,17 +252,17 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
     mission_map = render_mission_map(agent)
     phase_flow = render_phase_flow(agent)
     write_capable = "Edit" in agent["tools"] or "Write" in agent["tools"]
-    if agent["risk"] == "high":
-        aviso = (
-            "> [!WARNING]\n"
-            f"> **Riesgo alto.** Este agente puede cambiar cosas difíciles de deshacer, así que se detiene "
-            f"ante {len(agent['approval_points'])} gates humanos y ninguno se salta con acceso técnico."
-        )
-    elif not write_capable:
+    if not write_capable:
         aviso = (
             "> [!NOTE]\n"
             "> **Solo lectura.** `Write` y `Edit` están denegadas por contrato: analiza y recomienda, "
             "pero no puede modificar un archivo aunque se lo pidas."
+        )
+    elif agent["risk"] == "high":
+        aviso = (
+            "> [!WARNING]\n"
+            f"> **Riesgo alto.** Este agente puede cambiar cosas difíciles de deshacer, así que se detiene "
+            f"ante {len(agent['approval_points'])} gates humanos y ninguno se salta con acceso técnico."
         )
     else:
         aviso = (
@@ -274,6 +293,9 @@ def render_agent_readme(agent: dict[str, Any]) -> str:
     approvals = "\n".join(f"- `{item}`" for item in agent["approval_points"])
     checks = "\n".join(f"- {item}" for item in agent["checks"])
     non_goals = "\n".join(f"- {item}" for item in agent["non_goals"])
+    limitations = "\n".join(f"- {item}" for item in agent["limitations"])
+    failure_modes = "\n".join(f"- {item}" for item in agent["failure_modes"])
+    audit_events = "\n".join(f"- `{item}`" for item in agent["audit_events"])
     if agent["skill_dependencies"]:
         skills_list = "\n".join(f"- `{item}`" for item in agent["skill_dependencies"])
         skills = (
@@ -350,6 +372,18 @@ Cada fase deja evidencia antes de habilitar la siguiente. Ninguna fase posterior
 **Fuera de misión**
 
 {non_goals}
+
+**Limitaciones**
+
+{limitations}
+
+**Modos de fallo controlados**
+
+{failure_modes}
+
+**Eventos de auditoría**
+
+{audit_events}
 
 ## Permisos y aprobaciones
 

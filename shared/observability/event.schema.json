@@ -6,7 +6,14 @@
     "execution_id",
     "agent_id",
     "event",
-    "status"
+    "status",
+    "tool",
+    "input_refs",
+    "output",
+    "duration_ms",
+    "confidence",
+    "evidence_refs",
+    "human_decision"
   ],
   "properties": {
     "timestamp": {
@@ -25,11 +32,36 @@
     "status": {
       "type": "string"
     },
+    "tool": {
+      "type": ["string", "null"]
+    },
+    "input_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "output": {
+      "type": ["object", "null"]
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1
+    },
     "evidence_refs": {
       "type": "array",
       "items": {
         "type": "string"
       }
+    },
+    "human_decision": {
+      "enum": [null, "PENDING", "ACCEPTED", "REJECTED", "ESCALATED"]
     }
-  }
+  },
+  "additionalProperties": false
 }

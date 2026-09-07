@@ -122,5 +122,20 @@
       "returns": "| Afirmación | Veredicto | Qué hacer |\n|---|---|---|\n| badge «cobertura 94%» | falso — la medición real da 71% | corregir el número o retirar el badge |\n| diagrama de arquitectura | obsoleto — muestra un cache retirado en marzo | actualizar el diagrama |\n| roadmap «6 de 6 hechos» | 4 hechos, 1 parcial, 1 sin empezar | marcar el estado real |",
       "status": "`COMPLETED` — 3 hallazgos, ninguno corregido todavía: tocar tu repositorio exige tu OK explícito."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }

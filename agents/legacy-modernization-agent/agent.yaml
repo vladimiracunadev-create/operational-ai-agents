@@ -122,5 +122,20 @@
       "returns": "- 200 pruebas de caracterización en verde, que fijan el comportamiento **actual**, no el deseado.\n- 2 comportamientos sospechosos documentados y **sin corregir**: cambiarlos altera cifras contables y esa es una decisión de negocio, no técnica.\n- Cobertura del módulo de 0% a 87%; lo no cubierto son las ramas que ningún caso histórico alcanza.",
       "status": "`COMPLETED` — el módulo sigue haciendo exactamente lo mismo que antes. La diferencia es que ahora se puede tocar."
     }
+  ],
+  "limitations": [
+    "Depende de la cobertura y actualidad de las fuentes autorizadas.",
+    "No sustituye la revisión humana experta ni amplía el alcance aprobado."
+  ],
+  "failure_modes": [
+    "Si falta una fuente obligatoria, entrega PARTIAL o BLOCKED con la brecha explícita.",
+    "Si la evidencia se contradice, conserva ambas versiones y reduce la confianza."
+  ],
+  "audit_events": [
+    "analysis_started",
+    "tool_completed",
+    "evidence_linked",
+    "human_decision_recorded",
+    "analysis_completed"
   ]
 }
